@@ -2,13 +2,23 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+import matplotlib.path as mpath
+import matplotlib.lines as mlines
+import matplotlib.patches as mpatches
+from matplotlib.collections import PatchCollection
+
+
 fig = plt.figure("caption",figsize=(10,10))
 ax1 = fig.add_subplot(111)
 ax1.set_title("text")
-plt.show()
 
 # add an ellipse
 ellipse = mpatches.Ellipse([0.5,0.5], 0.2, 0.1)
+collection = PatchCollection([ellipse], cmap=plt.cm.hsv, alpha=0.3)
+# collection.set_array(np.array(colors))
+ax1.add_collection(collection)
+
+plt.show()
 print("test")
 print("test2")
 # patches.append(ellipse)
