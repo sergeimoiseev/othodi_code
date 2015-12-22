@@ -18,9 +18,13 @@ collection = PatchCollection([ellipse], cmap=plt.cm.hsv, alpha=0.3)
 # collection.set_array(np.array(colors))
 ax1.add_collection(collection)
 
+x= 0.3
+y= 0.3
+ax1.plot(x,y,marker='o',ms=50,mfc=(1.,0.,0.,0.5),mec='None',alpha=0.5)
+
 plt.show()
-print("test")
-print("test2")
+print("end")
+# print("test2")
 # patches.append(ellipse)
 # label(grid[4], "Ellipse")
 
