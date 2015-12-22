@@ -1,64 +1,66 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 import matplotlib.pyplot as plt
+from transliterate import translit
+import matplotlib.cm as cm
 
-import matplotlib.path as mpath
-import matplotlib.lines as mlines
-import matplotlib.patches as mpatches
-from matplotlib.collections import PatchCollection
+## Installed LaTeX needed for cyrilic text
+# from matplotlib import rc
+# font = {'family': 'Droid Sans',
+#         'weight': 'normal',
+#         'size': 14}
 
+print(24*265)
 
 fig = plt.figure("caption",figsize=(10,10))
-ax1 = fig.add_subplot(111)
-ax1.set_title("text")
+ax = fig.add_subplot(111)
+title_text = translit(u"Характерные масштабы задачи управления распределением отходов",'ru',reversed=True)
+ax.set_title(title_text)
+ax.set_xlabel(translit(u'Время, ч','ru',reversed=True))
+ax.set_ylabel(translit(u'Вес, кг','ru',reversed=True))
+xy_pairs = [(1,1),(1e3,1),(1e3,10),(1e3,100),(1e3,1e5)]
 
-# add an ellipse
-ellipse = mpatches.Ellipse([0.5,0.5], 0.2, 0.1)
-collection = PatchCollection([ellipse], cmap=plt.cm.hsv, alpha=0.3)
-# collection.set_array(np.array(colors))
-ax1.add_collection(collection)
 
-x= 0.3
-y= 0.3
-ax1.plot(x,y,marker='o',ms=50,mfc=(1.,0.,0.,0.5),mec='None',alpha=0.5)
+# colors = list(cm.rainbow(np.linspace(0, 1, len(xy_pairs))))
+# for y, c in zip(xy_pairs, colors):
+#     plt.scatter(x, y, color=c)
+# print(colors)
+point_size = 50
+
+import itertools
+def pairwise(iterable):
+    "s -> (s0,s1), (s1,s2), (s2, s3), ..."
+    a, b = itertools.tee(iterable)
+    next(b, None)
+    return itertools.izip(a, b)
+
+color_iter_lines=iter(cm.rainbow(np.linspace(0,1,len(xy_pairs))))
+color_iter_points=iter(cm.rainbow(np.linspace(0,1,len(xy_pairs))))
+# color=iter(cm.rainbow(np.linspace(0,1,len(xy_pairs))))
+for points_pair in pairwise(xy_pairs):
+# for points_pair,col in zip(pairwise(xy_pairs), colors[0:len(xy_pairs)-1]):
+	x_list = [points_pair[0][0],points_pair[1][0]]
+	y_list = [points_pair[0][1],points_pair[1][1]]
+	# ax.loglog(x_list,y_list,ls='-',lw=point_size,alpha=0.5,solid_capstyle='round',color=col)
+	c=next(color_iter_lines)
+	ax.loglog(x_list,y_list,ls='-',lw=point_size,alpha=0.5,solid_capstyle='round',color=c)
+	# line.set_solid_capstyle('round')
+
+# color_iter=iter(['r','g','b','c','m',])
+# colors1 = list(cm.rainbow(np.linspace(0, 1, len(xy_pairs))))
+for pair in xy_pairs:
+# for pair,col in zip(xy_pairs, colors1[0:len(xy_pairs)]):
+	c=next(color_iter_points)
+	print("color = %s" % c)
+	ax.loglog(pair[0],pair[1],marker='o',ms=point_size,mec='None',alpha=1,color=c)
+	# ax.loglog(pair[0],pair[1],marker='o',ms=point_size,mfc=(1.,0.,0.,0.5),mec='None',alpha=1,color =col)
+
+y_sublist = [xy_pairs[i][1] for i in range(len(xy_pairs))]
+x_sublist = [xy_pairs[i][0] for i in range(len(xy_pairs))]
+ax.set_autoscaley_on(False)
+ax.set_xlim([0.1*min(x_sublist),10*max(x_sublist)]) # must be after plot
+ax.set_ylim([0.1*min(y_sublist),10*max(y_sublist)]) # must be after plot
 
 plt.show()
 print("end")
-# print("test2")
-# patches.append(ellipse)
-# label(grid[4], "Ellipse")
-
-# plt.subplots_adjust(hspace=0.4)
-# t = np.arange(0.01, 20.0, 0.01)
-
-# log y axis
-# plt.subplot(221)
-# plt.semilogy(t, np.exp(-t/5.0))
-# plt.title('semilogy')
-# plt.grid(True)
-
-# # log x axis
-# plt.subplot(222)
-# plt.semilogx(t, np.sin(2*np.pi*t))
-# plt.title('semilogx')
-# plt.grid(True)
-
-# # log x and y axis
-# plt.subplot(223)
-# plt.loglog(t, 20*np.exp(-t/10.0), basex=2)
-# plt.grid(True)
-# plt.title('loglog base 4 on x')
-
-# # with errorbars: clip non-positive values
-# ax = plt.subplot(224)
-# ax.set_xscale("log", nonposx='clip')
-# ax.set_yscale("log", nonposy='clip')
-
-# x = 10.0**np.linspace(0.0, 2.0, 20)
-# y = x**2.0
-# plt.errorbar(x, y, xerr=0.1*x, yerr=5.0 + 0.75*y)
-# ax.set_ylim(ymin=0.1)
-# ax.set_title('Errorbars go negative')
-
-
-plt.show()
+# print(y_sublist)
