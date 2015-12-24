@@ -116,38 +116,37 @@ def plot_route_on_basemap(coord_pairs,annotes):
     fig=plt.figure()
     ax=fig.add_axes([0.05,0.05,0.95,0.95])
     # setup mercator map projection.
-    m = Basemap(llcrnrlon=20.,llcrnrlat=50.,urcrnrlon=50.,urcrnrlat=65.,\
+    m = Basemap(llcrnrlon=29.,llcrnrlat=53.,urcrnrlon=42.,urcrnrlat=62.,\
                 rsphere=(6378137.00,6356752.3142),\
                 resolution='l',projection='merc',\
                 lat_0=0.,lon_0=0.,lat_ts=0.)
     # nylat, nylon are lat/lon of New York
-    nylat = 55.7522200; nylon = 37.6155600
+    # nylat = 55.7522200; nylon = 37.6155600
     # lonlat, lonlon are lat/lon of London.
-    lonlat = 59.9386300; lonlon = 30.3141300
+    # lonlat = 59.9386300; lonlon = 30.3141300
     # draw great circle route between NY and London
-    m.drawgreatcircle(nylon,nylat,lonlon,lonlat,linewidth=2,color='b')
+    # m.drawgreatcircle(nylon,nylat,lonlon,lonlat,linewidth=2,color='b')
     
     MIN_L_WIDTH=10
     POINT_SIZE=2*MIN_L_WIDTH
-    lon_msk = 37.6155600
-    lat_msk = 55.7522200
-    # y,x = m(*zip(*coord_pairs))
-    # print(x[0],y[0])
-    # print(lon,lat)
-    # x,y = m(*[lon,lat])
-    # m.plot(x,y)
+    # lon_msk = 37.6155600
+    # lat_msk = 55.7522200
+
+
+    m.drawcoastlines()
+    m.fillcontinents()
+    x_all=[]
+    y_all=[]
     for i,point in enumerate(coord_pairs):
         lon = point[-1]
         lat = point[0]
         x,y = m(*[lon,lat])
-        m.plot(x,y,ls='-',marker='o',ms=POINT_SIZE,lw=MIN_L_WIDTH,alpha=0.5,solid_capstyle='round',color='r')
-    # for i, txt in enumerate(annotes):
-        # plt.annotate('point', xy=(x,y))
-        # plt.annotate('point', xy=m(*[lon_msk,lat_msk]))
+        x_all.append(x)
+        y_all.append(y)
+        # plt.plot(x,y,marker='o',linestyle ='-',lw=5,color= 'r')
         plt.annotate(annotes[i], xy=(x,y), xytext=(POINT_SIZE/2,POINT_SIZE/2), textcoords='offset points')
-
-    m.drawcoastlines()
-    m.fillcontinents()
+    plt.plot(x_all,y_all,ls='-',marker='o',ms=POINT_SIZE,lw=MIN_L_WIDTH,alpha=0.5,solid_capstyle='round',color='r')
+    # plt.plot(x_all,y_all,marker='o',linestyle ='-',lw=5,color= 'r')
     # draw parallels
     m.drawparallels(np.arange(-20,0,20),labels=[1,1,0,1])
     # draw meridians
