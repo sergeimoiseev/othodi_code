@@ -109,8 +109,12 @@ def get_route_from_gmaps(origin,dest):
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
+# import mpld3
+import matplotlib
+# matplotlib.use('nbagg')
 
 def plot_route(coord_pairs,annotes):
+    matplotlib.use('nbagg')
     MIN_L_WIDTH=10
     POINT_SIZE=2*MIN_L_WIDTH
     fig = plt.figure("caption",figsize=(10,10))
@@ -126,6 +130,7 @@ def plot_route(coord_pairs,annotes):
 
     plt.gca().invert_xaxis()
     plt.gca().invert_yaxis()
+    # mpld3.show() # bad rendering
     plt.show()
 
 # plot_route(coord_pairs,annotations)
@@ -161,6 +166,7 @@ from mpl_toolkits.basemap import Basemap
 
 
 def plot_route_on_basemap(coord_pairs,annotes,added_points_param_list=None):
+    matplotlib.use('nbagg')
     fig=plt.figure(figsize=(16,12))
     ax=fig.add_axes([0.05,0.05,0.95,0.95])
 
@@ -222,6 +228,7 @@ def plot_route_on_basemap(coord_pairs,annotes,added_points_param_list=None):
     m.drawmeridians(np.arange(-180,180,30),labels=[1,1,0,1])
     # ax.set_title('Great Circle from New York to London')
     plt.show()
+    # mpld3.show() # bad rendering
 
 def test():
     origin = {u'lat':55.7522200,u'lng':37.6155600}
