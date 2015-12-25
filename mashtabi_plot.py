@@ -2,6 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
+import mpld3 # in a brouser
 
 ## Installed LaTeX needed for cyrilic text
 # from matplotlib import rc
@@ -54,6 +55,7 @@ ax.set_autoscaley_on(False)
 ax.set_xlim([0.1*min(x_sublist),10*max(x_sublist)]) # must be after plot
 ax.set_ylim([0.1*min(y_sublist),10*max(y_sublist)]) # must be after plot
 
-plt.show()
+# plt.show()
+mpld3.show()
 print("end")
 # print(y_sublist)
