@@ -1,0 +1,20 @@
+class Location
+	properties
+		lat, lon
+		[waste_type]
+		flow_limit
+			# subclass properties Source
+			#	 flow_limit>0
+			# subclass properties Receiver
+			#	 flow_limit<0
+
+
+class Waste
+	properties
+		mass
+		waste_type
+
+structure WasteTypes
+	{'type_name':{'code':3d4fw; 'physical_state':'solid/liquid/paste'; ... };
+	 'other_type_name'}
+
