@@ -1,0 +1,28 @@
+ѕыталс€ выдать в localhost графики, чтобы оставить их интерактивными.
+mpld3 не поддерживает annotate,
+в python_xy старый matplotlib 1.2..., в котором нет backend-ов 'nbagg' и 'webagg'.
+ѕоставил Anaconda, создал environment командой
+conda create --name othodi basemap
+Ќесмотр€ на то, что в anaconda matplotlib версии 1.5.0,
+c basemap поставилс€ matplotlib 1.4.3
+                                        The following NEW packages will be INSTALLED:
+                                        basemap:         1.0.7-np110py27_0 defaults        matplotlib:      1.4.3-np110py27_1 defaults        msvc_runtime:    1.0.1-0           defaults        numpy:           1.10.1-py27_0     defaults        pip:             7.1.2-py27_0      defaults        pyparsing:       2.0.3-py27_0      defaults        pyqt:            4.10.4-py27_1     defaults        python:          2.7.11-0          defaults        python-dateutil: 2.4.2-py27_0      defaults        pytz:            2015.7-py27_0     defaults        setuptools:      19.1.1-py27_0     defaults        six:             1.10.0-py27_0     defaults        wheel:           0.26.0-py27_1     defaults    
+≈сли не заработает все, что нужно в этом environment, 
+придетс€ что-то ставить вручную или отказыватьс€ от basemap.
+¬ новом environment под названием othodi
+создаю репозиторий GIT - продолжать работать буду в нем - как в masetr (в основной ветке)
+≈сли не пойдет, откачусь назад и перенесу репозиторий в другую папку (м б в дргуой environment)
+
+Ћезут ошибки отовсюду, примеры с nbagg не работают ни в pyhtonxy ни в anacnda.
+—делал environment "othodi2" с mpld3 командой
+[Anaconda3] C:\Users\Sergei\Projects\Othodi\code>conda create -n othodi2 -c abgr
+eenwell mpld3
+
+и попробую использовать bokeh
+- получилось установить в anaconda
+верси€ 0.10 (0.11 лучше: https://github.com/bokeh/bokeh/issues/2763)
+встала и работает с примером (bokeh_test.py) - 
+генерирует интерактивный html - дл€ демонстрации - то, что нужно.
+ѕереносить все на bokeh пока не буду - времени мало, но это
+пока самый рабочий вариант.
+
