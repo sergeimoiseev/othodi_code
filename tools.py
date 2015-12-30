@@ -4,6 +4,8 @@ Some useful methods
 """
 
 import ast
+from pprint import pprint as pp
+
 def type_of_value(var):
     try:
        return type(ast.literal_eval(var))

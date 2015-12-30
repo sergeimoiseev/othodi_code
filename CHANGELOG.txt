@@ -26,3 +26,7 @@ eenwell mpld3
 Переносить все на bokeh пока не буду - времени мало, но это
 пока самый рабочий вариант.
 
+поставил необходимое в анаконду:
+conda create -n othodi3 matplotlib bokeh basemap pip
+(перейти: activate othodi3)
+для basemap не хватало PIL - установил командой conda install pil

@@ -27,7 +27,7 @@ class Location(object):
 			self._coords = gmaps.get_lat_lon(kwargs['address'])
 		else:
 			raise ValueError("Pass address as anonymous argument OR as a keyword argument")
-		self.name = kwargs.get('object_name',None)
+		self.name = kwargs.get('name',None)
 		waste_names = kwargs.get('type',[])
 		if type_of_value(waste_names)==str:
 			self.types = [waste_names] 
@@ -56,7 +56,7 @@ def create_locations_list(fname):
 	with open(fname,'r') as f:
 		for line in f:
 			props = line.strip().split(',')
-			loc = Location(props[1],props[2],object_name=props[0])
+			loc = Location(props[1],props[2],name=props[0])
 			locs.append(loc)
 	return locs
 
@@ -69,8 +69,8 @@ if __name__ == "__main__":
 	# print(s1.coords)
 	import tools
 	print(tools.distance_straight(s1.coords,s2.coords))
-	import maps
-	mo = maps.Map(locations = [s1,s2])
+	import mapm
+	mo = mapm.Map(locations = [s1,s2])
 
 	import gmaps
 	cities_names = ['Moscow','Sarov','Krasnogorsk','Zelenograd','Dubna']
@@ -80,9 +80,9 @@ if __name__ == "__main__":
 	for el in str_lst:
 		print(el)
 
-	origin = Location("Moscow")
+	origin = Location("Moscow",name='Moscow')
 	raw_routes = []
-	for location in locs_list[1:]:
+	for location in [locn for locn in locs_list if locn.name != origin.name]:
 		raw_routes.append(gmaps.get_route(origin.coords, location.coords))
 
 		#!!! rewrite:
