@@ -85,11 +85,12 @@ if __name__ == "__main__":
 	for location in locs_list[1:]:
 		raw_routes.append(gmaps.get_route(origin.coords, location.coords))
 
+		#!!! rewrite:
 	from operator import itemgetter
-	raw_routes.sort(key=itemgetter(-1))
+	raw_routes.sort(key=itemgetter(-1)) # sort by duration
 	from pprint import pprint as pp
 	pp(raw_routes)
 	import plot_routes  
 	add_points_coords_list = [(point.coords['lat'],point.coords['lng']) for point in locs_list]
 	add_points_annotes_list = [point.name for point in locs_list]
-	plot_routes.plot_route_on_basemap(raw_routes[0][0], raw_routes[0][1], [add_points_coords_list,add_points_annotes_list])
+	plot_routes.plot_route_on_basemap(raw_routes[0][0], raw_routes[0][1], [add_points_coords_list,add_points_annotes_list]) # plots nearest route
