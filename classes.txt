@@ -2,7 +2,7 @@
 class Location
 	properties
 		lat, lon
-		[waste_type]
+		[type]
 		flow_limit
 			# subclass properties Source
 			#	 flow_limit>0
@@ -15,14 +15,31 @@ class Location
 class Waste
 	properties
 		mass
-		waste_type
+		type
 
 structure WasteTypes
 	{'type_name':{'code':3d4fw; 'physical_state':'solid/liquid/paste'; ... };
 	 'other_type_name'}
 
+
 class Map
 	properties
 		locations
 	methods
-		plot_part(), plot_location(), plot_routes
+		get_route
+		plot_part(), plot_location(), plot_routes()
+
+class Route
+	properties
+		s = {'lat':67.89, 'lon':78.78}
+		f = {'lat':69.89, 'lon':79.78}
+		distance
+		duration
+		points_list = [{'lat':..,'lon':...},{'lat':..,'lon':...},...]
+		points_annotes = [u'dur',u'dur',...]
+
+module gmaps
+	methods
+		get_lat_lon(addr_str)
+		get_address(location_object)
+		get_route(self._start, self._finish)
