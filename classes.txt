@@ -1,3 +1,4 @@
+
 class Location
 	properties
 		lat, lon
@@ -7,6 +8,8 @@ class Location
 			#	 flow_limit>0
 			# subclass properties Receiver
 			#	 flow_limit<0
+		name
+		id
 
 
 class Waste
@@ -18,3 +21,8 @@ structure WasteTypes
 	{'type_name':{'code':3d4fw; 'physical_state':'solid/liquid/paste'; ... };
 	 'other_type_name'}
 
+class Map
+	properties
+		locations
+	methods
+		plot_part(), plot_location(), plot_routes
