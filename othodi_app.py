@@ -7,8 +7,7 @@ t_raw_routes01 = [u'Source', u'1 min', u'1 min', u'1 min', u'1 min', u'1 min', u
 t_add_points_coords_list = [(55.7981904, 37.9679867), (55.8940553, 37.44394870000001), (55.4312453, 37.5457647), (55.9316797, 37.8518552), (55.9198471, 37.7654985), (55.686462, 37.8981554), (55.7835532, 38.4551611), (55.0937517, 38.7688618), (55.67337449999999, 37.2818569), (55.73737569999999, 38.0095391)]
 t_add_points_annotes_list = ['Balashiha', 'Himki', "Podol'sk", 'Koroljov', 'Mytishhi', 'Ljubercy', "Jelektrostal'", 'Kolomna', 'Odincovo', 'Zheleznodorozhnyj']
 
-def write_plotting_data_to_file(out_fname = 'data4plotting.txt'):
-    dropbox_filename = '/othodi/cities_few.txt'
+def write_plotting_data_to_file(dropbox_filename = '/othodi/cities_few.txt',out_fname = 'data4plotting.txt'):
     m1=mapm.Map()
     m1.add_locations_from_file(fname=dropbox_filename,dropbox=True)
     print(len(m1.locations))
@@ -33,16 +32,20 @@ def write_plotting_data_to_file(out_fname = 'data4plotting.txt'):
         f.write(str(add_points_coords_list))
         f.write('\n')
         f.write(str(add_points_annotes_list))
+    return raw_routes[0][0],raw_routes[0][1],add_points_coords_list,add_points_annotes_list
 
-def test_plot(frontend='bokeh'):
+def test_plot(frontend='bokeh',data_list=[]):
     if frontend=='bokeh':
         import frontend_bokeh as frontend
-    frontend.plot_route_on_basemap(t_raw_routes00, t_raw_routes01, [t_add_points_coords_list,t_add_points_annotes_list])
+    frontend.plot_route_on_basemap(data_list[0], data_list[1], [data_list[2],data_list[3]])
     shutil.copyfile('map_bokeh.html', 'templates/index.html')
     
 
+# def update_plot()
+
 if __name__ == "__main__":
-    test_plot()
+    data4plotting = write_plotting_data_to_file(dropbox_filename='/othodi/cities.txt')
+    test_plot(data_list = data4plotting)
     ## import frontend_mpl_basemap as frontend
     # frontend.plot_route_on_basemap(raw_routes[0][0], raw_routes[0][1], [add_points_coords_list,add_points_annotes_list]) # plots nearest route
   

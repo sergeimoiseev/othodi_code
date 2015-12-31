@@ -102,6 +102,24 @@ Start Passenger Standalone
 cd /var/www/myapp/code
 sudo passenger start
 
+
+
+
+установка dropbox
+wget -P /home/othodi/ https://www.dropbox.com/developers/downloads/sdks/core/python/dropbox-python-sdk-2.2.0.zip
+
+поставил везде
+вот так запускать крипт
+sudo /home/ubuntu/anaconda3/bin/python othodi_app.py 
+
+
+
+
+
+
+
+
+
 ----
 Deploying application updates
 with Passenger in Standalone mode
