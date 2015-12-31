@@ -168,6 +168,9 @@ source activate othodi4
 python othodi_app.py 
 sudo passenger start
 
+В текущем состоянии работает
+и комментирование работает, сервер работает
+последний коммит - дальше после НГ
 ----
 Deploying application updates
 with Passenger in Standalone mode
