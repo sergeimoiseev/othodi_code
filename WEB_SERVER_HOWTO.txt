@@ -96,7 +96,7 @@ sudo passenger stop
 изменения пушнул в гитхабовский репозиторий
 с сервера получаю изменения командой
 sudo git fetch origin
-  
+sudo git reset --hard origin/master
 
 Start Passenger Standalone
 cd /var/www/myapp/code
@@ -112,14 +112,24 @@ wget -P /home/othodi/ https://www.dropbox.com/developers/downloads/sdks/core/pyt
 вот так запускать крипт
 sudo /home/ubuntu/anaconda3/bin/python othodi_app.py 
 
+conda create -n othodi python=2 matplotlib bokeh basemap pip
 
 
 
+обычный икл обновления-запуска моего скрипта
+sudo git fetch origin
+sudo git reset --hard origin/master
+sudo /home/ubuntu/anaconda3/bin/python othodi_app.py 
 
 
+сплошные проблемы потому что в cond-e на сервере
+всал python3 - все строки полетели.
+придется делать новый env с python27
 
+conda create -n othodi2 python=2 matplotlib bokeh basemap pip
 
-
+source deactivate
+source activate othodi2
 ----
 Deploying application updates
 with Passenger in Standalone mode
