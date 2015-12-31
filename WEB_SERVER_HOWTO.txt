@@ -86,6 +86,22 @@ conda create -n othodi matplotlib bokeh basemap pip
 активирую этот env:
 source activate othodi
 
+----правки в коде----
+в фронтенде заменил show на save
+пушнул на гитхаб
+
+остановил веб-приложение
+sudo passenger stop 
+
+изменения пушнул в гитхабовский репозиторий
+с сервера получаю изменения командой
+sudo git fetch origin
+sudo git reset --hard origin/master
+
+Start Passenger Standalone
+cd /var/www/myapp/code
+sudo passenger start
+
 ----
 Deploying application updates
 with Passenger in Standalone mode

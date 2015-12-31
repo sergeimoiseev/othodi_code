@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import shutil
 import locm, mapm, dropboxm, gmaps, tools
 
 t_raw_routes00 = [(55.755826, 37.6173), (55.7572652, 37.6186384), (55.75741840000001, 37.6190388), (55.75856830000001, 37.6183535), (55.75958259999999, 37.6247176), (55.7607021, 37.6268833), (55.7664304, 37.6313237), (55.7726528, 37.6323991), (55.81617319999999, 37.638654), (55.8490433, 37.6746007), (55.9082709, 37.76991950000001), (55.9130634, 37.7747146), (55.9210429, 37.7622377), (55.9198661, 37.7652923), (55.9198471, 37.7654985)]
@@ -37,6 +38,7 @@ def test_plot(frontend='bokeh'):
     if frontend=='bokeh':
         import frontend_bokeh as frontend
     frontend.plot_route_on_basemap(t_raw_routes00, t_raw_routes01, [t_add_points_coords_list,t_add_points_annotes_list])
+    shutil.copyfile('map_bokeh.html', 'templates/index.html')
     
 
 if __name__ == "__main__":
