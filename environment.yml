@@ -1,13 +1,11 @@
 name: C:\Users\Sergei\Anaconda3\envs\othodi3
 dependencies:
 - backports_abc=0.4=py27_0
-- basemap=1.0.7=np110py27_0
 - bokeh=0.10.0=py27_0
 - flask=0.10.1=py27_1
 - itsdangerous=0.24=py27_0
 - jinja2=2.8=py27_0
 - markupsafe=0.23=py27_0
-- matplotlib=1.4.3=np110py27_1
 - msvc_runtime=1.0.1=vc9_0
 - numpy=1.10.1=py27_0
 - pandas=0.17.1=np110py27_0

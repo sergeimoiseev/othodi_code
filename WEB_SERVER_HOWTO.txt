@@ -130,6 +130,20 @@ conda create -n othodi2 python=2 matplotlib bokeh basemap pip
 
 source deactivate
 source activate othodi2
+
+все равно на ноуте dropbox v4, а на сервере - 2.2
+и требуют разных urllib-ов.
+
+копирую env:
+conda env export > environment.yml
+на сервере
+conda env create -f environment.yml
+
+"Error: No packages found in current linux-64 channels matching: matplotlib 1.4.3 np110py27_1"
+
+попробую собрать по-минимуму:
+убираю из environment.yml все неустанавливающееся
+
 ----
 Deploying application updates
 with Passenger in Standalone mode
