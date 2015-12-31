@@ -40,7 +40,7 @@ class Map(object):
         else:
             raise ValueError("wrong arguments given to Map#add_locations_from_file()")
         for line in f:
-            time.sleep(0.11)  # 10 requests per second - google api
+            time.sleep(0.5)  # 10 requests per second - google api
             try:
                 new_loc = locm.Location(address=line.strip(),name=line.strip())
                 self.locations.append(new_loc)

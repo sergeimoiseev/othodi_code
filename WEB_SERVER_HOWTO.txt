@@ -117,10 +117,11 @@ conda create -n othodi python=2 matplotlib bokeh basemap pip
 
 
 обычный икл обновления-запуска моего скрипта
+sudo passenger stop 
 sudo git fetch origin
 sudo git reset --hard origin/master
 sudo /home/ubuntu/anaconda3/bin/python othodi_app.py 
-
+sudo passenger start
 
 сплошные проблемы потому что в cond-e на сервере
 всал python3 - все строки полетели.
@@ -143,6 +144,28 @@ conda env create -f environment.yml
 
 попробую собрать по-минимуму:
 убираю из environment.yml все неустанавливающееся
+он не доделывает - на середине ошибка
+
+conda create -n othodi4 python=2 bokeh pip
+и затем 
+pip install dropbox
+ - встало!
+
+все работает, только права на файлы надо менять после каждой заливки из github
+sudo chmod -R 700
+
+
+новый цикл обновления-запуска моего скрипта
+sudo passenger stop 
+sudo git fetch origin
+sudo git reset --hard origin/master
+cd ..
+sudo chmod -R 655 code/
+cd code/
+(source deactivate
+source activate othodi4)
+python othodi_app.py 
+sudo passenger start
 
 ----
 Deploying application updates
