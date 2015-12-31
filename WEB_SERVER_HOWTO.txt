@@ -156,7 +156,7 @@ sudo chmod -R 700
 
 
 новый цикл обновления-запуска моего скрипта
-sudo passenger stop 
+sudo passenger stop (?)
 sudo git fetch origin
 sudo git reset --hard origin/master
 cd ..

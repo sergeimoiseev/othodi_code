@@ -16,7 +16,11 @@ def write_plotting_data_to_file(dropbox_filename = '/othodi/cities_few.txt',out_
     raw_routes = []
     for location in [locn for locn in m1.locations if locn.name != origin.name]:
         if 'lat' in location.coords and 'lng' in location.coords:
-            raw_routes.append(gmaps.get_route(origin.coords, location.coords))
+            try:
+                raw_routes.append(gmaps.get_route(origin.coords, location.coords))
+            except Exception as e:
+                print('Warning: Error in get_route for location %s: no data from gmaps?\n%s' % (location.address,e))
+
 
     from operator import itemgetter
     raw_routes.sort(key=itemgetter(-1)) # sort by duration
