@@ -96,7 +96,7 @@ sudo passenger stop
 изменения пушнул в гитхабовский репозиторий
 с сервера получаю изменения командой
 sudo git fetch origin
-sudo git reset --hard origin/master
+  
 
 Start Passenger Standalone
 cd /var/www/myapp/code
