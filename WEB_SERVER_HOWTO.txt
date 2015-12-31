@@ -156,14 +156,15 @@ sudo chmod -R 700
 
 
 новый цикл обновления-запуска моего скрипта
-sudo passenger stop (?)
+cd code/
+sudo passenger stop
 sudo git fetch origin
 sudo git reset --hard origin/master
 cd ..
 sudo chmod -R 655 code/
 cd code/
-(source deactivate
-source activate othodi4)
+source deactivate
+source activate othodi4
 python othodi_app.py 
 sudo passenger start
 
