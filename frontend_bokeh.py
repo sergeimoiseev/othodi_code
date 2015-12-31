@@ -73,7 +73,8 @@ def plot_route_on_basemap(coord_pairs,annotes,added_points_param_list=None):
     # m.drawmeridians(np.arange(-180,180,30),labels=[1,1,0,1])
     # ax.set_title('Great Circle from New York to London')
     # m.bluemarble()
-    bp.show(p)
+    bp.save(p)
+    # bp.show(p)
     # plt.show()
     # mpld3.show() # bad rendering
 
