@@ -71,7 +71,7 @@ def get_route(origin, dest):
     #     print(key)
     # for key,val in (routes[0]['legs'][-1]).iteritems():
     #     print(key, len(val),type(val))
-        a_step = routes[0]['legs'][-1][u'steps'][0]
+    # a_step = routes[0]['legs'][-1][u'steps'][0]
 
     # print("a_step")
     # print(type(a_step), len(a_step))
