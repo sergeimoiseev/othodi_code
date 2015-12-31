@@ -24,7 +24,7 @@ class DropboxConnection(object):
         access_token, user_id = flow.finish(code)
 
         client = dropbox.client.DropboxClient(access_token)
-        print 'linked account user: ', client.account_info()['display_name']
+        print('linked account user: %s' % client.account_info()['display_name'])
         # print 'linked account: ', client.account_info()
         return client
     def open_dropbox_file(self,fname):
