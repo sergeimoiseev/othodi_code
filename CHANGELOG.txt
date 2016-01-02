@@ -61,7 +61,13 @@ http://code.google.com/p/reimport/
 conda list -e > spec-file_env_othodi3_on_peter_win7_64_2015.txt
 conda list --explicit > explicit_spec-file_env_othodi3_on_peter_win7_64_2015.txt
 (dropbox был установлен с помощью pip - см файл 'env_othodi3_on_peter_win7_2015.yml')
-все файл добавл€ю в git
-копирую данные об установленных приложени€х с сервера
+все файлы с сервера добавл€ю в git
+сохран€ю данные об установленных приложени€х на сервере
+conda env export > env_othodi4_on_ec2_64ununtu14_04_2015.yml
+conda list -e > spec-file_env_othodi4_on_ec2_64ununtu14_04_2015.txt 
+conda list --explicit > explicit_spec-file_env_othodi4_on_ec2_64ununtu14_04_2015.txt
+добавил изменени€ в репозиторий
+git add -A 
+git commit -m "added env spec files from linux server."
+git push
 
-conda env export > env_othodi3_on_peter_win7_2015.yml
