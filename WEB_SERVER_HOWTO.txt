@@ -129,6 +129,7 @@ sudo passenger start
 
 conda create -n othodi2 python=2 matplotlib bokeh basemap pip
 
+(Linux)
 source deactivate
 source activate othodi2
 
