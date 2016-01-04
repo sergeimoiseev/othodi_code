@@ -1,12 +1,13 @@
 # Include the Dropbox SDK
 import dropbox
+import os
 
 class DropboxConnection(object):
     """DropboxConnection class"""
     def __init__(self, *arg):
         self._arg = arg
-        self._client = self.reconnect()
-    def reconnect(self):        
+        self._client = self._connect()
+    def _connect(self):        
         # Get your app key and secret from the Dropbox developer website
         app_key = 'lf7drg20ucmhiga'
         app_secret = '1uf7e8o5eu2pqe9'
@@ -19,8 +20,12 @@ class DropboxConnection(object):
         print ('1. Go to: \n%s' % authorize_url)
         print ('2. Click "Allow" (you might have to log in first)')
         print ('3. Copy the authorization code.')
+        import pyperclip
+        pyperclip.copy(authorize_url)
+        # spam = pyperclip.paste()
+
         try: 
-            code = raw_input("Enter the authorization code here: ").strip()
+            code = raw_input("Authorization url is copied to clipboard\nEnter the authorization code here: ").strip()
         except Exception as e:
             print('Error using raw_input() - trying input()')
             code = input("Enter the authorization code here: ").strip()
@@ -31,16 +36,22 @@ class DropboxConnection(object):
         print('linked account user: %s' % client.account_info()['display_name'])
         # print 'linked account: ', client.account_info()
         return client
-    def open_dropbox_file(self,fname):
-        f, metadata = self._client.get_file_and_metadata(fname)
+    def open_dropbox_file(self,full_file_path_name):
+        f, metadata = self._client.get_file_and_metadata(full_file_path_name)
         return f
 
 if __name__ == "__main__":
-    dr_fname = '/othodi/cities.txt'
-    print('reading file %s from dropbox' % dr_fname)
+    dr_fname = '/othodi/settings.txt'
+    print('reading file \'%s\' from dropbox' % dr_fname)
     dc = DropboxConnection()
-    dr_f = dc.open_dropbox_file(dr_fname)
     out_fname = 'cities_from_dropbox.txt'
-    with open(out_fname,'r'):
-        for line in dr_f:
-            print(line)
+    if not os.path.isfile(out_fname):
+        with open(out_fname,'w'):
+            pass
+    lines_list = []
+    with dc.open_dropbox_file(dr_fname) as dr_f:
+        with open(out_fname,'r'):
+            for line in dr_f:
+                print(line)
+                lines_list.append(line)
+

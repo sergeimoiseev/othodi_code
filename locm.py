@@ -6,14 +6,6 @@ class Location(object):
     def __init__(self, *args, **kwargs):
         #args -- tuple of anonymous arguments
         #kwargs -- dictionary of named arguments
-        # print('creating location from')
-        # print("args")
-        # print(args)
-        # print(isinstance(args[0], float))
-        # print(isinstance(args[1], float))
-        # print("kwargs")
-        # print(kwargs)
-
         if all(isinstance(argt, float) for argt in args) and len(args)==2:
             self._coords = {'lat':args[0],'lng': args[1]}
             self._address = gmaps.get_address(self._coords)
@@ -23,16 +15,10 @@ class Location(object):
             self._address = gmaps.get_address(self._coords)
         elif len(args)==1 and type_of_value(args[0])==str and kwargs.get('address',None)==None:
             self._address = args[0]
-            self.get_coords_from_gmaps()
-            # coords_from_gmaps = gmaps.get_lat_lon(args[0])
-            # if 'lat' in coords_from_gmaps and 'lng' in coords_from_gmaps:
-            #     self._coords = coords_from_gmaps
-            # else:
-            #     raise IOError("gmaps didn`t provide coords for adress %s" % self._address)
+            self._get_coords_from_gmaps()
         elif len(args)==0 and kwargs.get('address',None)!=None:
             self._address = kwargs['address']
-            # self._coords = gmaps.get_lat_lon(kwargs['address'])
-            self.get_coords_from_gmaps()
+            self._get_coords_from_gmaps()
         else:
             raise ValueError("Pass address as anonymous argument OR as a keyword argument")
         self.name = kwargs.get('name',None)
@@ -45,7 +31,7 @@ class Location(object):
             raise ValueError("Waste types must be set with string OR list of strings")
 
         self._id = id(self)
-    def get_coords_from_gmaps(self):
+    def _get_coords_from_gmaps(self):
         coords_from_gmaps = gmaps.get_lat_lon(self._address)
         if 'lat' in coords_from_gmaps and 'lng' in coords_from_gmaps:
             self._coords = coords_from_gmaps

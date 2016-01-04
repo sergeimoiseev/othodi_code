@@ -3,6 +3,20 @@
 # from bokeh.plotting import figure, output_file, show
 import bokeh.plotting as bp
 
+class Figure(object):
+    def __init__(self, *args, **kwargs):
+        self._output_fname = kwargs.get('output_fname',"bokeh.html")
+        bp.output_file(self._output_fname)
+        self._p = bp.figure(plot_width=640, plot_height=480)
+    def add_line(self, *args, **kwargs):
+        lats = [0,1,2,3]
+        lngs = [2,3,4,5]
+        self._p.line(lats,lngs,line_width=5,color='red')
+        return True
+    def save2html(self,*args, **kwargs):
+        bp.save(self._p)
+        return self._output_fname
+
 def plot_route_on_basemap(coord_pairs,annotes,added_points_param_list=None):
     bp.output_file("map_bokeh.html")
     # matplotlib.use('nbagg')
