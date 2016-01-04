@@ -2,13 +2,14 @@
 import time, os, sys
 from time import strftime
 
-local_file_fname = 'cities_from_dropbox.txt'
-print(os.path.abspath(local_file_fname))
-import dropboxm
-dropbox_filename = '/othodi/cities_few.txt'
-dc = dropboxm.DropboxConnection()
-
 if __name__ == "__main__":
+
+    local_file_fname = 'cities_from_dropbox.txt'
+    print(os.path.abspath(local_file_fname))
+    import dropboxm
+    dropbox_filename = '/othodi/cities_few.txt'
+    dc = dropboxm.DropboxConnection(copy2clipboard=False)
+
     try:
         while True:
             # with dc.open_dropbox_file(dropbox_filename) as dropbox_file:
