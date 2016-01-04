@@ -4,7 +4,7 @@ sudo passenger stop
 sudo git fetch origin
 sudo git reset --hard origin/master
 cd ..
-sudo chmod -R 655 code/
+sudo chmod -R 777 code/
 cd code/
 source deactivate
 source activate othodi4
