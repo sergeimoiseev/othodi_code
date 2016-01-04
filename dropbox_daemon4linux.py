@@ -192,6 +192,30 @@ if __name__ == "__main__":
 
    retCode = createDaemon()
 
+   # The code, as is, will create a new file in the root directory, when
+   # executed with superuser privileges.  The file will contain the following
+   # daemon related process parameters: return code, process ID, parent
+   # process group ID, session ID, user ID, effective user ID, real group ID,
+   # and the effective group ID.  Notice the relationship between the daemon's 
+   # process ID, process group ID, and its parent's process ID.
+
+   procParams = """
+   return code = %s
+   process ID = %s
+   parent process ID = %s
+   process group ID = %s
+   session ID = %s
+   user ID = %s
+   effective user ID = %s
+   real group ID = %s
+   effective group ID = %s
+   """ % (retCode, os.getpid(), os.getppid(), os.getpgrp(), os.getsid(0),
+   os.getuid(), os.geteuid(), os.getgid(), os.getegid())
+
+   open("dropboxDaemon.log", "w").write(procParams + "\n")
+
+   # ----my code -----
+
    while True:
       if not os.path.isfile(local_file_fname):
           with open(local_file_fname,'w') as local_file:
@@ -224,26 +248,6 @@ if __name__ == "__main__":
           # print('All lines are the same.\t%s' % strftime("%Y-%m-%d %H:%M:%S"))
       time.sleep(2)
 
-   # The code, as is, will create a new file in the root directory, when
-   # executed with superuser privileges.  The file will contain the following
-   # daemon related process parameters: return code, process ID, parent
-   # process group ID, session ID, user ID, effective user ID, real group ID,
-   # and the effective group ID.  Notice the relationship between the daemon's 
-   # process ID, process group ID, and its parent's process ID.
-
-   procParams = """
-   return code = %s
-   process ID = %s
-   parent process ID = %s
-   process group ID = %s
-   session ID = %s
-   user ID = %s
-   effective user ID = %s
-   real group ID = %s
-   effective group ID = %s
-   """ % (retCode, os.getpid(), os.getppid(), os.getpgrp(), os.getsid(0),
-   os.getuid(), os.geteuid(), os.getgid(), os.getegid())
-
-   open("dropboxDaemon.log", "w").write(procParams + "\n")
+   # ----end of my code -----
 
    sys.exit(retCode)
