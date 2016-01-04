@@ -185,7 +185,7 @@ if __name__ == "__main__":
 
    import dropboxm
    dropbox_filename = '/othodi/cities_few.txt'
-   dc = dropboxm.DropboxConnection()
+   dc = dropboxm.DropboxConnection('copy2clipboard'=False)
 
    local_file_fname_local = 'cities_from_dropbox.txt'
    local_file_fname = os.path.abspath(local_file_fname_local)
