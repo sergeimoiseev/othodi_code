@@ -79,5 +79,7 @@ run python script at background
 нашел
 'http://stackoverflow.com/questions/2975624/how-to-run-a-python-script-in-the-background-even-after-i-logout-ssh'
 nohup python script_name.py &
-
-https://www.dropbox.com/1/oauth2/authorize?response_type=code&client_id=lf7drg20ucmhiga
+- не подойдет - нужно ввести в дропбокс-скрипт код авторизации, только
+потом убрать в бэкграунд.
+придется делать демона - делаю.
+на Win демон не работает - нет os.fork()
