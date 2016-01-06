@@ -2,26 +2,27 @@
 import numpy as np
 import time
 # import numbers
-adjacency_matrix =np.array([[0,1,1,1,0], # матрица смежности
-                            [1,0,1,0,1],
-                            [1,1,0,1,1],
-                            [1,0,1,0,1],
-                            [0,1,1,1,0]])
-am = adjacency_matrix
-potentials_matrix = np.zeros(am.shape,dtype='f')
-pm = potentials_matrix
+#---- old
+# adjacency_matrix =np.array([[0,1,1,1,0], # матрица смежности
+#                             [1,0,1,0,1],
+#                             [1,1,0,1,1],
+#                             [1,0,1,0,1],
+#                             [0,1,1,1,0]])
+# am = adjacency_matrix
+# potentials_matrix = np.zeros(am.shape,dtype='f')
+# pm = potentials_matrix
 
-nodes_num = len(adjacency_matrix)  # число вершин
+# nodes_num = len(adjacency_matrix)  # число вершин
 
-# filling index_matrix
+# # filling index_matrix
 
-pm[0][1], pm[0][2], pm[0][3] = 30, 40, 50
-pm[1][2], pm[2][3] = 10, 20
-pm[4][1], pm[4][2], pm[4][3] = 80, 60, 70
-pm = pm + pm.T - np.diag(pm.diagonal())
-# print(pm)
-# finding shortest route
-
+# pm[0][1], pm[0][2], pm[0][3] = 30, 40, 50
+# pm[1][2], pm[2][3] = 10, 20
+# pm[4][1], pm[4][2], pm[4][3] = 80, 60, 70
+# pm = pm + pm.T - np.diag(pm.diagonal())
+# # print(pm)
+# # finding shortest route
+#--- end old
 
 def fastest_route(pm,nodes_num):
     dt = np.dtype([('edges', np.float32,(nodes_num,2)),('dur', np.int32)])
@@ -63,19 +64,7 @@ def fastest_route(pm,nodes_num):
 # print(fastest_route(pm,nodes_num))
 
 def test_fastest_route(nodes_num,density):
-    # pm = np.array( [[0,1,1,1,0,0], 
-    #                 [1,0,1,0,1,0],
-    #                 [1,1,0,1,1,0],
-    #                 [1,0,1,0,1,0],
-    #                 [0,1,1,1,0,1],
-    #                 [0,0,0,0,1,0],
-    #                 ])
-    # pm[0][1], pm[0][2], pm[0][3] = 30, 40, 50
-    # pm[1][2], pm[2][3] = 10, 20
-    # pm[4][1], pm[4][2], pm[4][3] = 80, 60, 70
-    # pm[5][4] = 20
     n = nodes_num
-    # p = 3
     pm = np.zeros((n,n))
     for the_random in np.random.randint(0,10,(n*density)):
         np.put(pm, np.random.choice(range(n*n), 1, replace=False),the_random)
@@ -132,6 +121,7 @@ results =  [[2, 0.000000],
             [256 ,1.947000],
             [512, 7.828000],
             [1024, 31.756000],
+            [2048, 128.411000]
             ]
 r_T = map(list, zip(*results))
 from bokeh.plotting import figure, output_file, show, save
