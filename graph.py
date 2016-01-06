@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import numpy as np
+# import numbers
 adjacency_matrix =np.array([[0,1,1,1,0], # матрица смежности
                             [1,0,1,0,1],
                             [1,1,0,1,1],
@@ -21,54 +22,24 @@ print(pm)
 # finding shortest route
 indices = [(i, j) for i, j in np.ndindex(am.shape)] # list storen in memory
 
-def min_and_idxs(np_arr):
-    upper_tri = np.triu(np_arr)
-    m_a = np.ma.masked_equal(upper_tri, 0.0, copy=False)
-    idxs_min_T = np.where(m_a == m_a.min())
-    idxs_min = np.asarray(idxs_min_T).T
-    idxs_min_tuples = [tuple(idx_pair) for idx_pair in idxs_min]
-    # print(idxs_min_tuples)
-    # return {'min':np_arr[idxs_min_tuples[0]], 'idxs':idxs_min_tuples}
-    try:
-        return {'min':np_arr[idxs_min_tuples[0]], 'idxs':idxs_min_tuples[0]}
-    except IndexError:
-        return {'min':0, 'idxs':[(0,0)]}
-
-
-def mask_from_index(np_arr,idx):
-    shape = np_arr.shape
-    m_a_i = np.fromfunction(lambda i, j: i==idx, shape, dtype=int)
-    m_a_j = np.fromfunction(lambda i, j: j==idx, shape, dtype=int)
-    # m_a_i = np.fromfunction(lambda i, j: i>idx, shape, dtype=int)
-    # m_a_j = np.fromfunction(lambda i, j: j>idx, shape, dtype=int)
-    m_a_or = np.ma.mask_or(m_a_i,m_a_j)
-    return np.ma.masked_array(np_arr, np.logical_not(m_a_or))  # creates a copy
-    # return np.ma.masked_array(np_arr, m_a_or)  # creates a copy
-
-# print(mask_from_index(pm,2))
-# print(min_and_idxs(mask_from_index(pm,1)))
-
-
-lambdas_matrix = np.zeros((nodes_num+1),dtype='f')
-lm = lambdas_matrix
-fastest_route = []
-for i in range(1,nodes_num+1):
-    print(i)
-    sums, idxs = [], []
-    for ii in range(0,i):
-        mask = mask_from_index(pm,ii)
-        print('ii=%i'% ii)
-        print(mask)
-        print('lm[%i] = %i' % (ii,lm[ii]))
-        masked_min = min_and_idxs(mask)
-        print("masked_min['min'] = %i" % masked_min['min'])
-        # masked_min = pm[:,i]
-        sums.append(lm[ii]+masked_min['min'])
-        idxs.append(masked_min['idxs'])
-    print(sums)
-    print(idxs)
-    lm[i]+=min(sums)
-    print('new lm = %s' % lm)
-    # min_idxs = min_and_idxs(mask_from_index(pm,i))
-    # print(min_idxs['min'])
-print(lm)
+# dt = np.dtype([('way', np.int32, (2,))])
+def fastest_route(pm,nodes_num):
+    lambdas_matrix = np.zeros((nodes_num),dtype='f')
+    lm = lambdas_matrix
+    fastest_route = []
+    mpm = np.ma.masked_equal(pm, 0.0, copy=False)
+    for i in range(1,nodes_num):
+        # print('i=%i' % i)
+        sums = np.empty((0))
+        idxs = []
+        for ii in range(0,i):
+            # print("ii=%i" % ii)
+            if mpm[ii][i]  is np.ma.masked:
+                continue
+            sums = np.append(sums,lm[ii]+mpm[ii][i])
+            idxs.append([ii,i])
+        i_min = np.argmin(sums)
+        lm[i]=sums[i_min]
+        fastest_route.append(idxs[i_min])
+    return lm, fastest_route
+print(fastest_route(pm,nodes_num))
