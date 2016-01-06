@@ -27,38 +27,26 @@ import time
 def fastest_route(pm,nodes_num):
     dt = np.dtype([('edges', np.float32,(nodes_num,2)),('dur', np.int32)])
     lm = np.zeros((nodes_num),dtype=dt)
-    # lambdas_matrix = np.zeros((nodes_num),dtype='f')
-    # lm = lambdas_matrix
-    # fastest_route = []
-    mpm = np.ma.masked_equal(pm, 0.0, copy=False)
-    for i in range(1,nodes_num):
-        # print('i=%i' % i)
+    mpm = np.ma.masked_equal(pm, 0.0, copy=False) # mask zero elements
+    for i in range(1,nodes_num):  # select new current node
         sums = np.empty((0))
         idxs = []
         for ii in range(0,i):
-            # print("ii=%i" % ii)
             if mpm[ii][i]  is np.ma.masked:
-                # continue
-                # sums = np.append(sums,np.finfo(np.int32).max) # errors. Why?
-                sums = np.append(sums,1e5) # errors. Why?
+                sums = np.append(sums,1e5) # if there`s no route - set its duration to a big number
             else:
-                sums = np.append(sums,lm[ii]['dur']+mpm[ii][i])
-            idxs.append([ii,i])
-        i_min = np.argmin(sums)
-        lm[i]['dur']=sums[i_min]
-        # print('idxs pair to put to lm:'+str(idxs[i_min]))
-        offset = 0
-        # print('edges_set')
-        lm[i]['edges'][0] = idxs[i_min]
-        for step in range(nodes_num):
-            # print("step = %d" % step)
+                sums = np.append(sums,lm[ii]['dur']+mpm[ii][i])  # sum previouse node`s treavel duration and last edge`s duration
+            idxs.append([ii,i]) # append indeses of the last edge
+
+        i_min = np.argmin(sums)  # find route with minimal duration (fastest route to current node)
+        lm[i]['dur']=sums[i_min] # set current node`s treavel duration to the min duration found
+        lm[i]['edges'][0] = idxs[i_min] # set current node`s last edge in the route to the last edge of fastest route
+        for step in range(nodes_num):  # loop through previouse nodes 
             prev_node = lm[i]['edges'][step][0]
-            # print(prev_node)
             if prev_node != 0:
-                # print(("  lm[%d]['edges'][0] = "% prev_node)+str( lm[prev_node]['edges'][0]))
-                lm[i]['edges'][step+1] = lm[prev_node]['edges'][0]
+                lm[i]['edges'][step+1] = lm[prev_node]['edges'][0]  # append previouse nodes` last edges to current node`s route
             else:
-                break
+                break  # stop copying if an edge starts at first node
     return lm
 
 # print(fastest_route(pm,nodes_num))
