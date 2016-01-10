@@ -52,6 +52,32 @@ def fastest_route(pm):
                 break  # stop copying if an edge starts at first node
     return lm
 
+def fastest_route_from_masked(mpm):
+    nodes_num = len(mpm)
+    dt = np.dtype([('edges', np.float32,(nodes_num,2)),('dur', np.int32)])
+    lm = np.zeros((nodes_num),dtype=dt)
+    # mpm = np.ma.masked_equal(pm, 0.0, copy=False) # mask zero elements
+    for i in range(1,nodes_num):  # select new current node
+        sums = np.empty((0))
+        idxs = []
+        for ii in range(0,i):
+            if mpm[ii][i] is np.ma.masked:
+                sums = np.append(sums,1e5) # if there`s no route - set its duration to a big number
+            else:
+                sums = np.append(sums,lm[ii]['dur']+mpm[ii][i])  # sum previouse node`s treavel duration and last edge`s duration
+            idxs.append([ii,i]) # append indeses of the last edge
+
+        i_min = np.argmin(sums)  # find route with minimal duration (fastest route to current node)
+        lm[i]['dur']=sums[i_min] # set current node`s treavel duration to the min duration found
+        lm[i]['edges'][0] = idxs[i_min] # set current node`s last edge in the route to the last edge of fastest route
+        for step in range(nodes_num):  # loop through previouse nodes 
+            prev_node = lm[i]['edges'][step][0]
+            if prev_node != 0:
+                lm[i]['edges'][step+1] = lm[prev_node]['edges'][0]  # append previouse nodes` last edges to current node`s route
+            else:
+                break  # stop copying if an edge starts at first node
+    return lm
+
 # print(fastest_route(pm,nodes_num))
 
 def test_fastest_route(nodes_num,density=1):
@@ -158,6 +184,7 @@ if __name__ == "__main__":
 
     for i_pair in unmasked_indices:
         pm[i_pair[0],i_pair[1]] = random.randint(6,9)
+        mpm[i_pair[0],i_pair[1]] = random.randint(6,9)
 
     print(pm)
     routes_full = fastest_route(pm)
@@ -188,9 +215,11 @@ if __name__ == "__main__":
                 else:
                     car_mask[:,j]=0
                     # car_mask[:j,]=0
-        print(car_mask)
         # print(rng[car_num*nodes_by_part:(car_num+1)*nodes_by_part])
 
-
-    
+        car_mask = np.ma.masked_where(car_mask == 0, car_mask)
+        # print(car_mask)
+        mul_pm = np.multiply(mpm,car_mask)
+        print(mul_pm)
+        print(fastest_route_from_masked(mul_pm))
     sys.exit(0)
