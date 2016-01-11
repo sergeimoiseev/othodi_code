@@ -31,7 +31,11 @@ def kirkpatrick_cooling(start_temp,alpha):
         T=alpha*T
 
 def anneal(init_function,move_operator,objective_function,max_evaluations,start_temp,alpha):
-    
+    # logging init
+    LOG_FNAME = 'tsp_log_%s_%s_%s.log' % (max_evaluations,start_temp,alpha)
+    with open(LOG_FNAME,'w') as logf:
+        pass
+
     # wrap the objective function (so we record the best)
     objective_function=ObjectiveFunction(objective_function)
     
@@ -60,6 +64,9 @@ def anneal(init_function,move_operator,objective_function,max_evaluations,start_
             if random.random() < p:
                 current=next
                 current_score=next_score
+                # logging here! - on state change
+                with open(LOG_FNAME,'a') as logf:
+                    logf.write("t =%.2f;curr score = %.2f\n"%(temperature,current_score))
                 break
         # see if completely finished
         if done: break
