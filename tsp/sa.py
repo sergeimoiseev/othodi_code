@@ -32,7 +32,10 @@ def kirkpatrick_cooling(start_temp,alpha):
 
 def anneal(init_function,move_operator,objective_function,max_evaluations,start_temp,alpha):
     # logging init
+        
     LOG_FNAME = 'tsp_log_%s_%s_%s.log' % (max_evaluations,start_temp,alpha)
+    with open('last_log_file_name.txt','w') as log_fname_file:
+        log_fname_file.write(LOG_FNAME)
     with open(LOG_FNAME,'w') as logf:
         pass
 

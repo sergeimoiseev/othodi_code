@@ -79,36 +79,7 @@ def tour_length(matrix,tour):
     return total
 
 def write_tour_to_img(coords,tour,title,img_file_name):
-    # padding=20
-    # # shift all coords in a bit
-    # coords=[(x+padding,y+padding) for (x,y) in coords]
-    # maxx,maxy=0,0
-    # for x,y in coords:
-    #     maxx=max(x,maxx)
-    #     maxy=max(y,maxy)
-    # maxx+=padding
-    # maxy+=padding
-    # img=Image.new("RGB",(int(maxx),int(maxy)),color=(255,255,255))
-    
-    # font=ImageFont.load_default()
-    # d=ImageDraw.Draw(img);
-    # num_cities=len(tour)
-    # for i in range(num_cities):
-    #     j=(i+1)%num_cities
-    #     city_i=tour[i]
-    #     city_j=tour[j]
-    #     x1,y1=coords[city_i]
-    #     x2,y2=coords[city_j]
-    #     d.line((int(x1),int(y1),int(x2),int(y2)),fill=(0,0,0))
-    #     d.text((int(x1)+7,int(y1)-5),str(i),font=font,fill=(32,32,32))
-    
-    
-    # for x,y in coords:
-    #     x,y=int(x),int(y)
-    #     d.ellipse((x-5,y-5,x+5,y+5),outline=(0,0,0),fill=(196,196,196))
-    
-    # d.text((1,1),title,font=font,fill=(0,0,0))
-    
+
     from bokeh.plotting import figure, output_file, show, save
     import numpy as np
     # from bokeh.models.mappers import LinearColorMapper
@@ -118,7 +89,7 @@ def write_tour_to_img(coords,tour,title,img_file_name):
     p = figure(plot_width=400, plot_height=400)
 
     num_cities=len(tour)
-    color_list = ["#%02x%02x%02x" % (r, g, num_cities) for r, g in zip(np.arange(0,255,255/num_cities),  np.arange(0,255,255/num_cities))]
+    color_list = ["#%02x%02x%02x" % (r, g, 255./num_cities) for r, g in zip(np.arange(0,255,255./num_cities),  np.arange(0,255,255./num_cities))]
     print(color_list)
     # color_list = ["#%02x%02x%02x" % (r, g, num_cities) for r, g in zip(np.floor(50+2*x), np.floor(30+2*y))]
     for i in range(num_cities):
@@ -130,17 +101,9 @@ def write_tour_to_img(coords,tour,title,img_file_name):
         x2,y2=coords[city_j]
         p.line([x1,x2],[y1,y2],color=color_list[i])
         p.circle([x1,x2],[y1,y2],color=color_list[i])
-        # d.line((int(x1),int(y1),int(x2),int(y2)),fill=(0,0,0))
-        # d.text((int(x1)+7,int(y1)-5),str(i),font=font,fill=(32,32,32))
-    # add a circle renderer with a size, color, and alpha
-    # p.circle(coords, size=20, color="navy", alpha=0.5)
-
     # show the results
     show(p)
     save(p)
-
-    # img.save(img_file, "PNG")
-    # del d
 
 def init_random_tour(tour_length):
    tour=range(tour_length)
