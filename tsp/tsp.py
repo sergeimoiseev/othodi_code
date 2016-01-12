@@ -5,6 +5,7 @@ import sys
 import getopt
 from PIL import Image, ImageDraw, ImageFont
 from math import sqrt
+import itertools
 
 def rand_seq(size):
     '''generates values in random order
@@ -25,9 +26,16 @@ def all_pairs(size):
         for j in rand_seq(size):
             yield (i,j)
 
-def reversed_sections(tour):
+def reversed_sections(tour):  # i`m trying to fix start and finish 
     '''generator to return all possible variations where the section between two cities are swapped'''
-    for i,j in all_pairs(len(tour)):
+    # my edit
+    start_city = tour[0]
+    finish_city = tour[-1]
+    tour = tour[1:-1]
+    all_pairs = [[pair[0]-1,pair[-1]-1] for pair in itertools.combinations(tour,2)]
+    # my edit end
+    for i,j in all_pairs:
+    # for i,j in all_pairs(len(tour)):
         if i != j:
             copy=tour[:]
             if i < j:
@@ -36,15 +44,28 @@ def reversed_sections(tour):
                 copy[i+1:]=reversed(tour[:j])
                 copy[:j]=reversed(tour[i+1:])
             if copy != tour: # no point returning the same tour
-                yield copy
+                yield [start_city]+copy+[finish_city] # my edit
 
-def swapped_cities(tour):
+def swapped_cities(tour): # i`m trying to fix start and finish 
     '''generator to create all possible variations where two cities have been swapped'''
-    for i,j in all_pairs(len(tour)):
+    # my edit
+    start_city = tour[0]
+    finish_city = tour[-1]
+    tour = tour[1:-1]
+    all_pairs = [[pair[0]-1,pair[-1]-1] for pair in itertools.combinations(tour,2)]
+    # my edit end
+    for i,j in all_pairs:
+    # for i,j in all_pairs(len(tour)):
         if i < j:
             copy=tour[:]
-            copy[i],copy[j]=tour[j],tour[i]
-            yield copy
+            try:
+                copy[i],copy[j]=tour[j],tour[i]
+            except Exception as e:
+                print(e)
+                print("i=%d,j=%d"%(i,j))
+                print("tour=%s"% str(tour))
+                raise
+            yield [start_city]+copy+[finish_city] # my edit
 
 def cartesian_matrix(coords):
     '''create a distance matrix for the city coords that uses straight line distance'''
@@ -106,8 +127,9 @@ def write_tour_to_img(coords,tour,title,img_file_name):
     save(p)
 
 def init_random_tour(tour_length):
-   tour=range(tour_length)
+   tour=range(1,tour_length-1)
    random.shuffle(tour)
+   tour = [0]+tour+[tour_length-1]
    return tour
 
 def run_hillclimb(init_function,move_operator,objective_function,max_iterations):
@@ -206,10 +228,11 @@ def main():
     
     iterations,score,best=run_algorithm(init_function,move_operator,objective_function,max_iterations)
     # output results
-    print iterations,score,best
+    # print iterations,score,best
     
     if out_file_name:
         write_tour_to_img(coords,best,'%s: %f'%(city_file,score),out_file_name)
+    return (iterations,score,best)
 
 if __name__ == "__main__":
     main()
