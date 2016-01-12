@@ -9,50 +9,47 @@ from bokeh.models import (
     GMapPlot, Range1d, ColumnDataSource, PanTool, WheelZoomTool, BoxSelectTool, GMapOptions)
 # from bokeh.resources import INLINE
 
-output_file("gmap_example_bokeh.html")
+def main(plot_fname="gmap_example_bokeh.html"):
+    output_file(plot_fname)
+    tver_coords = {u'lat':56.8583600, u'lng':35.9005700}
+    plot_created = create_plot(tver_coords,zoom_level = 13)
+    save(plot_created)
+    # doc = Document()
+    # doc.add_root(plot)
 
-x_range = Range1d()
-y_range = Range1d()
+def create_plot(center_coords,zoom_level = 8):
 
-# JSON style string taken from: https://snazzymaps.com/style/1/pale-dawn
-map_options = GMapOptions(lat=56.8583600, lng=35.9005700, map_type="roadmap", zoom=13, styles="""
-[{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2e5d4"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"}]},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{"featureType":"road","elementType":"all","stylers":[{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]}]
-""")
-# map_options = GMapOptions(lat=30.2861, lng=-97.7394, map_type="roadmap", zoom=13, styles="""
-# [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2e5d4"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"}]},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{"featureType":"road","elementType":"all","stylers":[{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]}]
-# """)
+    x_range = Range1d()
+    y_range = Range1d()
 
-plot = GMapPlot(
-    x_range=x_range, y_range=y_range,
-    map_options=map_options,
-    title="Austin"
-)
+    # JSON style string taken from: https://snazzymaps.com/style/1/pale-dawn
+    map_options = GMapOptions(lat=center_coords['lat'], lng=center_coords['lng'], map_type="roadmap", zoom=zoom_level, styles="""
+    [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2e5d4"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"}]},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{"featureType":"road","elementType":"all","stylers":[{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]}]
+    """)
 
-source = ColumnDataSource(
-    data=dict(
-        lat=[30.2861, 30.2855, 30.2869],
-        lon=[-97.7394, -97.7390, -97.7405],
-        fill=['orange', 'blue', 'green']
+    plot = GMapPlot(
+        x_range=x_range, y_range=y_range,
+        map_options=map_options,
+        title="Austin"
     )
-)
 
-circle = Circle(x="lon", y="lat", size=15, fill_color="fill", line_color="black")
-plot.add_glyph(source, circle)
+    # source = ColumnDataSource(
+    #     data=dict(
+    #         lat=[30.2861, 30.2855, 30.2869],
+    #         lon=[-97.7394, -97.7390, -97.7405],
+    #         fill=['orange', 'blue', 'green']
+    #     )
+    # )
 
-pan = PanTool()
-wheel_zoom = WheelZoomTool()
-box_select = BoxSelectTool()
+    # circle = Circle(x="lon", y="lat", size=15, fill_color="fill", line_color="black")
+    # plot.add_glyph(source, circle)
 
-plot.add_tools(pan, wheel_zoom, box_select)
+    pan = PanTool()
+    wheel_zoom = WheelZoomTool()
+    box_select = BoxSelectTool()
 
-save(plot)
-# doc = Document()
-# doc.add_root(plot)
+    plot.add_tools(pan, wheel_zoom, box_select)
+    return plot
 
 if __name__ == "__main__":
-    # filename = "maps.html"
-    # with open(filename, "w") as f:
-    #     f.write(file_html(doc, INLINE, "Google Maps Example"))
-    # print("Wrote %s" % filename)
-    # view(filename)
-    pass
+    main()

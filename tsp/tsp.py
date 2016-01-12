@@ -111,7 +111,7 @@ def write_tour_to_img(coords,tour,title,img_file_name):
 
     num_cities=len(tour)
     color_list = ["#%02x%02x%02x" % (r, g, 255./num_cities) for r, g in zip(np.arange(0,255,255./num_cities),  np.arange(0,255,255./num_cities))]
-    print(color_list)
+    # print(color_list)
     # color_list = ["#%02x%02x%02x" % (r, g, num_cities) for r, g in zip(np.floor(50+2*x), np.floor(30+2*y))]
     for i in range(num_cities):
         # print(color_list[i])
