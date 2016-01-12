@@ -8,7 +8,7 @@ module gmaps
 """
 import json, requests
 import tools
-# import time
+import time
 
 def get_lat_lon(address_string):
     url = "http://maps.google.com/maps/api/geocode/json"
@@ -29,6 +29,7 @@ def get_lat_lon(address_string):
         print(data)
         return {}
     location_dict = geo[u'location']
+    time.sleep(0.2)
     return location_dict
 
 def get_address(coords_dict):

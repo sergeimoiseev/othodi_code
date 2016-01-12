@@ -2,24 +2,33 @@
 
 # from bokeh.plotting import figure, output_file, show
 import bokeh.plotting as bp
+import bokeh_gmapm
 
 class Figure(object):
     def __init__(self, *args, **kwargs):
         self._output_fname = kwargs.get('output_fname',"bokeh.html")
         bp.output_file(self._output_fname)
-        if kwargs.get('use_gmap',False) and kwargs.get('center_coords',False):
-            import bokeh_gmapm
+        self._use_gmap = kwargs.get('use_gmap',False)
+        if self._use_gmap and kwargs.get('center_coords',False):
             self._p = bokeh_gmapm.create_plot(kwargs['center_coords'],zoom_level = 8)
         else:
             self._p = bp.figure(plot_width=640, plot_height=480)
-    def add_line(self, *args, **kwargs):
-        if len(args)==0:
-            lats = [0,1,2,3]
-            lngs = [2,3,4,5]
+    def add_line(self, *args,**kwargs):
+        if self._use_gmap:
+            c_size=kwargs.get('circle_size',15)
+            c_color=kwargs.get('circles_color','red')
+            bokeh_gmapm.add_line(self._p,args[0],circle_size=c_size,circles_color=c_color)
         else:
-            lats = args[0]
-            lngs = args[1]
-        self._p.line(lats,lngs,line_width=5,color='red')
+            if len(args[0])==0:
+                lats = [0,1,2,3]
+                lngs = [2,3,4,5]
+            else:
+                lats,lngs = [],[]
+                print(type(args[0]))
+                for coords_dict in args[0]:
+                    lats.append(coords_dict[u'lat'])
+                    lngs.append(coords_dict[u'lng'])
+            self._p.line(lats,lngs,line_width=5,color='red')
         return True
     def save2html(self):
         bp.save(self._p)
@@ -69,10 +78,14 @@ def plot_route_on_basemap(coord_pairs,annotes,added_points_param_list=None):
             p.circle(x,y,size=20,color='red',alpha=0.5)
     bp.save(p)
 
-
-
 if __name__ == "__main__":
     tver_coords = {u'lat':56.8583600, u'lng':35.9005700}
     fig = Figure(output_fname='bokehm_test.html',use_gmap=True, center_coords=tver_coords)
+    
+    line_to_plot = []
+    for i in range(10):
+        line_to_plot.append({u'lat':tver_coords[u'lat']*(1+i*0.0001), u'lng':tver_coords[u'lng']*(1+i*0.0001)})
+    print(type(line_to_plot[0]))
+    fig.add_line(line_to_plot,circle_size=20, circles_color='green')
     fig.save2html()
     fig.show()

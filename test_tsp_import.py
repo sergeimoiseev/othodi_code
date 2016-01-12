@@ -19,7 +19,7 @@ import time, random, itertools
 # print("all_pairs = %s" % str(all_pairs))
 
 # usage: python %s [-o <output image file>] [-v] [-m reversed_sections|swapped_cities] -n <max iterations> [-a hillclimb|anneal] [--cooling tart_temp:alpha] <city file>" % sys.argv[0]
-output_image_file_name = "out.html"
+
 output_image_file_name = "out.html"
 move_operator_name = "swapped_cities"
 max_itterations = 100000

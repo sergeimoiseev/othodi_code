@@ -9,13 +9,6 @@ from bokeh.models import (
     GMapPlot, Range1d, ColumnDataSource, PanTool, WheelZoomTool, BoxSelectTool, GMapOptions)
 # from bokeh.resources import INLINE
 
-def main(plot_fname="gmap_example_bokeh.html"):
-    output_file(plot_fname)
-    tver_coords = {u'lat':56.8583600, u'lng':35.9005700}
-    plot_created = create_plot(tver_coords,zoom_level = 13)
-    save(plot_created)
-    # doc = Document()
-    # doc.add_root(plot)
 
 def create_plot(center_coords,zoom_level = 8):
 
@@ -33,23 +26,43 @@ def create_plot(center_coords,zoom_level = 8):
         title="Austin"
     )
 
-    # source = ColumnDataSource(
-    #     data=dict(
-    #         lat=[30.2861, 30.2855, 30.2869],
-    #         lon=[-97.7394, -97.7390, -97.7405],
-    #         fill=['orange', 'blue', 'green']
-    #     )
-    # )
-
-    # circle = Circle(x="lon", y="lat", size=15, fill_color="fill", line_color="black")
-    # plot.add_glyph(source, circle)
-
     pan = PanTool()
     wheel_zoom = WheelZoomTool()
     box_select = BoxSelectTool()
 
     plot.add_tools(pan, wheel_zoom, box_select)
     return plot
+
+def add_line(plot, coords_dict_list, circle_size=15,circles_color='blue',alpha_koeff = 0.5):
+
+    circle = Circle(x="lng", y="lat", size=circle_size, fill_color="fill", line_color="black",fill_alpha = "alpha")
+    
+    lats, lngs,fill_colors,alpha_list = [],[],[],[]
+    for coords_dict in coords_dict_list:
+        lats.append(coords_dict[u'lat'])
+        lngs.append(coords_dict[u'lng'])
+        fill_colors.append(circles_color)
+        alpha_list.append(alpha_koeff)
+    source_data = {'lat':lats, 'lng':lngs, 'fill':fill_colors, 'alpha':alpha_list}
+    
+    source = ColumnDataSource(data=source_data)
+    plot.add_glyph(source, circle)
+
+def main(plot_fname="gmap_example_bokeh.html"):
+    output_file(plot_fname)
+    tver_coords = {u'lat':56.8583600, u'lng':35.9005700}
+    plot_created = create_plot(tver_coords,zoom_level = 13)
+
+    lats=[56.8583600, 56.8583600*1.0001, 56.8583600*1.0002]
+    lngs=[35.9005700, 35.9005700*1.0001, 35.9005700*1.0002]
+    coords_dict_list = []
+    for la,ln in zip(lats,lngs):
+        coords_dict_list.append({u'lat':la, u'lng':ln})
+
+    add_line(plot_created,coords_dict_list,circle_size=10)
+    save(plot_created)
+    # doc = Document()
+    # doc.add_root(plot)
 
 if __name__ == "__main__":
     main()
