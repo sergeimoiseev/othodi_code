@@ -1,0 +1,704 @@
+2016-01-14 00:23:36,707 - __main__ - INFO - Hi, world
+2016-01-14 00:24:13,476 - __main__ - INFO - Hi, world
+2016-01-14 00:31:32,220 - my_module - INFO - Hi, foo
+2016-01-14 00:31:32,229 - my_module - INFO - Hi, bar
+2016-01-14 00:31:39,651 - my_module - INFO - Hi, foo
+2016-01-14 00:31:39,657 - my_module - INFO - Hi, bar
+2016-01-14 00:31:39,664 - __main__ - INFO - Hi, world
+2016-01-14 00:41:40,734 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:41,226 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:41,512 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:41,806 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:42,101 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:42,401 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:42,696 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:42,994 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:43,286 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:43,585 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:43,884 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:44,177 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:44,473 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:44,770 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:45,078 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:45,371 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:45,671 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:45,967 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:46,263 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:46,555 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:46,855 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:47,147 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:47,444 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:47,746 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:48,035 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:48,328 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:48,621 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:48,934 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:49,224 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:49,519 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:49,808 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:50,101 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:50,408 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:50,697 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:50,993 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:51,286 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:51,573 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:51,858 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:52,151 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:52,450 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:52,740 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:53,028 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:53,332 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:53,628 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:53,934 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:54,266 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:54,566 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:54,865 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:55,203 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:55,505 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:55,801 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:56,098 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:56,394 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:56,688 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:56,977 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:57,273 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:57,569 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:57,871 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:58,164 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:58,463 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:58,759 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:59,055 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:59,371 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:59,661 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:41:59,951 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:42:00,244 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:42:00,546 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:42:00,842 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:42:01,138 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:42:01,433 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:42:01,736 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:42:02,023 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:42:02,332 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:42:02,624 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:42:02,917 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:42:03,211 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:42:03,516 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:42:03,835 - root - INFO - using move_operator: <function swapped_cities at 0x000000000824FEB8>
+2016-01-14 00:42:03,907 - root - INFO - new best score: -107.765989
+2016-01-14 00:42:03,910 - root - INFO - anneal started: score=-107.765989
+2016-01-14 00:42:03,917 - root - INFO - new best score: -106.261610
+2016-01-14 00:42:05,644 - root - INFO - new best score: -106.117269
+2016-01-14 00:42:05,651 - root - INFO - new best score: -105.973143
+2016-01-14 00:42:05,658 - root - INFO - new best score: -105.619841
+2016-01-14 00:42:05,868 - root - INFO - new best score: -105.407560
+2016-01-14 00:42:05,907 - root - INFO - new best score: -105.118271
+2016-01-14 00:42:06,082 - root - INFO - new best score: -104.446466
+2016-01-14 00:42:06,305 - root - INFO - new best score: -104.398800
+2016-01-14 00:42:06,664 - root - INFO - new best score: -104.124262
+2016-01-14 00:42:06,671 - root - INFO - new best score: -104.054403
+2016-01-14 00:42:06,894 - root - INFO - new best score: -102.695956
+2016-01-14 00:42:06,901 - root - INFO - new best score: -101.860390
+2016-01-14 00:42:06,907 - root - INFO - new best score: -101.297640
+2016-01-14 00:42:06,915 - root - INFO - new best score: -100.818795
+2016-01-14 00:42:06,941 - root - INFO - new best score: -100.293757
+2016-01-14 00:42:06,950 - root - INFO - new best score: -100.042110
+2016-01-14 00:42:06,957 - root - INFO - new best score: -99.409697
+2016-01-14 00:42:07,005 - root - INFO - new best score: -99.333500
+2016-01-14 00:42:07,022 - root - INFO - new best score: -99.124682
+2016-01-14 00:42:07,029 - root - INFO - new best score: -99.102547
+2016-01-14 00:42:07,036 - root - INFO - new best score: -98.884244
+2016-01-14 00:42:07,042 - root - INFO - new best score: -98.430625
+2016-01-14 00:42:07,059 - root - INFO - new best score: -98.021009
+2016-01-14 00:42:07,068 - root - INFO - new best score: -97.986369
+2016-01-14 00:42:07,085 - root - INFO - new best score: -97.801528
+2016-01-14 00:42:07,095 - root - INFO - new best score: -97.501409
+2016-01-14 00:42:07,107 - root - INFO - new best score: -97.221517
+2016-01-14 00:42:07,118 - root - INFO - new best score: -97.198693
+2016-01-14 00:42:07,131 - root - INFO - new best score: -97.177666
+2016-01-14 00:42:07,142 - root - INFO - new best score: -96.823261
+2016-01-14 00:42:07,440 - root - INFO - new best score: -96.535825
+2016-01-14 00:42:07,487 - root - INFO - new best score: -96.274282
+2016-01-14 00:42:07,502 - root - INFO - new best score: -96.084237
+2016-01-14 00:42:07,536 - root - INFO - new best score: -95.746711
+2016-01-14 00:42:07,903 - root - INFO - new best score: -95.500833
+2016-01-14 00:42:07,918 - root - INFO - new best score: -94.854075
+2016-01-14 00:42:07,934 - root - INFO - new best score: -94.373806
+2016-01-14 00:42:08,069 - root - INFO - new best score: -93.613562
+2016-01-14 00:42:08,230 - root - INFO - new best score: -93.558115
+2016-01-14 00:42:08,246 - root - INFO - new best score: -92.679067
+2016-01-14 00:42:08,263 - root - INFO - new best score: -92.516272
+2016-01-14 00:42:08,276 - root - INFO - new best score: -91.849436
+2016-01-14 00:42:08,312 - root - INFO - new best score: -91.560587
+2016-01-14 00:42:08,345 - root - INFO - new best score: -90.548660
+2016-01-14 00:42:08,361 - root - INFO - new best score: -89.975516
+2016-01-14 00:42:08,377 - root - INFO - new best score: -89.966170
+2016-01-14 00:42:08,411 - root - INFO - new best score: -89.131540
+2016-01-14 00:42:08,427 - root - INFO - new best score: -88.577035
+2016-01-14 00:42:08,460 - root - INFO - new best score: -88.343796
+2016-01-14 00:42:08,476 - root - INFO - new best score: -87.480145
+2016-01-14 00:42:08,510 - root - INFO - new best score: -86.461829
+2016-01-14 00:42:08,644 - root - INFO - new best score: -85.538634
+2016-01-14 00:42:08,713 - root - INFO - new best score: -85.521561
+2016-01-14 00:42:08,773 - root - INFO - new best score: -83.579067
+2016-01-14 00:42:08,789 - root - INFO - new best score: -83.078223
+2016-01-14 00:42:08,892 - root - INFO - new best score: -83.046128
+2016-01-14 00:42:08,908 - root - INFO - new best score: -83.005829
+2016-01-14 00:42:08,944 - root - INFO - new best score: -82.771862
+2016-01-14 00:42:09,009 - root - INFO - new best score: -82.329520
+2016-01-14 00:42:09,026 - root - INFO - new best score: -82.122852
+2016-01-14 00:42:09,033 - root - INFO - new best score: -82.050941
+2016-01-14 00:42:09,065 - root - INFO - new best score: -82.042507
+2016-01-14 00:42:09,142 - root - INFO - new best score: -82.035807
+2016-01-14 00:42:09,158 - root - INFO - new best score: -81.027803
+2016-01-14 00:42:09,214 - root - INFO - new best score: -80.118391
+2016-01-14 00:42:09,303 - root - INFO - new best score: -80.092259
+2016-01-14 00:42:09,332 - root - INFO - new best score: -80.017305
+2016-01-14 00:42:09,362 - root - INFO - new best score: -80.016122
+2016-01-14 00:42:09,657 - root - INFO - new best score: -78.969317
+2016-01-14 00:42:09,674 - root - INFO - new best score: -78.845415
+2016-01-14 00:42:09,698 - root - INFO - new best score: -78.572722
+2016-01-14 00:42:09,744 - root - INFO - new best score: -78.551974
+2016-01-14 00:42:09,767 - root - INFO - new best score: -78.383331
+2016-01-14 00:42:09,852 - root - INFO - new best score: -78.277058
+2016-01-14 00:42:09,897 - root - INFO - new best score: -77.817594
+2016-01-14 00:42:09,948 - root - INFO - new best score: -77.689257
+2016-01-14 00:42:09,980 - root - INFO - new best score: -77.672238
+2016-01-14 00:42:10,009 - root - INFO - new best score: -77.668209
+2016-01-14 00:42:10,039 - root - INFO - new best score: -77.622190
+2016-01-14 00:42:10,053 - root - INFO - new best score: -77.571838
+2016-01-14 00:42:10,084 - root - INFO - new best score: -77.516919
+2016-01-14 00:42:10,114 - root - INFO - new best score: -77.080555
+2016-01-14 00:42:10,142 - root - INFO - new best score: -76.867218
+2016-01-14 00:42:10,151 - root - INFO - new best score: -76.696701
+2016-01-14 00:42:10,180 - root - INFO - new best score: -76.560959
+2016-01-14 00:42:10,210 - root - INFO - new best score: -76.533725
+2016-01-14 00:42:10,239 - root - INFO - new best score: -76.428432
+2016-01-14 00:42:10,269 - root - INFO - new best score: -76.183154
+2016-01-14 00:42:10,288 - root - INFO - new best score: -76.047596
+2016-01-14 00:42:10,319 - root - INFO - new best score: -75.746300
+2016-01-14 00:42:10,332 - root - INFO - new best score: -75.537234
+2016-01-14 00:42:10,355 - root - INFO - new best score: -75.278269
+2016-01-14 00:42:10,378 - root - INFO - new best score: -75.254591
+2016-01-14 00:42:10,401 - root - INFO - new best score: -75.059711
+2016-01-14 00:42:10,539 - root - INFO - new best score: -75.032626
+2016-01-14 00:42:10,573 - root - INFO - new best score: -74.717841
+2016-01-14 00:42:10,585 - root - INFO - new best score: -74.655969
+2016-01-14 00:42:10,621 - root - INFO - new best score: -73.808795
+2016-01-14 00:42:10,663 - root - INFO - new best score: -73.289167
+2016-01-14 00:42:10,703 - root - INFO - new best score: -73.044456
+2016-01-14 00:42:10,719 - root - INFO - new best score: -72.887754
+2016-01-14 00:42:10,737 - root - INFO - new best score: -72.656577
+2016-01-14 00:42:10,775 - root - INFO - new best score: -72.595634
+2016-01-14 00:42:10,796 - root - INFO - new best score: -72.424825
+2016-01-14 00:42:10,812 - root - INFO - new best score: -72.380505
+2016-01-14 00:42:10,829 - root - INFO - new best score: -72.077958
+2016-01-14 00:42:10,851 - root - INFO - new best score: -72.045084
+2016-01-14 00:42:10,871 - root - INFO - new best score: -72.035471
+2016-01-14 00:42:10,891 - root - INFO - new best score: -71.908379
+2016-01-14 00:42:10,918 - root - INFO - new best score: -71.730417
+2016-01-14 00:42:10,960 - root - INFO - new best score: -71.723281
+2016-01-14 00:42:10,980 - root - INFO - new best score: -71.451863
+2016-01-14 00:42:11,089 - root - INFO - new best score: -71.301595
+2016-01-14 00:42:11,111 - root - INFO - new best score: -71.190259
+2016-01-14 00:42:11,160 - root - INFO - new best score: -70.945403
+2016-01-14 00:42:11,180 - root - INFO - new best score: -70.871494
+2016-01-14 00:42:11,204 - root - INFO - new best score: -70.746280
+2016-01-14 00:42:11,229 - root - INFO - new best score: -70.434780
+2016-01-14 00:42:11,256 - root - INFO - new best score: -70.385287
+2016-01-14 00:42:11,282 - root - INFO - new best score: -70.242310
+2016-01-14 00:42:11,362 - root - INFO - new best score: -70.202798
+2016-01-14 00:42:11,388 - root - INFO - new best score: -70.155823
+2016-01-14 00:42:11,414 - root - INFO - new best score: -70.151436
+2016-01-14 00:42:11,523 - root - INFO - new best score: -68.217857
+2016-01-14 00:42:11,605 - root - INFO - new best score: -68.115619
+2016-01-14 00:42:11,720 - root - INFO - new best score: -68.054819
+2016-01-14 00:42:11,739 - root - INFO - new best score: -67.982831
+2016-01-14 00:42:11,763 - root - INFO - new best score: -67.961850
+2016-01-14 00:42:11,790 - root - INFO - new best score: -67.226808
+2016-01-14 00:42:11,819 - root - INFO - new best score: -67.219638
+2016-01-14 00:42:11,841 - root - INFO - new best score: -67.085321
+2016-01-14 00:42:11,865 - root - INFO - new best score: -66.883303
+2016-01-14 00:42:11,894 - root - INFO - new best score: -66.823890
+2016-01-14 00:42:11,937 - root - INFO - new best score: -66.263229
+2016-01-14 00:42:11,953 - root - INFO - new best score: -66.071426
+2016-01-14 00:42:11,967 - root - INFO - new best score: -65.938575
+2016-01-14 00:42:11,983 - root - INFO - new best score: -65.845764
+2016-01-14 00:42:12,002 - root - INFO - new best score: -65.584819
+2016-01-14 00:42:12,016 - root - INFO - new best score: -65.473824
+2016-01-14 00:42:12,039 - root - INFO - new best score: -65.300773
+2016-01-14 00:42:12,063 - root - INFO - new best score: -65.152678
+2016-01-14 00:42:12,088 - root - INFO - new best score: -65.113166
+2016-01-14 00:42:12,115 - root - INFO - new best score: -65.086254
+2016-01-14 00:42:12,148 - root - INFO - new best score: -64.974036
+2016-01-14 00:42:12,180 - root - INFO - new best score: -64.927739
+2016-01-14 00:42:12,213 - root - INFO - new best score: -64.102078
+2016-01-14 00:42:12,244 - root - INFO - new best score: -63.991285
+2016-01-14 00:42:12,278 - root - INFO - new best score: -63.972140
+2016-01-14 00:42:12,332 - root - INFO - new best score: -63.756167
+2016-01-14 00:42:12,378 - root - INFO - new best score: -63.472713
+2016-01-14 00:42:12,414 - root - INFO - new best score: -63.428804
+2016-01-14 00:42:12,444 - root - INFO - new best score: -63.382800
+2016-01-14 00:42:12,476 - root - INFO - new best score: -63.364994
+2016-01-14 00:42:12,509 - root - INFO - new best score: -63.313893
+2016-01-14 00:42:12,543 - root - INFO - new best score: -63.290950
+2016-01-14 00:42:12,553 - root - INFO - new best score: -63.181047
+2016-01-14 00:42:12,578 - root - INFO - new best score: -63.126887
+2016-01-14 00:42:12,615 - root - INFO - new best score: -63.036313
+2016-01-14 00:42:12,654 - root - INFO - new best score: -62.629540
+2016-01-14 00:42:12,716 - root - INFO - new best score: -62.510249
+2016-01-14 00:42:12,795 - root - INFO - new best score: -62.162831
+2016-01-14 00:42:12,812 - root - INFO - new best score: -61.644836
+2016-01-14 00:42:12,828 - root - INFO - new best score: -61.581230
+2016-01-14 00:42:12,848 - root - INFO - new best score: -61.539975
+2016-01-14 00:42:12,864 - root - INFO - new best score: -61.518938
+2016-01-14 00:42:12,882 - root - INFO - new best score: -61.479779
+2016-01-14 00:42:12,901 - root - INFO - new best score: -61.449683
+2016-01-14 00:42:12,924 - root - INFO - new best score: -61.413013
+2016-01-14 00:42:12,948 - root - INFO - new best score: -61.378026
+2016-01-14 00:42:13,792 - root - INFO - new best score: -61.074336
+2016-01-14 00:42:13,816 - root - INFO - new best score: -60.896153
+2016-01-14 00:42:13,842 - root - INFO - new best score: -60.827989
+2016-01-14 00:42:13,871 - root - INFO - new best score: -60.823938
+2016-01-14 00:42:13,918 - root - INFO - new best score: -60.354419
+2016-01-14 00:42:13,953 - root - INFO - new best score: -59.870617
+2016-01-14 00:42:13,983 - root - INFO - new best score: -59.856828
+2016-01-14 00:42:14,032 - root - INFO - new best score: -59.795259
+2016-01-14 00:42:14,076 - root - INFO - new best score: -59.555665
+2016-01-14 00:42:14,111 - root - INFO - new best score: -58.654119
+2016-01-14 00:42:14,148 - root - INFO - new best score: -58.506958
+2016-01-14 00:42:14,164 - root - INFO - new best score: -58.492986
+2016-01-14 00:42:14,203 - root - INFO - new best score: -58.483073
+2016-01-14 00:42:14,288 - root - INFO - new best score: -58.374803
+2016-01-14 00:42:14,319 - root - INFO - new best score: -58.262609
+2016-01-14 00:42:14,354 - root - INFO - new best score: -57.732155
+2016-01-14 00:42:14,384 - root - INFO - new best score: -57.611637
+2016-01-14 00:42:14,418 - root - INFO - new best score: -57.610840
+2016-01-14 00:42:14,773 - root - INFO - new best score: -57.608689
+2016-01-14 00:42:14,805 - root - INFO - new best score: -57.461698
+2016-01-14 00:42:14,841 - root - INFO - new best score: -57.291379
+2016-01-14 00:42:14,878 - root - INFO - new best score: -57.076558
+2016-01-14 00:42:14,914 - root - INFO - new best score: -57.072763
+2016-01-14 00:42:14,931 - root - INFO - new best score: -57.064444
+2016-01-14 00:42:14,966 - root - INFO - new best score: -56.992260
+2016-01-14 00:42:15,025 - root - INFO - new best score: -56.966122
+2016-01-14 00:42:15,075 - root - INFO - new best score: -56.731990
+2016-01-14 00:42:15,108 - root - INFO - new best score: -56.655526
+2016-01-14 00:42:15,158 - root - INFO - new best score: -56.618740
+2016-01-14 00:42:15,209 - root - INFO - new best score: -56.598639
+2016-01-14 00:42:15,240 - root - INFO - new best score: -56.565104
+2016-01-14 00:42:15,292 - root - INFO - new best score: -56.544337
+2016-01-14 00:42:15,344 - root - INFO - new best score: -56.517846
+2016-01-14 00:42:15,377 - root - INFO - new best score: -55.778419
+2016-01-14 00:42:15,400 - root - INFO - new best score: -55.329021
+2016-01-14 00:42:15,438 - root - INFO - new best score: -55.172393
+2016-01-14 00:42:15,515 - root - INFO - new best score: -54.980324
+2016-01-14 00:42:15,528 - root - INFO - new best score: -54.876967
+2016-01-14 00:42:15,562 - root - INFO - new best score: -54.865781
+2016-01-14 00:42:15,601 - root - INFO - new best score: -54.598260
+2016-01-14 00:42:15,615 - root - INFO - new best score: -54.532519
+2016-01-14 00:42:15,630 - root - INFO - new best score: -54.255304
+2016-01-14 00:42:15,644 - root - INFO - new best score: -54.180308
+2016-01-14 00:42:15,678 - root - INFO - new best score: -54.133879
+2016-01-14 00:42:15,721 - root - INFO - new best score: -54.085752
+2016-01-14 00:42:15,766 - root - INFO - new best score: -53.740557
+2016-01-14 00:42:15,818 - root - INFO - new best score: -53.693447
+2016-01-14 00:42:15,888 - root - INFO - new best score: -53.686255
+2016-01-14 00:42:15,960 - root - INFO - new best score: -53.655457
+2016-01-14 00:42:16,005 - root - INFO - new best score: -53.653629
+2016-01-14 00:42:16,072 - root - INFO - new best score: -53.613006
+2016-01-14 00:42:16,141 - root - INFO - new best score: -53.466867
+2016-01-14 00:42:16,207 - root - INFO - new best score: -53.401182
+2016-01-14 00:42:16,272 - root - INFO - new best score: -53.400802
+2016-01-14 00:42:16,467 - root - INFO - new best score: -53.391874
+2016-01-14 00:42:16,530 - root - INFO - new best score: -53.220235
+2016-01-14 00:42:16,595 - root - INFO - new best score: -53.204837
+2016-01-14 00:42:16,707 - root - INFO - new best score: -53.068142
+2016-01-14 00:42:16,730 - root - INFO - new best score: -53.009440
+2016-01-14 00:42:16,811 - root - INFO - new best score: -52.773896
+2016-01-14 00:42:16,888 - root - INFO - new best score: -52.448692
+2016-01-14 00:42:16,969 - root - INFO - new best score: -52.369806
+2016-01-14 00:42:17,051 - root - INFO - new best score: -52.173524
+2016-01-14 00:42:17,130 - root - INFO - new best score: -51.952606
+2016-01-14 00:42:17,161 - root - INFO - new best score: -51.945187
+2016-01-14 00:42:17,197 - root - INFO - new best score: -51.917718
+2016-01-14 00:42:17,214 - root - INFO - new best score: -51.831502
+2016-01-14 00:42:17,230 - root - INFO - new best score: -51.814319
+2016-01-14 00:42:17,243 - root - INFO - new best score: -51.686716
+2016-01-14 00:42:17,263 - root - INFO - new best score: -51.618542
+2016-01-14 00:42:17,282 - root - INFO - new best score: -51.452464
+2016-01-14 00:42:17,299 - root - INFO - new best score: -51.108746
+2016-01-14 00:42:17,334 - root - INFO - new best score: -50.915862
+2016-01-14 00:42:17,417 - root - INFO - new best score: -50.744135
+2016-01-14 00:42:17,503 - root - INFO - new best score: -50.722201
+2016-01-14 00:42:17,588 - root - INFO - new best score: -50.509362
+2016-01-14 00:42:17,618 - root - INFO - new best score: -50.022341
+2016-01-14 00:42:17,648 - root - INFO - new best score: -49.926262
+2016-01-14 00:42:17,687 - root - INFO - new best score: -49.776776
+2016-01-14 00:42:17,700 - root - INFO - new best score: -49.742139
+2016-01-14 00:42:17,709 - root - INFO - new best score: -49.729747
+2016-01-14 00:42:17,753 - root - INFO - new best score: -49.308231
+2016-01-14 00:42:17,785 - root - INFO - new best score: -48.886565
+2016-01-14 00:42:17,819 - root - INFO - new best score: -48.778383
+2016-01-14 00:42:17,872 - root - INFO - new best score: -47.851740
+2016-01-14 00:42:17,947 - root - INFO - new best score: -47.826676
+2016-01-14 00:42:18,052 - root - INFO - new best score: -47.821358
+2016-01-14 00:42:18,107 - root - INFO - new best score: -47.803891
+2016-01-14 00:42:18,217 - root - INFO - new best score: -47.402255
+2016-01-14 00:42:18,319 - root - INFO - new best score: -46.969965
+2016-01-14 00:42:18,424 - root - INFO - new best score: -46.907737
+2016-01-14 00:42:18,457 - root - INFO - new best score: -46.801051
+2016-01-14 00:42:18,575 - root - INFO - new best score: -46.801049
+2016-01-14 00:42:27,668 - root - INFO - new best score: -46.763190
+2016-01-14 00:42:27,697 - root - INFO - new best score: -46.742854
+2016-01-14 00:42:27,786 - root - INFO - new best score: -46.303935
+2016-01-14 00:42:33,882 - root - INFO - new best score: -46.223016
+2016-01-14 00:42:34,963 - root - INFO - new best score: -46.166345
+2016-01-14 00:42:35,006 - root - INFO - new best score: -46.050633
+2016-01-14 00:42:35,052 - root - INFO - new best score: -45.741527
+2016-01-14 00:42:39,200 - root - INFO - new best score: -45.718769
+2016-01-14 00:42:40,450 - root - INFO - new best score: -45.522040
+2016-01-14 00:42:42,944 - root - INFO - new best score: -45.447927
+2016-01-14 00:42:46,542 - root - INFO - new best score: -45.446162
+2016-01-14 00:42:46,628 - root - INFO - new best score: -45.373857
+2016-01-14 00:42:47,905 - root - INFO - new best score: -45.290601
+2016-01-14 00:42:47,951 - root - INFO - new best score: -45.290585
+2016-01-14 00:42:47,996 - root - INFO - new best score: -45.289245
+2016-01-14 00:42:48,013 - root - INFO - new best score: -45.008119
+2016-01-14 00:42:48,053 - root - INFO - new best score: -44.322658
+2016-01-14 00:42:48,075 - root - INFO - new best score: -44.278161
+2016-01-14 00:42:48,128 - root - INFO - new best score: -44.263108
+2016-01-14 00:42:48,177 - root - INFO - new best score: -44.230929
+2016-01-14 00:42:48,250 - root - INFO - new best score: -43.906616
+2016-01-14 00:42:48,325 - root - INFO - new best score: -43.883100
+2016-01-14 00:42:48,457 - root - INFO - new best score: -43.882665
+2016-01-14 00:42:48,608 - root - INFO - new best score: -43.872682
+2016-01-14 00:42:48,757 - root - INFO - new best score: -43.766867
+2016-01-14 00:42:48,831 - root - INFO - new best score: -43.751781
+2016-01-14 00:42:48,989 - root - INFO - new best score: -43.683931
+2016-01-14 00:42:49,170 - root - INFO - new best score: -43.641768
+2016-01-14 00:42:49,352 - root - INFO - new best score: -43.219697
+2016-01-14 00:42:49,405 - root - INFO - new best score: -42.929112
+2016-01-14 00:42:49,457 - root - INFO - new best score: -42.914716
+2016-01-14 00:42:49,519 - root - INFO - new best score: -42.829509
+2016-01-14 00:42:49,602 - root - INFO - new best score: -42.790102
+2016-01-14 00:42:49,694 - root - INFO - new best score: -42.733587
+2016-01-14 00:42:49,818 - root - INFO - new best score: -42.728712
+2016-01-14 00:42:49,941 - root - INFO - new best score: -42.682644
+2016-01-14 00:42:50,132 - root - INFO - new best score: -42.678912
+2016-01-14 00:43:23,723 - root - INFO - final temperature: 0.000000
+2016-01-14 00:43:23,723 - root - INFO - anneal finished: num_evaluations=1000000, best_score=-42.678912
+2016-01-14 00:43:23,786 - bokeh.state - INFO - Session output file 'othodi_app_test.html' already exists, will be overwritten.
+2016-01-14 00:43:23,789 - bokehm - INFO - starting line add
+2016-01-14 00:43:23,792 - bokehm - INFO - starting line add
+2016-01-14 00:47:07,276 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:07,572 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:07,904 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:08,493 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:08,775 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:09,069 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:09,357 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:09,674 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:09,936 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:10,213 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:10,519 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:10,809 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:11,108 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:11,392 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:11,694 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:11,990 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:12,282 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:12,572 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:12,861 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:13,128 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:13,385 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:13,645 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:13,907 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:14,203 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:14,460 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:14,733 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:15,023 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:15,490 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:15,750 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:16,026 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:16,285 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:16,572 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:16,829 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:17,088 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:17,375 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:17,661 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:17,914 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:18,170 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:18,427 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:18,719 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:18,974 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:19,230 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:19,513 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:19,808 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:20,099 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:20,394 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:20,651 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:20,950 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:21,243 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:21,536 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:21,801 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:22,086 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:22,375 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:22,734 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:23,019 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:23,313 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:23,627 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:24,030 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:24,323 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:24,588 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:24,875 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:25,144 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:25,552 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:25,854 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:26,220 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:26,993 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:27,292 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:27,585 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:27,986 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:28,243 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:28,542 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:28,849 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:29,144 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:29,434 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:29,727 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:29,987 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+2016-01-14 00:47:30,296 - root - INFO - using move_operator: <function swapped_cities at 0x000000000823FEB8>
+2016-01-14 00:47:30,305 - root - INFO - new best score: -82.780334
+2016-01-14 00:47:30,309 - root - INFO - anneal started: score=-82.780334
+2016-01-14 00:47:30,315 - root - INFO - new best score: -81.211230
+2016-01-14 00:47:31,206 - root - INFO - new best score: -80.937696
+2016-01-14 00:47:31,365 - root - INFO - new best score: -80.821306
+2016-01-14 00:47:31,371 - root - INFO - new best score: -80.141190
+2016-01-14 00:47:31,970 - root - INFO - new best score: -79.447333
+2016-01-14 00:47:31,987 - root - INFO - new best score: -78.721882
+2016-01-14 00:47:32,243 - root - INFO - new best score: -78.518169
+2016-01-14 00:47:32,250 - root - INFO - new best score: -76.784391
+2016-01-14 00:47:32,315 - root - INFO - new best score: -76.273490
+2016-01-14 00:47:33,575 - root - INFO - new best score: -76.130906
+2016-01-14 00:47:33,581 - root - INFO - new best score: -75.292105
+2016-01-14 00:47:33,585 - root - INFO - new best score: -75.291699
+2016-01-14 00:47:33,612 - root - INFO - new best score: -74.357853
+2016-01-14 00:47:33,618 - root - INFO - new best score: -74.122003
+2016-01-14 00:47:33,622 - root - INFO - new best score: -73.798669
+2016-01-14 00:47:33,628 - root - INFO - new best score: -73.535889
+2016-01-14 00:47:33,635 - root - INFO - new best score: -73.134742
+2016-01-14 00:47:33,641 - root - INFO - new best score: -73.095622
+2016-01-14 00:47:33,703 - root - INFO - new best score: -72.951557
+2016-01-14 00:47:33,709 - root - INFO - new best score: -72.616233
+2016-01-14 00:47:33,716 - root - INFO - new best score: -72.386493
+2016-01-14 00:47:33,720 - root - INFO - new best score: -72.159537
+2016-01-14 00:47:33,726 - root - INFO - new best score: -71.386444
+2016-01-14 00:47:33,734 - root - INFO - new best score: -71.069671
+2016-01-14 00:47:33,740 - root - INFO - new best score: -70.475552
+2016-01-14 00:47:33,755 - root - INFO - new best score: -69.456157
+2016-01-14 00:47:33,760 - root - INFO - new best score: -68.808775
+2016-01-14 00:47:33,766 - root - INFO - new best score: -68.185991
+2016-01-14 00:47:33,773 - root - INFO - new best score: -68.031644
+2016-01-14 00:47:33,779 - root - INFO - new best score: -67.560739
+2016-01-14 00:47:33,782 - root - INFO - new best score: -65.944634
+2016-01-14 00:47:33,789 - root - INFO - new best score: -65.808106
+2016-01-14 00:47:33,806 - root - INFO - new best score: -65.764066
+2016-01-14 00:47:33,812 - root - INFO - new best score: -65.639189
+2016-01-14 00:47:33,819 - root - INFO - new best score: -65.420913
+2016-01-14 00:47:33,825 - root - INFO - new best score: -64.840255
+2016-01-14 00:47:33,832 - root - INFO - new best score: -64.825204
+2016-01-14 00:47:33,838 - root - INFO - new best score: -64.248550
+2016-01-14 00:47:33,845 - root - INFO - new best score: -64.126348
+2016-01-14 00:47:33,852 - root - INFO - new best score: -64.007187
+2016-01-14 00:47:33,858 - root - INFO - new best score: -63.558731
+2016-01-14 00:47:33,864 - root - INFO - new best score: -63.555143
+2016-01-14 00:47:33,911 - root - INFO - new best score: -63.445858
+2016-01-14 00:47:33,917 - root - INFO - new best score: -62.833799
+2016-01-14 00:47:33,926 - root - INFO - new best score: -62.480623
+2016-01-14 00:47:33,931 - root - INFO - new best score: -61.331189
+2016-01-14 00:47:33,937 - root - INFO - new best score: -61.285454
+2016-01-14 00:47:33,944 - root - INFO - new best score: -60.653786
+2016-01-14 00:47:33,953 - root - INFO - new best score: -60.545382
+2016-01-14 00:47:33,961 - root - INFO - new best score: -60.386306
+2016-01-14 00:47:33,970 - root - INFO - new best score: -60.252383
+2016-01-14 00:47:33,976 - root - INFO - new best score: -59.821432
+2016-01-14 00:47:34,026 - root - INFO - new best score: -59.612112
+2016-01-14 00:47:34,036 - root - INFO - new best score: -59.215250
+2016-01-14 00:47:34,045 - root - INFO - new best score: -59.205175
+2016-01-14 00:47:34,092 - root - INFO - new best score: -59.122730
+2016-01-14 00:47:34,098 - root - INFO - new best score: -59.072501
+2016-01-14 00:47:34,105 - root - INFO - new best score: -58.862421
+2016-01-14 00:47:34,111 - root - INFO - new best score: -58.826086
+2016-01-14 00:47:34,118 - root - INFO - new best score: -58.658574
+2016-01-14 00:47:34,125 - root - INFO - new best score: -58.456438
+2016-01-14 00:47:34,134 - root - INFO - new best score: -58.436074
+2016-01-14 00:47:34,141 - root - INFO - new best score: -58.370650
+2016-01-14 00:47:34,203 - root - INFO - new best score: -57.788422
+2016-01-14 00:47:34,213 - root - INFO - new best score: -57.768953
+2016-01-14 00:47:34,223 - root - INFO - new best score: -57.100584
+2016-01-14 00:47:34,270 - root - INFO - new best score: -56.968786
+2016-01-14 00:47:34,280 - root - INFO - new best score: -56.962446
+2016-01-14 00:47:34,290 - root - INFO - new best score: -56.940326
+2016-01-14 00:47:34,302 - root - INFO - new best score: -56.874160
+2016-01-14 00:47:34,308 - root - INFO - new best score: -56.870105
+2016-01-14 00:47:34,365 - root - INFO - new best score: -56.637964
+2016-01-14 00:47:34,374 - root - INFO - new best score: -56.623703
+2016-01-14 00:47:34,405 - root - INFO - new best score: -56.386969
+2016-01-14 00:47:34,414 - root - INFO - new best score: -56.346140
+2016-01-14 00:47:34,424 - root - INFO - new best score: -55.985143
+2016-01-14 00:47:34,430 - root - INFO - new best score: -55.957702
+2016-01-14 00:47:34,437 - root - INFO - new best score: -55.915639
+2016-01-14 00:47:34,443 - root - INFO - new best score: -55.423389
+2016-01-14 00:47:34,450 - root - INFO - new best score: -54.213494
+2016-01-14 00:47:34,457 - root - INFO - new best score: -54.177269
+2016-01-14 00:47:34,464 - root - INFO - new best score: -53.433627
+2016-01-14 00:47:34,476 - root - INFO - new best score: -53.289681
+2016-01-14 00:47:34,489 - root - INFO - new best score: -52.850375
+2016-01-14 00:47:34,496 - root - INFO - new best score: -52.824622
+2016-01-14 00:47:34,506 - root - INFO - new best score: -52.456035
+2016-01-14 00:47:34,515 - root - INFO - new best score: -52.383078
+2016-01-14 00:47:34,525 - root - INFO - new best score: -52.026892
+2016-01-14 00:47:34,535 - root - INFO - new best score: -51.794744
+2016-01-14 00:47:34,552 - root - INFO - new best score: -51.775789
+2016-01-14 00:47:34,562 - root - INFO - new best score: -51.608745
+2016-01-14 00:47:34,569 - root - INFO - new best score: -51.588403
+2016-01-14 00:47:34,677 - root - INFO - new best score: -51.362151
+2016-01-14 00:47:34,687 - root - INFO - new best score: -51.347351
+2016-01-14 00:47:34,696 - root - INFO - new best score: -51.229423
+2016-01-14 00:47:34,703 - root - INFO - new best score: -51.173930
+2016-01-14 00:47:34,709 - root - INFO - new best score: -51.169839
+2016-01-14 00:47:34,755 - root - INFO - new best score: -51.152131
+2016-01-14 00:47:34,779 - root - INFO - new best score: -50.901632
+2016-01-14 00:47:34,789 - root - INFO - new best score: -50.546120
+2016-01-14 00:47:34,799 - root - INFO - new best score: -50.483645
+2016-01-14 00:47:34,812 - root - INFO - new best score: -50.276385
+2016-01-14 00:47:34,822 - root - INFO - new best score: -50.249482
+2016-01-14 00:47:34,829 - root - INFO - new best score: -49.973098
+2016-01-14 00:47:34,838 - root - INFO - new best score: -49.466804
+2016-01-14 00:47:34,849 - root - INFO - new best score: -48.680234
+2016-01-14 00:47:34,857 - root - INFO - new best score: -48.630765
+2016-01-14 00:47:34,871 - root - INFO - new best score: -48.526981
+2016-01-14 00:47:34,878 - root - INFO - new best score: -48.455002
+2016-01-14 00:47:34,934 - root - INFO - new best score: -48.401968
+2016-01-14 00:47:34,944 - root - INFO - new best score: -48.375100
+2016-01-14 00:47:34,954 - root - INFO - new best score: -48.309757
+2016-01-14 00:47:35,015 - root - INFO - new best score: -48.155553
+2016-01-14 00:47:35,023 - root - INFO - new best score: -47.766368
+2016-01-14 00:47:35,036 - root - INFO - new best score: -47.685402
+2016-01-14 00:47:35,049 - root - INFO - new best score: -47.132101
+2016-01-14 00:47:35,062 - root - INFO - new best score: -46.952410
+2016-01-14 00:47:35,071 - root - INFO - new best score: -46.784324
+2016-01-14 00:47:35,081 - root - INFO - new best score: -46.103671
+2016-01-14 00:47:35,086 - root - INFO - new best score: -46.085971
+2016-01-14 00:47:35,095 - root - INFO - new best score: -46.064213
+2016-01-14 00:47:35,105 - root - INFO - new best score: -46.043904
+2016-01-14 00:47:35,115 - root - INFO - new best score: -46.023079
+2016-01-14 00:47:35,128 - root - INFO - new best score: -45.757323
+2016-01-14 00:47:35,138 - root - INFO - new best score: -45.678458
+2016-01-14 00:47:35,177 - root - INFO - new best score: -45.671399
+2016-01-14 00:47:35,188 - root - INFO - new best score: -45.646901
+2016-01-14 00:47:35,201 - root - INFO - new best score: -45.451602
+2016-01-14 00:47:35,214 - root - INFO - new best score: -45.378179
+2016-01-14 00:47:35,223 - root - INFO - new best score: -45.317963
+2016-01-14 00:47:35,233 - root - INFO - new best score: -45.291768
+2016-01-14 00:47:35,243 - root - INFO - new best score: -45.287763
+2016-01-14 00:47:35,253 - root - INFO - new best score: -45.275968
+2016-01-14 00:47:35,265 - root - INFO - new best score: -45.262294
+2016-01-14 00:47:35,275 - root - INFO - new best score: -45.261888
+2016-01-14 00:47:35,345 - root - INFO - new best score: -45.191177
+2016-01-14 00:47:35,355 - root - INFO - new best score: -45.151902
+2016-01-14 00:47:35,368 - root - INFO - new best score: -44.865444
+2016-01-14 00:47:35,388 - root - INFO - new best score: -44.775432
+2016-01-14 00:47:35,414 - root - INFO - new best score: -44.731626
+2016-01-14 00:47:35,437 - root - INFO - new best score: -44.724627
+2016-01-14 00:47:35,463 - root - INFO - new best score: -44.505783
+2016-01-14 00:47:35,506 - root - INFO - new best score: -44.500660
+2016-01-14 00:47:35,529 - root - INFO - new best score: -44.465045
+2016-01-14 00:47:35,553 - root - INFO - new best score: -44.402892
+2016-01-14 00:47:35,622 - root - INFO - new best score: -44.361042
+2016-01-14 00:47:35,642 - root - INFO - new best score: -44.184334
+2016-01-14 00:47:35,664 - root - INFO - new best score: -44.159970
+2016-01-14 00:47:35,688 - root - INFO - new best score: -43.752664
+2016-01-14 00:47:35,710 - root - INFO - new best score: -43.334116
+2016-01-14 00:47:35,759 - root - INFO - new best score: -43.314713
+2016-01-14 00:47:35,809 - root - INFO - new best score: -43.306409
+2016-01-14 00:47:35,882 - root - INFO - new best score: -43.242557
+2016-01-14 00:47:35,913 - root - INFO - new best score: -42.892161
+2016-01-14 00:47:35,970 - root - INFO - new best score: -42.241843
+2016-01-14 00:47:36,029 - root - INFO - new best score: -41.650512
+2016-01-14 00:47:36,043 - root - INFO - new best score: -41.629661
+2016-01-14 00:47:36,052 - root - INFO - new best score: -41.532091
+2016-01-14 00:47:36,072 - root - INFO - new best score: -41.319234
+2016-01-14 00:47:36,095 - root - INFO - new best score: -41.150507
+2016-01-14 00:47:36,101 - root - INFO - new best score: -41.116645
+2016-01-14 00:47:36,109 - root - INFO - new best score: -41.063271
+2016-01-14 00:47:36,122 - root - INFO - new best score: -41.042547
+2016-01-14 00:47:36,128 - root - INFO - new best score: -40.903811
+2016-01-14 00:47:36,141 - root - INFO - new best score: -40.874726
+2016-01-14 00:47:36,154 - root - INFO - new best score: -40.329252
+2016-01-14 00:47:36,167 - root - INFO - new best score: -40.131322
+2016-01-14 00:47:36,180 - root - INFO - new best score: -39.847863
+2016-01-14 00:47:36,221 - root - INFO - new best score: -39.833430
+2016-01-14 00:47:36,266 - root - INFO - new best score: -39.683078
+2016-01-14 00:47:36,322 - root - INFO - new best score: -39.107594
+2016-01-14 00:47:36,344 - root - INFO - new best score: -39.074412
+2016-01-14 00:47:36,388 - root - INFO - new best score: -39.059979
+2016-01-14 00:47:36,529 - root - INFO - new best score: -38.774660
+2016-01-14 00:47:36,595 - root - INFO - new best score: -38.593855
+2016-01-14 00:47:36,631 - root - INFO - new best score: -38.439212
+2016-01-14 00:47:36,665 - root - INFO - new best score: -38.376465
+2016-01-14 00:47:36,701 - root - INFO - new best score: -37.948207
+2016-01-14 00:47:36,789 - root - INFO - new best score: -37.925135
+2016-01-14 00:47:36,858 - root - INFO - new best score: -37.463210
+2016-01-14 00:47:36,934 - root - INFO - new best score: -36.776018
+2016-01-14 00:47:37,016 - root - INFO - new best score: -36.598151
+2016-01-14 00:47:37,096 - root - INFO - new best score: -36.293970
+2016-01-14 00:47:37,194 - root - INFO - new best score: -36.190588
+2016-01-14 00:47:37,305 - root - INFO - new best score: -35.730871
+2016-01-14 00:47:37,418 - root - INFO - new best score: -35.499650
+2016-01-14 00:47:37,536 - root - INFO - new best score: -35.465037
+2016-01-14 00:47:37,667 - root - INFO - new best score: -35.420419
+2016-01-14 00:47:37,684 - root - INFO - new best score: -35.346010
+2016-01-14 00:47:37,806 - root - INFO - new best score: -35.023029
+2016-01-14 00:47:37,910 - root - INFO - new best score: -35.001970
+2016-01-14 00:47:38,007 - root - INFO - new best score: -34.995454
+2016-01-14 00:47:38,072 - root - INFO - new best score: -34.804299
+2016-01-14 00:47:38,161 - root - INFO - new best score: -34.744883
+2016-01-14 00:47:38,176 - root - INFO - new best score: -34.664287
+2016-01-14 00:47:38,243 - root - INFO - new best score: -34.169097
+2016-01-14 00:47:38,319 - root - INFO - new best score: -33.951177
+2016-01-14 00:47:38,398 - root - INFO - new best score: -33.850599
+2016-01-14 00:47:38,470 - root - INFO - new best score: -33.552679
+2016-01-14 00:47:38,546 - root - INFO - new best score: -33.512630
+2016-01-14 00:47:38,618 - root - INFO - new best score: -33.437913
+2016-01-14 00:47:38,658 - root - INFO - new best score: -33.051722
+2016-01-14 00:47:38,674 - root - INFO - new best score: -32.959808
+2016-01-14 00:47:38,717 - root - INFO - new best score: -32.914090
+2016-01-14 00:47:38,760 - root - INFO - new best score: -32.843725
+2016-01-14 00:47:38,815 - root - INFO - new best score: -32.815213
+2016-01-14 00:47:39,183 - root - INFO - new best score: -32.800613
+2016-01-14 00:47:39,230 - root - INFO - new best score: -32.780519
+2016-01-14 00:47:39,276 - root - INFO - new best score: -32.759716
+2016-01-14 00:47:39,401 - root - INFO - new best score: -32.739485
+2016-01-14 00:47:39,502 - root - INFO - new best score: -32.646518
+2016-01-14 00:47:39,611 - root - INFO - new best score: -32.545455
+2016-01-14 00:47:39,684 - root - INFO - new best score: -32.510419
+2016-01-14 00:47:39,753 - root - INFO - new best score: -31.462860
+2016-01-14 00:47:39,815 - root - INFO - new best score: -31.297565
+2016-01-14 00:47:39,859 - root - INFO - new best score: -31.186527
+2016-01-14 00:47:39,931 - root - INFO - new best score: -31.184157
+2016-01-14 00:47:40,055 - root - INFO - new best score: -31.167161
+2016-01-14 00:47:40,161 - root - INFO - new best score: -30.995738
+2016-01-14 00:47:40,201 - root - INFO - new best score: -30.988525
+2016-01-14 00:47:40,315 - root - INFO - new best score: -30.715883
+2016-01-14 00:47:40,355 - root - INFO - new best score: -30.667469
+2016-01-14 00:47:40,598 - root - INFO - new best score: -30.518604
+2016-01-14 00:47:40,716 - root - INFO - new best score: -30.369290
+2016-01-14 00:47:41,160 - root - INFO - new best score: -30.365867
+2016-01-14 00:47:41,263 - root - INFO - new best score: -30.363725
+2016-01-14 00:47:41,279 - root - INFO - new best score: -30.290253
+2016-01-14 00:47:41,359 - root - INFO - new best score: -30.217159
+2016-01-14 00:47:41,457 - root - INFO - new best score: -30.058752
+2016-01-14 00:48:25,184 - root - INFO - final temperature: 0.000001
+2016-01-14 00:48:59,931 - root - INFO - anneal finished: num_evaluations=1000000, best_score=-30.058752
+2016-01-14 00:49:00,007 - bokeh.state - INFO - Session output file 'othodi_app_test.html' already exists, will be overwritten.
+2016-01-14 00:49:00,019 - bokehm - INFO - starting line add
+2016-01-14 00:49:00,029 - bokehm - INFO - starting line add

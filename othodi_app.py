@@ -1,8 +1,37 @@
 # -*- coding: utf-8 -*-
 import shutil
 import locm, routem, mapm, dropboxm, gmaps, tools, bokehm, tspm
+import logging.config, os, yaml
+
+def setup_logging(
+    default_path='app_logging.yaml', 
+    default_level=logging.INFO,
+    env_key='LOG_CFG'
+):
+    """Setup logging configuration
+
+    """
+    path = default_path
+    value = os.getenv(env_key, None)
+    if value:
+        path = value
+    if os.path.exists(path):
+        with open(path, 'rt') as f:
+            config = yaml.load(f.read())
+        logging.config.dictConfig(config)
+    else:
+        logging.basicConfig(level=default_level)
 
 if __name__ == "__main__":
+
+    setup_logging()
+    logger = logging.getLogger(__name__)
+    
+    # logging.config.fileConfig('logging.conf')
+    # fh = logging.FileHandler('%s.log' % sys.argv[0].split('.')[0])
+    # fh.setLevel(logging.INFO)
+    # formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    # logger.addHandler(fh)
 
     cities_fname = 'test_city_names_list.txt'
     # cities_fname = 'cities_from_dropbox.txt'
@@ -43,8 +72,11 @@ if __name__ == "__main__":
     print(result_tuple)
     new_locs_list = [locs_list[index-1] for index in result_tuple[-1][1:-1]]
     fig_on_gmap = bokehm.Figure(output_fname='othodi_app_test.html',use_gmap=True, center_coords=moscow.coords)
-    for i,loc in enumerate(new_locs_list):
-        fig_on_gmap.add_line([loc.coords],circle_size=5+10*float(i)/len(new_locs_list), circles_color='red',alpha=0.5)
+    locs_coords_list = [l.coords for l in new_locs_list]
+    # for i,loc in enumerate(new_locs_list):
+    #     fig_on_gmap.add_line([loc.coords],circle_size=5+10*float(i)/len(new_locs_list), circles_color='red',alpha=0.5)
+    fig_on_gmap.add_line(locs_coords_list,circle_size=5+10, circles_color='red',alpha=0.5)
+
     fig_on_gmap.add_line([moscow.coords],circle_size=35, circles_color='green',alpha=0.5)
     fig_on_gmap.save2html()
     fig_on_gmap.show()

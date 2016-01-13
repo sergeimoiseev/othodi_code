@@ -1,14 +1,14 @@
+# -*- coding: UTF-8 -*-
 from __future__ import print_function
 
 # from bokeh.util.browser import view
 # from bokeh.document import Document
 # from bokeh.embed import file_html
 from bokeh.plotting import show, save, output_file
-from bokeh.models.glyphs import Circle
+from bokeh.models.glyphs import Circle, Line
 from bokeh.models import (
     GMapPlot, Range1d, ColumnDataSource, PanTool, WheelZoomTool, BoxSelectTool, GMapOptions)
 # from bokeh.resources import INLINE
-
 
 def create_plot(center_coords,zoom_level = 8):
 
@@ -23,7 +23,7 @@ def create_plot(center_coords,zoom_level = 8):
     plot = GMapPlot(
         x_range=x_range, y_range=y_range,
         map_options=map_options,
-        title="Austin"
+        title=u"Тверь"
     )
 
     pan = PanTool()
@@ -33,19 +33,17 @@ def create_plot(center_coords,zoom_level = 8):
     plot.add_tools(pan, wheel_zoom, box_select)
     return plot
 
-def add_line(plot, coords_dict_list, circle_size=15,circles_color='blue',alpha_koeff = 0.5):
-
-    circle = Circle(x="lng", y="lat", size=circle_size, fill_color="fill", line_color="black",fill_alpha = "alpha")
-    
-    lats, lngs,fill_colors,alpha_list = [],[],[],[]
-    for coords_dict in coords_dict_list:
-        lats.append(coords_dict[u'lat'])
-        lngs.append(coords_dict[u'lng'])
-        fill_colors.append(circles_color)
-        alpha_list.append(alpha_koeff)
-    source_data = {'lat':lats, 'lng':lngs, 'fill':fill_colors, 'alpha':alpha_list}
-    
+def add_line(plot, coords_dict_list, circle_size=15,circles_color='blue',alpha_koeff = 0.5):    
+    source_data = {
+                    'lat':[c_dict['lat'] for c_dict in coords_dict_list],
+                    'lng':[c_dict['lng'] for c_dict in coords_dict_list],
+                    'fill':[circles_color for c_dict in coords_dict_list],
+                    'alpha':[alpha_koeff for c_dict in coords_dict_list]
+                    }
     source = ColumnDataSource(data=source_data)
+    circle = Circle(x="lng", y="lat", size=circle_size, fill_color="fill", line_color="black",fill_alpha = "alpha")
+    line = Line(x="lng", y="lat", line_width=circle_size/2, line_color="fill", line_alpha = "alpha",line_join='round',line_cap = 'round')
+    plot.add_glyph(source, line)
     plot.add_glyph(source, circle)
 
 def main(plot_fname="gmap_example_bokeh.html"):
@@ -55,9 +53,7 @@ def main(plot_fname="gmap_example_bokeh.html"):
 
     lats=[56.8583600, 56.8583600*1.0001, 56.8583600*1.0002]
     lngs=[35.9005700, 35.9005700*1.0001, 35.9005700*1.0002]
-    coords_dict_list = []
-    for la,ln in zip(lats,lngs):
-        coords_dict_list.append({u'lat':la, u'lng':ln})
+    coords_dict_list = [{u'lat':la, u'lng':ln} for la,ln in zip(lats,lngs)]
 
     add_line(plot_created,coords_dict_list,circle_size=10)
     save(plot_created)

@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import urllib
 # import nltk, urllib
-# from bs4 import BeautifulSoup # damit werden die HTML-texte entfernt
+# from bs4 import BeautifulSoup 
 # импорт инструмента BeautifulSoup
 import bs4
 import sys # system
@@ -34,37 +34,6 @@ def get_raw_text_from_url(url,start_marker = 'DATASTART',end_marker = 'DATAEND')
     sys.stdout = temp
     # cut_text = raw_text.split(start_marker)[1].split(end_marker)[0].strip()
     return(raw_text)
-
-    # return(soup.get_text())
-
-# def get_raw(url):
-#   urlData = urllib.request.urlopen(url)
-#   html = urlData.read().decode("utf-8")
-#   string_of_func_settings = 'html.parser'
-#   soup = bs4.BeautifulSoup(html, string_of_func_settings) # -> error
-#   return(soup.get_text())
-
-
-# def make_text(raw):
-#   tokens = nltk.word_tokenize(raw)
-#   print("tokens data:")
-#   print(type(tokens))
-#   print(tokens)
-#   text = nltk.Text(tokens)
-#   return(text) #prints <Text: >first words from the given text< ...>
-    #print(text[:40]) prints given number of words from >text<
-
-# def get_vocab(text):
-#   tokens = nltk.word_tokenize(text)
-#   dic = {}
-#   for token in tokens:
-#       dic[token] = dic.get(token, 0) + 1
-#   return(len(dic.keys()))
-
-# def lowercasing(text):
-#   tokens = nltk.word_tokenize(text)
-#   lower = [x.lower() for x in tokens]
-#   print(' '.join(lower))
 
 if __name__ == "__main__":
     url_1 = "https://www.dropbox.com/s/t9b9n2i03bz7ckk/cities.txt?dl=0"
