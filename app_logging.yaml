@@ -65,9 +65,33 @@ loggers:
 
         level: INFO
 
-        handlers: [console, info_file_handler]
+        handlers: [console]
 
-        propagate: yes  
+        propagate: no 
+
+    gmaps:
+
+        level: INFO
+
+        handlers: [console]
+
+        propagate: no  
+
+    tspm:
+
+        level: INFO
+
+        handlers: [console]
+
+        propagate: no  
+
+    sa:
+
+        level: INFO
+
+        handlers: [console]
+
+        propagate: no  
 
 
 root:

@@ -9,8 +9,15 @@ module gmaps
 import json, requests
 import tools
 import time
+import logging, inspect  # for logger
+logger = logging.getLogger(__name__) # for logger
 
 def get_lat_lon(address_string):
+    #logging
+    caller_name, func_name, func_args = inspect.stack()[1][3], inspect.stack()[0][3], inspect.getargvalues(inspect.currentframe())[3]
+    logger.debug("%s called %s with args = %s" % (caller_name, func_name, func_args))
+    logger.info("getting coords for %s" % (func_args.values()))
+
     url = "http://maps.google.com/maps/api/geocode/json"
     address_string+=',Russia'
     params = dict(
@@ -37,6 +44,10 @@ def get_address(coords_dict):
     return 'no address recognition yet'
 
 def get_route(origin, dest):
+    #logging
+    caller_name, func_name, func_args = inspect.stack()[1][3], inspect.stack()[0][3],  inspect.getargvalues(inspect.currentframe())[3]
+    logger.debug("%s called %s with args = %s" % (caller_name, func_name, func_args))
+    
     url = 'https://maps.googleapis.com/maps/api/directions/json'
     params = dict(
         origin='%f,%f' % (origin[u'lat'],origin[u'lng']),

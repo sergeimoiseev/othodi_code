@@ -18,16 +18,16 @@ class Figure(object):
         else:
             self._p = bp.figure(plot_width=640, plot_height=480)
     def add_line(self, *args,**kwargs):
-        logger.info("starting line add")
-        c_size=kwargs.get('circle_size',15)
-        c_color=kwargs.get('circles_color','red')
+        logger.info("starting line add with points num = %d" % (len(args[0])))
         if self._use_gmap:
-            bokeh_gmapm.add_line(self._p,args[0],circle_size=c_size,circles_color=c_color)
+            bokeh_gmapm.add_line(self._p,args[0],**kwargs)
         else:
             if len(args[0])==0:
                 lats = [0,1,2,3]
                 lngs = [2,3,4,5]
             else:
+                c_size=kwargs.get('circle_size',15)
+                c_color=kwargs.get('circles_color','red')
                 self._p.line([d['lat'] for d in args[0]],
                             [d['lng'] for d in args[0]],
                             size=c_size,color=c_color,alpha=0.5)

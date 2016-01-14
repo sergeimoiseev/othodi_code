@@ -33,12 +33,12 @@ def create_plot(center_coords,zoom_level = 8):
     plot.add_tools(pan, wheel_zoom, box_select)
     return plot
 
-def add_line(plot, coords_dict_list, circle_size=15,circles_color='blue',alpha_koeff = 0.5):    
+def add_line(plot, coords_dict_list, circle_size=15,circles_color='blue',alpha= 0.5):    
     source_data = {
                     'lat':[c_dict['lat'] for c_dict in coords_dict_list],
                     'lng':[c_dict['lng'] for c_dict in coords_dict_list],
                     'fill':[circles_color for c_dict in coords_dict_list],
-                    'alpha':[alpha_koeff for c_dict in coords_dict_list]
+                    'alpha':[alpha for c_dict in coords_dict_list]
                     }
     source = ColumnDataSource(data=source_data)
     circle = Circle(x="lng", y="lat", size=circle_size, fill_color="fill", line_color="black",fill_alpha = "alpha")

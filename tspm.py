@@ -6,6 +6,8 @@ import getopt
 from PIL import Image, ImageDraw, ImageFont
 from math import sqrt
 import itertools
+import logging
+logger = logging.getLogger(__name__)
 
 def rand_seq(size):
     '''generates values in random order
@@ -132,6 +134,9 @@ def init_random_tour(tour_length):
    tour = [0]+tour+[tour_length-1]
    return tour
 
+def create_tour_from_list(tour_list):
+   return tour_list
+
 def run_hillclimb(init_function,move_operator,objective_function,max_iterations):
     from hillclimb import hillclimb_and_restart
     iterations,score,best=hillclimb_and_restart(init_function,move_operator,objective_function,max_iterations)
@@ -150,6 +155,7 @@ def usage():
     print "usage: python %s [-o <output image file>] [-v] [-m reversed_sections|swapped_cities] -n <max iterations> [-a hillclimb|anneal] [--cooling start_temp:alpha] <city file>" % sys.argv[0]
 
 def main():
+    logger.info("tsp main started")
     try:
         options, args = getopt.getopt(sys.argv[1:], "ho:vm:n:a:", ["cooling="])
     except getopt.GetoptError:
@@ -226,13 +232,20 @@ def main():
     
     logging.info('using move_operator: %s'%move_operator)
     
-    iterations,score,best=run_algorithm(init_function,move_operator,objective_function,max_iterations)
+    iterations_done,score,best=run_algorithm(init_function,move_operator,objective_function,max_iterations)
+    iterations_done = 0
+    while iterations_done <= max_iterations:
+        init_function=lambda: create_tour_from_list(best)
+        this_run_iterations_done,score,best=run_algorithm(init_function,move_operator,objective_function,max_iterations-iterations_done)
+        iterations_done += this_run_iterations_done
     # output results
     # print iterations,score,best
     
     if out_file_name:
         write_tour_to_img(coords,best,'%s: %f'%(city_file,score),out_file_name)
-    return (iterations,score,best)
+    
+    logger.info("tsp main result: iterations_done %s ,score %s ,best %s" % tuple([str(el) for el in (iterations_done,score,best)]))
+    return (iterations_done,score,best)
 
 if __name__ == "__main__":
     main()
