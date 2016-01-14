@@ -63,7 +63,7 @@ loggers:
 
     bokehm:
 
-        level: INFO
+        level: ERROR
 
         handlers: [console]
 
@@ -71,7 +71,7 @@ loggers:
 
     gmaps:
 
-        level: INFO
+        level: ERROR
 
         handlers: [console]
 
@@ -79,13 +79,21 @@ loggers:
 
     tspm:
 
-        level: INFO
+        level: ERROR
 
         handlers: [console]
 
         propagate: no  
 
     sa:
+
+        level: ERROR
+
+        handlers: [console]
+
+        propagate: no  
+
+    bokeh_gmapm:
 
         level: INFO
 

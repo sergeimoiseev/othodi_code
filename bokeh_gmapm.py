@@ -9,6 +9,8 @@ from bokeh.models.glyphs import Circle, Line
 from bokeh.models import (
     GMapPlot, Range1d, ColumnDataSource, PanTool, WheelZoomTool, BoxSelectTool, GMapOptions)
 # from bokeh.resources import INLINE
+import logging, inspect  # for logger
+logger = logging.getLogger(__name__)
 
 def create_plot(center_coords,zoom_level = 8):
 
@@ -33,16 +35,27 @@ def create_plot(center_coords,zoom_level = 8):
     plot.add_tools(pan, wheel_zoom, box_select)
     return plot
 
-def add_line(plot, coords_dict_list, circle_size=15,circles_color='blue',alpha= 0.5):    
+def add_line(plot, coords_dict_list, circle_size=15,circles_color='blue',alpha= 0.5):
+    caller_name, func_name, func_args = inspect.stack()[1][3], inspect.stack()[0][3], inspect.getargvalues(inspect.currentframe())[3]
+    logger.debug("%s called %s with args = %s" % (caller_name, func_name, func_args))
+
+    if type(circle_size)!=type([]):
+        c_size = [circle_size for c_dict in coords_dict_list]
+        l_width = [circle_size/2 for c_dict in coords_dict_list]
+    else:
+        c_size = circle_size
+        l_width = [circle_size[-1]/2 for c_dict in coords_dict_list]
     source_data = {
                     'lat':[c_dict['lat'] for c_dict in coords_dict_list],
                     'lng':[c_dict['lng'] for c_dict in coords_dict_list],
                     'fill':[circles_color for c_dict in coords_dict_list],
-                    'alpha':[alpha for c_dict in coords_dict_list]
+                    'alpha':[alpha for c_dict in coords_dict_list],
+                    'circle_size':c_size,
+                    'line_width':l_width,
                     }
     source = ColumnDataSource(data=source_data)
-    circle = Circle(x="lng", y="lat", size=circle_size, fill_color="fill", line_color="black",fill_alpha = "alpha")
-    line = Line(x="lng", y="lat", line_width=circle_size/2, line_color="fill", line_alpha = "alpha",line_join='round',line_cap = 'round')
+    circle = Circle(x="lng", y="lat", size="circle_size", fill_color="fill", line_color="black",fill_alpha = "alpha")
+    line = Line(x="lng", y="lat", line_width="line_width", line_color="fill", line_alpha = "alpha",line_join='round',line_cap = 'round')
     plot.add_glyph(source, line)
     plot.add_glyph(source, circle)
 
