@@ -31,8 +31,9 @@ if __name__ == "__main__":
     logger.info("Main skript started")
 
     def generate_locations():
+        cities_fname = 'test_city_names_list_100.txt'
         # cities_fname = 'test_city_names_list_21.txt'
-        cities_fname = 'test_city_names_list.txt'
+        # cities_fname = 'test_city_names_list.txt'
         # cities_fname = 'cities_from_dropbox.txt'
         with open(cities_fname,'r') as cities_file:
             address_list = [line.strip() for line in cities_file.readlines()]
@@ -46,15 +47,16 @@ if __name__ == "__main__":
         nodes_coords_list = [moscow.coords] + [loc.coords for loc in locs_list] + [moscow.coords] 
         return locs_list, nodes_coords_list
 
-    def put_locs_to_file(fname,nodes_coords_list):
-        with open(FILE_WITH_COORDS_PAIRS_NAME,'w') as coords_file:
+    FILE_WITH_COORDS_PAIRS_NAME = "cities_coords.txt"
+
+    def put_locs_to_file(nodes_coords_list,fname=FILE_WITH_COORDS_PAIRS_NAME,):
+        with open(fname,'w') as coords_file:
             for coord_pair_dict in nodes_coords_list:
                 coords_file.write("%f" % coord_pair_dict[u'lat'])
                 coords_file.write(',')
                 coords_file.write("%f" % coord_pair_dict[u'lng'])
                 coords_file.write("\n")
 
-    FILE_WITH_COORDS_PAIRS_NAME = "cities_coords.txt"
     
     def read_coords_from_file(fname = FILE_WITH_COORDS_PAIRS_NAME):
         with open(fname,'r') as coords_file:
@@ -66,15 +68,43 @@ if __name__ == "__main__":
         return nodes_coords_list
 
     ## run this when need to update cities coords / change cities list
-    locs_list, nodes_coords_list = generate_locations()
-    put_locs_to_file(FILE_WITH_COORDS_PAIRS_NAME,nodes_coords_list)
+    # locs_list, nodes_coords_list = generate_locations()
+    # put_locs_to_file(FILE_WITH_COORDS_PAIRS_NAME,nodes_coords_list)
 
     # run this to only prepare the tsp test
-    nodes_coords_list = read_coords_from_file()
+    nodes_coords_list = read_coords_from_file() # only variable nodes` coords here
+    cars_num = 5
+    # # cities_num=100
+    only_var_nodes = nodes_coords_list[1:-1]
+    cities_num=(len(only_var_nodes))
+    cities_per_car = cities_num//cars_num
+
+    parts = [only_var_nodes[car_i*cities_per_car : (car_i+1)*cities_per_car] for car_i in range(cars_num)]
+    part_start_finish = [[nodes_coords_list[0]] + part + [nodes_coords_list[-1]] for part in parts]
+        
+    for i,part in enumerate(part_start_finish):
+        part_cities_fname = "cities_coords_part_%d.txt" % (i)
+        put_locs_to_file(part,part_cities_fname)
+
+
+    # for i,part in enumerate(part_start_finish):
+    #     print("first city in part %s" % str(part[0]))
+    #     print("first city num in part %d" % (i*len(part)))
+    #     print(len(part))
+    #     print("last city in part %s" % str(part[-1]))
+    #     print("last city in num part %d" % ((i+1)*len(part)))
+    #     for i,c_coords in enumerate(part):
+    #         print("i: %d coords: %s" % (i,c_coords))
+
+    # print("moscow:%s" % (nodes_coords_list[0]))
+    # print("moscow:%s" % (nodes_coords_list[-1]))
+    import sys
+    sys.exit(0)
 
     # setting up tsp module
     move_operator_name = "swapped_cities"
-    max_itterations = 1000000 # best value
+    max_itterations = 10000 # test value
+    # max_itterations = 1000000 # best value
     alg_type = "anneal"
     start_temp = 100 # best value
     alpha = 0.99  # best value
@@ -96,7 +126,18 @@ if __name__ == "__main__":
     fig_on_gmap.save2html()
     # fig_on_gmap.show()
     
-    sys.exit(0)
+    for i,part in enumerate(part_start_finish):
+        fig_on_gmap = bokehm.Figure(output_fname='othodi_app_test_%f.html' % (result_tuple[1]),use_gmap=True, center_coords=nodes_coords_list[0])
+        fig_on_gmap.add_line(locs_coords_list,circle_size=5+10, circles_color='red',alpha=0.5)
+        fig_on_gmap.add_line([nodes_coords_list[0]],circle_size=35, circles_color='green',alpha=0.5)
+        fig_on_gmap.save2html()
+
+    # cars_num = 5
+    # cities_per_car = 100//cars_num
+    # for car_num in range(cars_num):
+    #     for city_num in range(car_num*cities_per_car, car_num+1*cities_per_car,1):
+    #         print(city_num)
+    # sys.exit(0)
 
 
     ## plotting routes

@@ -19,7 +19,7 @@ def get_lat_lon(address_string):
     logger.info("getting coords for %s" % (func_args.values()))
 
     url = "http://maps.google.com/maps/api/geocode/json"
-    address_string+=',Russia'
+    address_string+=',Moscow Region,Russia'
     params = dict(
         address=address_string,
         sensor='false',
