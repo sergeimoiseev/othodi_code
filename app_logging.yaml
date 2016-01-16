@@ -71,7 +71,7 @@ loggers:
 
     gmaps:
 
-        level: ERROR
+        level: INFO
 
         handlers: [console]
 

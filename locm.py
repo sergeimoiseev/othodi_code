@@ -8,7 +8,8 @@ class Location(object):
         #kwargs -- dictionary of named arguments
         if all(isinstance(argt, float) for argt in args) and len(args)==2:
             self._coords = {'lat':args[0],'lng': args[1]}
-            self._address = gmaps.get_address(self._coords)
+            if not kwargs.get("no_gmaps",False):
+                self._address = gmaps.get_address(self._coords)
         elif all(type_of_value(argt)!=str for argt in args) and len(args)==2:
         # elif type_of_value(args[0])!=str and type_of_value(args[1])!=str:
             self._coords = {'lat':float(args[0]),'lng': float(args[1])}

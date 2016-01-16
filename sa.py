@@ -31,7 +31,7 @@ def kirkpatrick_cooling(start_temp,alpha):
         yield T
         T=alpha*T
 
-def myexp_cooling(start_temp,alpha):
+def myexp_cooling(start_temp,alpha): # works worse than kirkpatrick_cooling
     T=start_temp
     while T>alpha:
     # while True:
@@ -77,7 +77,6 @@ def anneal(init_function,move_operator,objective_function,max_evaluations,start_
             if random.random() < p:
                 current=next_
                 current_score=next_score
-                # logging here! - on state change
                 break
             if num_evaluations in range(1,max_evaluations,max_evaluations//10):
                 logger.debug("step %d: t =%.4f;curr score = %.4f\n"%(num_evaluations,temperature,current_score))
@@ -85,9 +84,6 @@ def anneal(init_function,move_operator,objective_function,max_evaluations,start_
         if done: break
         # see if temp is 0 - restart anneal from current state
         if temperature<0.01: break
-    
-    # if num_evaluations<max_evaluations:
-    #     cooling_schedule=kirkpatrick_cooling(start_temp,alpha)
     
     best_score=objective_function.best_score
     best=objective_function.best
