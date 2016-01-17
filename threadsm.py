@@ -169,13 +169,12 @@ def plot_routes(routes_coords_dicts_lists, fname = 'init_cars_routes.html'):
         fig_on_gmap.add_line(routes_coords_dicts_lists[car_number],circle_size=circle_sizes, circles_color=colors_list[car_number],alpha=1.)
     fig_on_gmap.show()
 
-def find_node_to_replace_worst(pln_,worst_route_,worst_node_of_worst_route_):
+def find_node_to_replace_worst(pln_,worst_route_,worst_node_of_worst_route_,already_replaced_nodes_=[]):
     # ищем среди всех узлов в других маршрутах узел ближайший к этому, с возможно меньшим потенциалом
     mask = np.in1d(pln_, worst_route_)
-    # logger.info("mask:\n%s" % mask)
-    logger.info("nodes of worst route:\n%s" % worst_route_['name'])
+    logger.debug("nodes of worst route:\n%s" % worst_route_['name'])
     nodes_to_select_from = np.copy(pln_[np.where(~mask)])
-    logger.info("nodes_to_select_from:\n%s" % nodes_to_select_from['name'])
+    logger.debug("nodes_to_select_from:\n%s" % nodes_to_select_from['name'])
     proximity_list = get_proximity_matrix([worst_node_of_worst_route_['coords']],nodes_to_select_from['coords'])
     logger.debug("proximity_list to worst route:\n%s" % proximity_list)
     # нахожу индекс того узла, который ближе всего к самом плохому
@@ -192,6 +191,10 @@ def find_node_to_replace_worst(pln_,worst_route_,worst_node_of_worst_route_):
         if node['potential']<=worst_node_of_worst_route_['potential']:
             node_to_replace_worst = np.copy(node)
             break # теоретически, "выгодной" перестановки может и не найтись - не знаю!
+        # else:
+        #     logger.debug("node with smaller potential not found - replacing by first nearest")
+        #     node_to_replace_worst = np.copy(nodes_to_select_from[0])
+        logger.info("finished search, node not found - replacing by first nearest")
         if node == nodes_to_select_from[-1]: # на всякий случай
             node_to_replace_worst = np.copy(nodes_to_select_from[0])
     return node_to_replace_worst
@@ -207,7 +210,10 @@ def swap_nodes(car_routes,first_node,second_node):
     car_routes[r_idx_routes]=worst_node_of_worst_route
 
 if __name__ == "__main__":
-    os.remove("app.log")
+    try:
+        os.remove("app.log")
+    except:
+        pass
     setup_logging()
     logger = logging.getLogger(__name__)
     func_name, func_args = inspect.stack()[0][3],  inspect.getargvalues(inspect.currentframe())[3]
@@ -265,16 +271,24 @@ if __name__ == "__main__":
     len_statisitcs[0]['mean'], len_statisitcs[0]['std'] = routes_mean_len_old, routes_mean_len_std_old
     logger.info("len statisitcs:\n%s" % len_statisitcs)
 
+    worst_node_of_worst_route = np.zeros(1,dtype = node_dtype)
+    already_replaced_nodes = np.zeros(1,dtype = node_dtype)
     # улучшение маршрутов
     for i in range(1, len(len_statisitcs)):
-        logger.info("routes before swap of worst node:\n%s" % car_routes['name'])
+        logger.debug("routes before swap of worst node:\n%s" % car_routes['name'])
         worst_route = np.copy(car_routes[-1]) # копируем маршрут с самой большой длиной
-        # logger.info("worst route:\n%s" % worst_route['name'])
         worst_route.sort(order = 'potential')
-        worst_node_of_worst_route = np.copy(worst_route[-1]) # копируем "самый затратный" узел - узел с наибольшим потенциалом
+        worst_route = worst_route[::-1]
+        for node in worst_route:
+            if node['name'] not in already_replaced_nodes['name']:
+                logger.info("new worst node:\n%s" % node['name'])
+                worst_node_of_worst_route = np.copy(node) # копируем "самый затратный" узел - узел с наибольшим потенциалом
+                break
+        if worst_node_of_worst_route['name'] == '':
+            break # прекрацаем перебор: все узлы в этом маршруте уже когда-то были "худшими"
         logger.info("worst_node of worst route:\n%s" % worst_node_of_worst_route)
         
-        node_to_replace_worst = find_node_to_replace_worst(pln,worst_route,worst_node_of_worst_route)
+        node_to_replace_worst = find_node_to_replace_worst(pln,worst_route,worst_node_of_worst_route,already_replaced_nodes_=already_replaced_nodes)
         logger.info("node_to_replace_worst:\n%s" % node_to_replace_worst)
 
         # в списке маршрутов меняем местами худший и тот, что выбрали на замену
@@ -282,14 +296,21 @@ if __name__ == "__main__":
 
         # обновляем несортированный список узлов
         pln = car_routes.flatten()
-        
+        # попробую не переставлять узлы, которые хотя бы раз переставлялись
+        already_replaced_nodes_list = list(already_replaced_nodes)
+        if worst_node_of_worst_route['name'] not in already_replaced_nodes['name']:
+            already_replaced_nodes_list.append(worst_node_of_worst_route)
+            already_replaced_nodes = np.array(already_replaced_nodes_list,dtype=node_dtype)
+            # already_replaced_nodes[np.where(already_replaced_nodes['name']=="")] = worst_node_of_worst_route
+        logger.info("already_replaced_nodes:\n%s" % already_replaced_nodes)
+
         # сортируем маршруты по длине
         car_routes_length = calc_all_routes_len(car_routes)
         routes_order_by_length = car_routes_length.argsort()
         car_routes = car_routes[routes_order_by_length]
-        logger.info("routes after swap of worst node:\n%s" % car_routes['name'])
+        logger.debug("routes after swap of worst node:\n%s" % car_routes['name'])
         car_routes_length = calc_all_routes_len(car_routes)
-        logger.info("routes len after sort:\n%s" % car_routes_length)
+        logger.debug("routes len after sort:\n%s" % car_routes_length)
 
         routes_mean_len_new = float(np.mean(car_routes_length, axis=0))
         routes_mean_len_std_new = float(np.std(car_routes_length, axis=0))
@@ -302,8 +323,8 @@ if __name__ == "__main__":
     fig_stats.show()
 
     # рисуем текущее состояние маршрутов
-    # routes_coords_dicts_lists = create_coords_dicts_lists(car_routes)
-    # plot_routes(routes_coords_dicts_lists, fname = 'init_cars_routes.html')
+    routes_coords_dicts_lists = create_coords_dicts_lists(car_routes)
+    plot_routes(routes_coords_dicts_lists, fname = 'routes_after_determined_algorythm.html')
 
     import sys
-    sys.exit(0)    
+    sys.exit(0)
