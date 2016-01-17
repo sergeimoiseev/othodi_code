@@ -186,7 +186,6 @@ def find_node_to_replace_worst(pln_,worst_route_,worst_node_of_worst_route_,alre
     nodes_to_select_from = nodes_to_select_from[indxs]  # список ближайших узлов со второй сортировкой по потенциалу
     logger.debug("nodes_to_select_from after multiple order sort:\n%s" % nodes_to_select_from['name'])
     # перебираем ближайшие узлы по очереди, пока не найдется узел, потенциал которого меньше чем у худшего
-    # node_to_replace_worst = np.empty(1,dtype = node_dtype)
     for node in nodes_to_select_from:
         if node['potential']<=worst_node_of_worst_route_['potential']:
             node_to_replace_worst = np.copy(node)
@@ -293,6 +292,13 @@ if __name__ == "__main__":
 
         # в списке маршрутов меняем местами худший и тот, что выбрали на замену
         swap_nodes(car_routes,worst_node_of_worst_route,node_to_replace_worst)
+
+        # сортируем каждый маршрут по расстоянию от начала
+        # так чтобы узлы маршрута шли по очереди без колец
+        for car_route in car_routes:
+            for node in car_route:
+                node['rs']=r(ryazan_coords,node['coords'])
+            car_route.sort(order = 'rs')
 
         # обновляем несортированный список узлов
         pln = car_routes.flatten()
