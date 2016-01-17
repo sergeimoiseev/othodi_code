@@ -42,6 +42,27 @@ class Figure(object):
         bp.show(self._p)
         return True
 
+    def add_errorbar(self, x, y, xerr=None, yerr=None, color='red', point_kwargs={}, error_kwargs={}):
+        fig = self._p
+        fig.circle(x, y, color=color, **point_kwargs)
+
+        if xerr is not None:
+            x_err_x = []
+            x_err_y = []
+            for px, py, err in zip(x, y, xerr):
+                x_err_x.append((px - err, px + err))
+                x_err_y.append((py, py))
+            fig.multi_line(x_err_x, x_err_y, color=color, **error_kwargs)
+
+        if yerr is not None:
+            y_err_x = []
+            y_err_y = []
+            for px, py, err in zip(x, y, yerr):
+                y_err_x.append((px, px))
+                y_err_y.append((py - err, py + err))
+            fig.multi_line(y_err_x, y_err_y, color=color, **error_kwargs)
+
+
 # def plot_route_on_basemap(coord_pairs,annotes,added_points_param_list=None):
 #     bp.output_file("map_bokeh.html")
 #     p = bp.figure(plot_width=640, plot_height=480)
@@ -102,6 +123,8 @@ def test_gmap_bokeh_plot():
     fig.add_line(line_to_plot,circle_size=20, circles_color='green')
     fig.save2html()
     fig.show()
+
+
 def main():
     pass
 if __name__ == "__main__":

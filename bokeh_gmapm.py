@@ -25,7 +25,7 @@ def create_plot(center_coords,zoom_level = 8):
     plot = GMapPlot(
         x_range=x_range, y_range=y_range,
         map_options=map_options,
-        title=u"Тверь"
+        title=u"Маршруты"
     )
 
     pan = PanTool()

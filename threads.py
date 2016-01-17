@@ -173,7 +173,21 @@ def create_coords_dicts_lists(node_dtype_routes):
         coords_dicts_lists[route_n]['lng'] = [pair[1] for pair in part]
     return coords_dicts_lists
 
+import itertools
+def pairwise(iterable):
+    "s -> (s0,s1), (s1,s2), (s2, s3), ..."
+    a, b = itertools.tee(iterable)
+    next(b, None) # b itterator is moved one step forward from initial position
+    return itertools.izip(a, b)
+
+def calc_route_length(route_coords):
+    length = 0.
+    for pair in pairwise(route_coords):
+        length += r(pair[0],pair[1])
+    return length
+
 if __name__ == "__main__":
+    os.remove("app.log")
     setup_logging()
     logger = logging.getLogger(__name__)
     func_name, func_args = inspect.stack()[0][3],  inspect.getargvalues(inspect.currentframe())[3]
@@ -218,42 +232,71 @@ if __name__ == "__main__":
     # выделение ниток маршрутов для каждой машины
     car_routes = np.empty((n_cars,n_per_route),dtype = node_dtype)
     for part_num, split_part in enumerate(splitted_pln):
-        next_nodes = np.copy(split_part)
-        print("next_nodes before sorting by proximity to prev node")
-        print(next_nodes)
-        next_nodes_arb_rs = []
-        for node in next_nodes:
-            next_nodes_arb_rs.append(r(car_routes[car_number][part_num-1]['coords'],node['coords']))
-        next_nodes['rs'] = next_nodes_arb_rs
-        next_nodes.sort(order = 'rs')
-        print("next_nodes after sorting by proximity to prev node")
-        print(next_nodes)
+        equi_nodes = np.copy(split_part)
+        logger.info("equi_nodes before sorting by proximity to prev node\n%s" % str(equi_nodes))
+        
         for car_number in range(n_cars):
-            print("car number %d" % car_number)
-            if part_num == 0: # сначала просто по порядку,
+            logger.info("car number %d" % car_number)
+            if part_num == 0: # первый узел в нитке проставляем просто по порядку узлов в списке эквипотенциальных
+            # с наименьшим потенциалом
                 car_routes[car_number][part_num] = split_part[car_number]
-            else:  # затем - ближайшие из каждой "эквипотенциальной" части
-                car_routes[car_number][part_num] = next_nodes[0]
-                # восстанавливаю поле rs для выстраивания маршрута по расстоянию от пункта отправления
-                car_routes[car_number][part_num]['rs'] = split_part[0]['rs']
+                logger.info("first node assigned to this car`s route :\n%s" % split_part[car_number])
+            else:  
+                # НЕТ! в поле rs каждого непривязанного узла записываем расстояние до последнего узла в маршруте этой машины
+                # logger.info("last node in route :\n%s" % str(car_routes[car_number][part_num-1]))
+                # next_nodes_arb_rs = []
+                # for node in equi_nodes:
+                #     next_nodes_arb_rs.append(r(car_routes[car_number][part_num-1]['coords'],node['coords']))
+                # equi_nodes['rs'] = next_nodes_arb_rs
+                # equi_nodes.sort(order = 'rs')
+                # logger.info("equi_nodes after sorting by proximity to prev node\n%s" % str(equi_nodes))
+                logger.info("car_routes \n%s" % str(car_routes[car_number][0:part_num]))
+                logger.info("equi_nodes \n%s" % str(equi_nodes))
+                thread_len = len(car_routes[car_number][0:part_num])
+                equi_nodes_num = len(equi_nodes)
+                # proximity_m = np.fromfunction(lambda i, j: r(car_routes[car_number][i]['coords'],equi_nodes[j]['coords']), (thread_len, equi_nodes_num), dtype=np.float64)
+                # proximity_m = np.fromfunction(lambda i, j: r(car_routes[car_number][i],tver_coords), (thread_len, equi_nodes_num), dtype=np.float64)
+                # proximity_m = np.fromfunction(lambda i, j: i+j/100., (thread_len, equi_nodes_num), dtype=np.float64)
+                # logger.info("proximity matrix:\n%s" % proximity_m)
 
+                # рассчитаем расстояния между всеми парами (узел_в_нитке : узел_из_эквипотенциальных)
+                # записываем расстояния в матрицу float-ов (proximity_matrix)
+                proximity_matrix=np.empty((thread_len, equi_nodes_num), dtype=np.float64)
+                for i,c1 in enumerate(car_routes[car_number][0:part_num]['coords']):
+                    for j,c2 in enumerate(equi_nodes['coords']):
+                        proximity_matrix[i,j]=r(c1,c2)
+                # logger.info("proximity matrix:\n%s" % proximity_matrix)
 
-    # print(car_routes[0])
-    print(len(car_routes[0]))
-    print(len(car_routes[1]))
-    print(len(car_routes[2]))
-    print(len(car_routes[3]))
-    print(len(car_routes[4]))
-    # print(car_routes['coords'][0][:,0])
-    # print(car_routes['coords'][0][:,1])
-    # print(r(tver_coords,ryazan_coords))
-    # print(r(tver_coords,car_routes['coords'][0][0]))
-    # print(car_routes['rs'])
+                # нужен только номер столбца, в котором обнаружен минимальный элемент - 
+                # это и будет номер того из эквипотенциальных узлов,
+                # который ближе всего к одному из (забудем к какому) узлу из узлов будущего маршрута                 
+                _ ,equi_nodes_min_idx = np.unravel_index(np.argmin(proximity_matrix), proximity_matrix.shape)
+                # logger.info("equi_nodes_min_idx :\n%s" % str(equi_nodes_min_idx))
+                car_routes[car_number][part_num] = equi_nodes[equi_nodes_min_idx]
+                logger.info("node added to route :\n%s" % equi_nodes[equi_nodes_min_idx])
+                equi_nodes = np.delete(equi_nodes, equi_nodes_min_idx)
+                logger.info("equi_nodes after delete\n%s" % str(equi_nodes))
+
+                # car_routes[car_number][part_num] = equi_nodes[0]
+                # logger.info("node assigned :\n%s" % equi_nodes[0])
+                # equi_nodes = np.delete(equi_nodes, 0)
+                # # logger.info("nodes remaining: \n%s" % str(equi_nodes))
+                # # восстанавливаю поле rs для выстраивания маршрута по расстоянию от пункта отправления
+                # car_routes[car_number][part_num]['rs'] = split_part[0]['rs']
+
 
     for car_route in car_routes:
         car_route.sort(order = 'rs')
     # print(car_routes['rs'])
     routes_coords_dicts_lists = create_coords_dicts_lists(car_routes)
+    car_routes_length = np.empty(len(car_routes),dtype = np.float64)
+    for car_idx, car_route in enumerate(car_routes):
+        logger.info("calc_route_length for route\n%s" % car_route)
+        car_routes_length[car_idx] = calc_route_length(car_route['coords'])
+    logger.info("routes length:\n%s" % car_routes_length)
+    
+    import sys
+    sys.exit(0)    
 
     moscow = locm.Location(address='Moscow')
     fig_on_gmap = bokehm.Figure(output_fname='threads_pot_sorted_nearest.html',use_gmap=True, center_coords=moscow.coords)
@@ -263,8 +306,7 @@ if __name__ == "__main__":
         fig_on_gmap.add_line(routes_coords_dicts_lists[car_number],circle_size=circle_sizes, circles_color=colors_list[car_number],alpha=1.)
     fig_on_gmap.show()
 
-    import sys
-    sys.exit(0)    
+
     # t_start = time.time()
     # best_scores,nearest_routes,plot_file_name = [],[],""
     # # stdev_of_length = 10.

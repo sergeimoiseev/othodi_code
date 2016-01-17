@@ -104,7 +104,7 @@ loggers:
 
 root:
 
-    level: ERROR
+    level: INFO
 
     handlers: [console, info_file_handler, error_file_handler]
 
