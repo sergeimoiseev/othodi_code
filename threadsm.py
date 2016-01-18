@@ -159,17 +159,18 @@ def calc_all_routes_len(car_routes):
         car_routes_length[car_idx] = calc_route_length(car_route['coords'])
     return car_routes_length
 
-def plot_routes(routes_coords_dicts_lists, fname = 'init_cars_routes.html'):
+def plot_routes(routes_coords_dicts_lists, fname = 'init_cars_routes.html',title_=''):
     routes_num = len(routes_coords_dicts_lists)
     moscow = locm.Location(address='Moscow')
-    fig_on_gmap = bokehm.Figure(output_fname=fname,use_gmap=True, center_coords=moscow.coords)
+    fig_on_gmap = bokehm.Figure(output_fname=fname,use_gmap=True, center_coords=moscow.coords,title=title_)
     circle_sizes = 10
     colors_list = ['red','green','blue','orange','yellow']*int(routes_num//5+1)
     for car_number in range(routes_num):
         fig_on_gmap.add_line(routes_coords_dicts_lists[car_number],circle_size=circle_sizes, circles_color=colors_list[car_number],alpha=1.)
-    fig_on_gmap.show()
+    fig_on_gmap.save2html()
+    # fig_on_gmap.show()
 
-def find_node_to_replace_worst(pln_,worst_route_,worst_node_of_worst_route_,already_replaced_nodes_=[]):
+def find_node_to_replace_worst(pln_,worst_route_,worst_node_of_worst_route_,already_replaced_nodes_):
     # ищем среди всех узлов в других маршрутах узел ближайший к этому, с возможно меньшим потенциалом
     mask = np.in1d(pln_, worst_route_)
     logger.debug("nodes of worst route:\n%s" % worst_route_['name'])
@@ -187,14 +188,11 @@ def find_node_to_replace_worst(pln_,worst_route_,worst_node_of_worst_route_,alre
     logger.debug("nodes_to_select_from after multiple order sort:\n%s" % nodes_to_select_from['name'])
     # перебираем ближайшие узлы по очереди, пока не найдется узел, потенциал которого меньше чем у худшего
     for node in nodes_to_select_from:
-        if node['potential']<=worst_node_of_worst_route_['potential']:
+        if node['potential']<=worst_node_of_worst_route_['potential'] and (worst_node_of_worst_route_['name'] in already_replaced_nodes_['name']):
             node_to_replace_worst = np.copy(node)
-            break # теоретически, "выгодной" перестановки может и не найтись - не знаю!
-        # else:
-        #     logger.debug("node with smaller potential not found - replacing by first nearest")
-        #     node_to_replace_worst = np.copy(nodes_to_select_from[0])
-        logger.info("finished search, node not found - replacing by first nearest")
-        if node == nodes_to_select_from[-1]: # на всякий случай
+            break # теоретически, "выгодной" перестановки может и не найтись
+        if node == nodes_to_select_from[-1]: # все перебрали, условие не выполнено - подставляем самый ближний узел
+            logger.info("finished search, node not found - replacing by first nearest")
             node_to_replace_worst = np.copy(nodes_to_select_from[0])
     return node_to_replace_worst
 
@@ -212,14 +210,16 @@ if __name__ == "__main__":
     try:
         os.remove("app.log")
     except:
+        logger.info("Error while removing logfile - mayby file not found.")
         pass
     setup_logging()
     logger = logging.getLogger(__name__)
     func_name, func_args = inspect.stack()[0][3],  inspect.getargvalues(inspect.currentframe())[3]
-    # caller_name, func_name, func_args = inspect.stack()[1][3], inspect.stack()[0][3],  inspect.getargvalues(inspect.currentframe())[3]
     logger.debug(" %s with args = %s" % (func_name, func_args))
     logger.info("Main skript started")
 
+    # выбор режима перестановок
+    SWAP_ONCE = True
     # инициализация списка узлов - это список пар координат
     CITIES_FNAME = 'test_city_names_list_100.txt'
     FILE_WITH_COORDS_PAIRS_NAME = "c_pairs_"+CITIES_FNAME
@@ -263,6 +263,8 @@ if __name__ == "__main__":
     # инициализация статистики по длине маршрута
     routes_mean_len_old = float(np.mean(car_routes_length, axis=0))
     routes_mean_len_std_old = float(np.std(car_routes_length, axis=0))
+    # лучший набор маршрутов инициализируем начальным
+    best_routes = np.copy(car_routes)
 
     stat_dtype=np.dtype([('idx',np.int32,1),('mean',np.float64,1), ('std',np.float64,1)])
     len_statisitcs = np.zeros(100,dtype=stat_dtype)
@@ -271,7 +273,7 @@ if __name__ == "__main__":
     logger.info("len statisitcs:\n%s" % len_statisitcs)
 
     worst_node_of_worst_route = np.zeros(1,dtype = node_dtype)
-    already_replaced_nodes = np.zeros(1,dtype = node_dtype)
+    already_replaced_nodes = np.zeros(0,dtype = node_dtype)
     # улучшение маршрутов
     for i in range(1, len(len_statisitcs)):
         logger.debug("routes before swap of worst node:\n%s" % car_routes['name'])
@@ -284,17 +286,17 @@ if __name__ == "__main__":
                 worst_node_of_worst_route = np.copy(node) # копируем "самый затратный" узел - узел с наибольшим потенциалом
                 break
         if worst_node_of_worst_route['name'] == '':
-            break # прекрацаем перебор: все узлы в этом маршруте уже когда-то были "худшими"
+            break # прекращаем перебор: все узлы в этом маршруте уже когда-то были "худшими"
         logger.info("worst_node of worst route:\n%s" % worst_node_of_worst_route)
         
-        node_to_replace_worst = find_node_to_replace_worst(pln,worst_route,worst_node_of_worst_route,already_replaced_nodes_=already_replaced_nodes)
+        node_to_replace_worst = find_node_to_replace_worst(pln,worst_route,worst_node_of_worst_route,already_replaced_nodes)
         logger.info("node_to_replace_worst:\n%s" % node_to_replace_worst)
 
         # в списке маршрутов меняем местами худший и тот, что выбрали на замену
         swap_nodes(car_routes,worst_node_of_worst_route,node_to_replace_worst)
 
         # сортируем каждый маршрут по расстоянию от начала
-        # так чтобы узлы маршрута шли по очереди без колец
+        # так чтобы узлы маршрута шли по очереди (без колец и обратного хода)
         for car_route in car_routes:
             for node in car_route:
                 node['rs']=r(ryazan_coords,node['coords'])
@@ -302,13 +304,16 @@ if __name__ == "__main__":
 
         # обновляем несортированный список узлов
         pln = car_routes.flatten()
-        # попробую не переставлять узлы, которые хотя бы раз переставлялись
-        already_replaced_nodes_list = list(already_replaced_nodes)
-        if worst_node_of_worst_route['name'] not in already_replaced_nodes['name']:
-            already_replaced_nodes_list.append(worst_node_of_worst_route)
-            already_replaced_nodes = np.array(already_replaced_nodes_list,dtype=node_dtype)
-            # already_replaced_nodes[np.where(already_replaced_nodes['name']=="")] = worst_node_of_worst_route
-        logger.info("already_replaced_nodes:\n%s" % already_replaced_nodes)
+
+        
+        if SWAP_ONCE: # не переставлять узлы, которые хотя бы раз переставлялись
+            already_replaced_nodes_list = list(already_replaced_nodes)
+            if worst_node_of_worst_route['name'] not in already_replaced_nodes['name']:
+                already_replaced_nodes_list.append(worst_node_of_worst_route)
+                already_replaced_nodes = np.array(already_replaced_nodes_list,dtype=node_dtype)
+                logger.info("already_replaced_nodes updated:\nlen\n%s\nnames\n%s" % (len(already_replaced_nodes),already_replaced_nodes['name']))
+        else: # не хранить историю: переставлять узлы, которые уже переставлялись
+            pass
 
         # сортируем маршруты по длине
         car_routes_length = calc_all_routes_len(car_routes)
@@ -320,17 +325,27 @@ if __name__ == "__main__":
 
         routes_mean_len_new = float(np.mean(car_routes_length, axis=0))
         routes_mean_len_std_new = float(np.std(car_routes_length, axis=0))
+        if routes_mean_len_new<np.amin(len_statisitcs['mean']):
+            best_routes = np.copy(car_routes)
         len_statisitcs[i]['idx'] = i
         len_statisitcs[i]['mean'], len_statisitcs[i]['std'] = routes_mean_len_new, routes_mean_len_std_new
+        routes_mean_len_old = routes_mean_len_new
+        routes_mean_len_std_old = routes_mean_len_std_new
+
 
     logger.info("len statisitcs:\n%s" % len_statisitcs)
     fig_stats = bokehm.Figure(output_fname='len_stats_plot.html',use_gmap=False)
     fig_stats.add_errorbar(len_statisitcs['idx'], len_statisitcs['mean'], yerr=len_statisitcs['std'])
+    fig_stats.save2html()
     fig_stats.show()
 
     # рисуем текущее состояние маршрутов
     routes_coords_dicts_lists = create_coords_dicts_lists(car_routes)
-    plot_routes(routes_coords_dicts_lists, fname = 'routes_after_determined_algorythm.html')
+    plot_routes(routes_coords_dicts_lists, fname = 'routes_after_determined_algorythm.html',title_ = 'last routes, mean=%.2f' % (routes_mean_len_old))
+
+    # рисуем текущее состояние маршрутов
+    routes_coords_dicts_lists = create_coords_dicts_lists(best_routes)
+    plot_routes(routes_coords_dicts_lists, fname = 'best_route_by_determined_algorythm.html',title_ = 'best routes, mean=%.2f' % (np.amin(len_statisitcs['mean'])))
 
     import sys
     sys.exit(0)

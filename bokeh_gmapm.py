@@ -12,7 +12,7 @@ from bokeh.models import (
 import logging, inspect  # for logger
 logger = logging.getLogger(__name__)
 
-def create_plot(center_coords,zoom_level = 8):
+def create_plot(center_coords,zoom_level = 8,title_=u''):
 
     x_range = Range1d()
     y_range = Range1d()
@@ -25,7 +25,7 @@ def create_plot(center_coords,zoom_level = 8):
     plot = GMapPlot(
         x_range=x_range, y_range=y_range,
         map_options=map_options,
-        title=u"Маршруты"
+        title=title_
     )
 
     pan = PanTool()

@@ -14,7 +14,7 @@ class Figure(object):
         bp.output_file(self._output_fname)
         self._use_gmap = kwargs.get('use_gmap',False)
         if self._use_gmap and kwargs.get('center_coords',False):
-            self._p = bokeh_gmapm.create_plot(kwargs['center_coords'],zoom_level = 7)
+            self._p = bokeh_gmapm.create_plot(kwargs['center_coords'],zoom_level = 7,title_=kwargs.get('title',u''))
         else:
             self._p = bp.figure(plot_width=640, plot_height=480)
     def add_line(self, *args,**kwargs):
