@@ -16,7 +16,7 @@ class Figure(object):
         if self._use_gmap and kwargs.get('center_coords',False):
             self._p = bokeh_gmapm.create_plot(kwargs['center_coords'],zoom_level = 7,title_=kwargs.get('title',u''))
         else:
-            self._p = bp.figure(plot_width=640, plot_height=480)
+            self._p = bp.figure(plot_width=640, plot_height=480,title=kwargs.get('title',u''))
     def add_line(self, *args,**kwargs):
         logger.info("starting line add with points num = %d" % (len(args[0])))
         if self._use_gmap:
@@ -35,6 +35,9 @@ class Figure(object):
                             [d['lng'] for d in args[0]],
                             line_width=c_size/2,color=c_color,alpha=0.5)
             return True
+    def add_text(self, *args,**kwargs):
+        self._p.text(args,kwargs)
+        return True
     def save2html(self):
         bp.save(self._p)
         return self._output_fname
