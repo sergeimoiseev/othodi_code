@@ -50,3 +50,38 @@ def get_pairs_list_from_dicts_list(coords_list_of_dicts):
     for a_dict in coords_list_of_dicts:
         p_list.append((a_dict[u'lat'],a_dict[u'lng']))
     return p_list
+
+import logging.config, os, yaml
+
+def setup_logging(
+    default_path='app_logging.yaml', 
+    default_level=logging.INFO,
+    env_key='LOG_CFG'
+):
+    """Setup logging configuration
+
+    """
+    path = default_path
+    value = os.getenv(env_key, None)
+    if value:
+        path = value
+    if os.path.exists(path):
+        with open(path, 'rt') as f:
+            config = yaml.load(f.read())
+        logging.config.dictConfig(config)
+    else:
+        logging.basicConfig(level=default_level)
+
+
+def print_vars_values_types(obj):
+    out_str = ""
+    for var in dir(obj):
+        if not (var.startswith("__") and var not in ['os','sys']):
+            col_width = 40
+            try:
+                var_value = obj.__dict__[var]
+            except KeyError:
+                continue
+            out_str += var + " "*(col_width/2-len(var)) + str(var_value)[:col_width]
+            out_str += " "*(col_width-len(str(var_value)[:col_width])) + str(type(var_value)) + "\n"
+    return out_str
