@@ -1,0 +1,85 @@
+2016-01-20 09:32:20,206 - __main__ - INFO - optimizer script run directly
+2016-01-20 09:32:20,209 - __main__ - INFO - simple optimizer started
+2016-01-20 09:32:20,233 - __main__ - INFO - simple optimizer finished
+2016-01-20 09:44:19,911 - __main__ - INFO - optimizer script run directly
+2016-01-20 09:44:19,915 - __main__ - INFO - simple optimizer started
+2016-01-20 09:44:19,940 - __main__ - INFO - simple optimizer finished
+2016-01-20 10:01:25,594 - __main__ - INFO - optimizer script run directly
+2016-01-20 10:01:25,596 - __main__ - INFO - simple optimizer started
+2016-01-20 14:52:13,365 - __main__ - INFO - optimizer script run directly
+2016-01-20 14:52:13,368 - __main__ - INFO - simple optimizer started
+2016-01-20 14:52:13,371 - __main__ - INFO - AbstractOptimizer object has variables:
+graph               None                                    <type 'NoneType'>
+ngraph              None                                    <type 'NoneType'>
+statisitcs          None                                    <type 'NoneType'>
+
+2016-01-20 14:52:54,602 - __main__ - INFO - optimizer script run directly
+2016-01-20 14:52:54,605 - __main__ - INFO - simple optimizer started
+2016-01-20 14:52:54,607 - __main__ - INFO - AbstractOptimizer object has variables:
+graph               None                                    <type 'NoneType'>
+ngraph              None                                    <type 'NoneType'>
+statisitcs          None                                    <type 'NoneType'>
+
+2016-01-20 14:52:54,612 - __main__ - INFO - AbstractOptimizer object has variables:
+graph               [0 1 2 3 4 5 6 7 8 9]                   <type 'numpy.ndarray'>
+ngraph              None                                    <type 'NoneType'>
+statisitcs          None                                    <type 'NoneType'>
+
+2016-01-20 14:52:54,753 - __main__ - INFO - simple optimizer finished
+2016-01-20 14:52:54,756 - __main__ - INFO - optimizer script finished running
+2016-01-20 14:53:41,588 - __main__ - INFO - optimizer script run directly
+2016-01-20 14:53:41,591 - __main__ - INFO - simple optimizer started
+2016-01-20 14:53:41,592 - __main__ - INFO - AbstractOptimizer object has variables:
+graph               None                                    <type 'NoneType'>
+ngraph              None                                    <type 'NoneType'>
+statisitcs          None                                    <type 'NoneType'>
+
+2016-01-20 14:53:41,599 - __main__ - INFO - AbstractOptimizer object has variables:
+graph               [0 1 2 3 4 5 6 7 8 9]                   <type 'numpy.ndarray'>
+ngraph              None                                    <type 'NoneType'>
+statisitcs          None                                    <type 'NoneType'>
+
+2016-01-20 14:53:41,614 - __main__ - INFO - simple optimizer finished
+2016-01-20 14:53:41,615 - __main__ - INFO - optimizer script finished running
+2016-01-20 14:57:56,151 - __main__ - INFO - optimizer script run directly
+2016-01-20 14:57:56,153 - __main__ - INFO - simple optimizer started
+2016-01-20 14:57:56,158 - __main__ - INFO - AbstractOptimizer object has variables:
+graph               None                                    <type 'NoneType'>
+ngraph              None                                    <type 'NoneType'>
+statisitcs          None                                    <type 'NoneType'>
+
+2016-01-20 14:57:56,165 - __main__ - INFO - AbstractOptimizer object has variables:
+graph               [0 1 2 3 4 5 6 7 8 9]                   <type 'numpy.ndarray'>
+ngraph              None                                    <type 'NoneType'>
+statisitcs          None                                    <type 'NoneType'>
+
+2016-01-20 14:57:56,180 - __main__ - INFO - simple optimizer finished
+2016-01-20 14:57:56,181 - __main__ - INFO - optimizer script finished running
+2016-01-20 15:01:05,770 - __main__ - INFO - optimizer script run directly
+2016-01-20 15:01:05,773 - __main__ - INFO - simple optimizer started
+2016-01-20 15:01:05,778 - __main__ - INFO - AbstractOptimizer object has variables:
+graph               None                                    <type 'NoneType'>
+ngraph              None                                    <type 'NoneType'>
+statisitcs          None                                    <type 'NoneType'>
+
+2016-01-20 15:01:05,788 - __main__ - INFO - AbstractOptimizer object has variables:
+graph               [0 1 2 3 4 5 6 7 8 9]                   <type 'numpy.ndarray'>
+ngraph              [0 1 2 3 4 5 6 7 8 9]                   <type 'numpy.ndarray'>
+statisitcs          None                                    <type 'NoneType'>
+
+2016-01-20 15:01:05,803 - __main__ - INFO - simple optimizer finished
+2016-01-20 15:01:05,805 - __main__ - INFO - optimizer script finished running
+2016-01-20 16:06:37,368 - __main__ - INFO - optimizer script run directly
+2016-01-20 16:06:57,180 - __main__ - INFO - optimizer script run directly
+2016-01-20 16:06:57,266 - __main__ - INFO - optimizer script finished running
+2016-01-20 16:07:22,836 - __main__ - INFO - optimizer script run directly
+2016-01-20 16:07:22,862 - __main__ - INFO - optimizer script finished running
+2016-01-20 16:07:31,165 - __main__ - INFO - optimizer script run directly
+2016-01-20 16:07:31,190 - __main__ - INFO - optimizer script finished running
+2016-01-20 16:17:30,984 - __main__ - INFO - optimizer script run directly
+2016-01-20 16:17:59,565 - __main__ - INFO - optimizer script run directly
+2016-01-20 16:18:21,443 - __main__ - INFO - optimizer script run directly
+2016-01-20 16:19:03,744 - __main__ - INFO - optimizer script run directly
+2016-01-20 16:19:03,828 - __main__ - INFO - optimizer script finished running
+2016-01-20 16:19:32,849 - __main__ - INFO - optimizer script run directly
+2016-01-20 16:19:32,892 - __main__ - INFO - optimizer script finished running

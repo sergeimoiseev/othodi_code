@@ -85,3 +85,10 @@ def print_vars_values_types(obj):
             out_str += var + " "*(col_width/2-len(var)) + str(var_value)[:col_width]
             out_str += " "*(col_width-len(str(var_value)[:col_width])) + str(type(var_value)) + "\n"
     return out_str
+
+import itertools
+def pairwise(iterable):
+    "s -> (s0,s1), (s1,s2), (s2, s3), ..."
+    a, b = itertools.tee(iterable)
+    next(b, None) # b itterator is moved one step forward from initial position
+    return itertools.izip(a, b)
