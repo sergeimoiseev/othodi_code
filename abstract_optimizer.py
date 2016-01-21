@@ -32,6 +32,8 @@ class AbstractOptimizer(object):
     
     @set.setter
     def set(self, a_set): 
+        logger.debug(tools.get_string_caller_objclass_method(self,inspect.stack()))
+        # logger.debug("inspect.stack()\n%s" % (inspect.stack(),))
         self._set = a_set[:]
         self.score = self.get_score(self._set)
 
@@ -41,6 +43,8 @@ class AbstractOptimizer(object):
     
     @set.setter
     def new_set(self, a_set): 
+        logger.debug(tools.get_string_caller_objclass_method(self,inspect.stack()))
+        # logger.debug("inspect.stack()\n%s" % (inspect.stack(),))
         self._new_set = a_set[:]
         self.new_score = self.get_score(self._new_set)
     
@@ -81,9 +85,10 @@ class AbstractOptimizer(object):
         b_n = self.get_bad_node()
         s_n = self.get_sub_node(excluded_indeces = [b_n])
         logger.debug("nodes swap %d -> %d" % (b_n, s_n))
+        logger.debug("old self.new_score=%s\n%s" % (self.new_score,self.nodes[self.new_set]))
         self.new_set = self.swap(self.new_set,b_n,s_n)
         # оценка качества
-        logger.debug("self.new_score=%s\n%s" % (self.new_score,self.nodes[self.new_set]))
+        logger.debug("new self.new_score=%s\n%s" % (self.new_score,self.nodes[self.new_set]))
 
         # меняем состояние на новое, если качество повысилось
         if self.choose():
