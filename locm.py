@@ -40,7 +40,7 @@ class Location(object):
             raise IOError("gmaps didn`t provide coords for adress %s" % self._address)
 
 
-    def to_str(self):
+    def __str__(self):
             return "%s: %s, %s" % (self.name,str(self._coords), self._address)
 
     @property

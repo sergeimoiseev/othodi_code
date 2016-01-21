@@ -1,85 +1,216 @@
-2016-01-20 09:32:20,206 - __main__ - INFO - optimizer script run directly
-2016-01-20 09:32:20,209 - __main__ - INFO - simple optimizer started
-2016-01-20 09:32:20,233 - __main__ - INFO - simple optimizer finished
-2016-01-20 09:44:19,911 - __main__ - INFO - optimizer script run directly
-2016-01-20 09:44:19,915 - __main__ - INFO - simple optimizer started
-2016-01-20 09:44:19,940 - __main__ - INFO - simple optimizer finished
-2016-01-20 10:01:25,594 - __main__ - INFO - optimizer script run directly
-2016-01-20 10:01:25,596 - __main__ - INFO - simple optimizer started
-2016-01-20 14:52:13,365 - __main__ - INFO - optimizer script run directly
-2016-01-20 14:52:13,368 - __main__ - INFO - simple optimizer started
-2016-01-20 14:52:13,371 - __main__ - INFO - AbstractOptimizer object has variables:
-graph               None                                    <type 'NoneType'>
-ngraph              None                                    <type 'NoneType'>
-statisitcs          None                                    <type 'NoneType'>
-
-2016-01-20 14:52:54,602 - __main__ - INFO - optimizer script run directly
-2016-01-20 14:52:54,605 - __main__ - INFO - simple optimizer started
-2016-01-20 14:52:54,607 - __main__ - INFO - AbstractOptimizer object has variables:
-graph               None                                    <type 'NoneType'>
-ngraph              None                                    <type 'NoneType'>
-statisitcs          None                                    <type 'NoneType'>
-
-2016-01-20 14:52:54,612 - __main__ - INFO - AbstractOptimizer object has variables:
-graph               [0 1 2 3 4 5 6 7 8 9]                   <type 'numpy.ndarray'>
-ngraph              None                                    <type 'NoneType'>
-statisitcs          None                                    <type 'NoneType'>
-
-2016-01-20 14:52:54,753 - __main__ - INFO - simple optimizer finished
-2016-01-20 14:52:54,756 - __main__ - INFO - optimizer script finished running
-2016-01-20 14:53:41,588 - __main__ - INFO - optimizer script run directly
-2016-01-20 14:53:41,591 - __main__ - INFO - simple optimizer started
-2016-01-20 14:53:41,592 - __main__ - INFO - AbstractOptimizer object has variables:
-graph               None                                    <type 'NoneType'>
-ngraph              None                                    <type 'NoneType'>
-statisitcs          None                                    <type 'NoneType'>
-
-2016-01-20 14:53:41,599 - __main__ - INFO - AbstractOptimizer object has variables:
-graph               [0 1 2 3 4 5 6 7 8 9]                   <type 'numpy.ndarray'>
-ngraph              None                                    <type 'NoneType'>
-statisitcs          None                                    <type 'NoneType'>
-
-2016-01-20 14:53:41,614 - __main__ - INFO - simple optimizer finished
-2016-01-20 14:53:41,615 - __main__ - INFO - optimizer script finished running
-2016-01-20 14:57:56,151 - __main__ - INFO - optimizer script run directly
-2016-01-20 14:57:56,153 - __main__ - INFO - simple optimizer started
-2016-01-20 14:57:56,158 - __main__ - INFO - AbstractOptimizer object has variables:
-graph               None                                    <type 'NoneType'>
-ngraph              None                                    <type 'NoneType'>
-statisitcs          None                                    <type 'NoneType'>
-
-2016-01-20 14:57:56,165 - __main__ - INFO - AbstractOptimizer object has variables:
-graph               [0 1 2 3 4 5 6 7 8 9]                   <type 'numpy.ndarray'>
-ngraph              None                                    <type 'NoneType'>
-statisitcs          None                                    <type 'NoneType'>
-
-2016-01-20 14:57:56,180 - __main__ - INFO - simple optimizer finished
-2016-01-20 14:57:56,181 - __main__ - INFO - optimizer script finished running
-2016-01-20 15:01:05,770 - __main__ - INFO - optimizer script run directly
-2016-01-20 15:01:05,773 - __main__ - INFO - simple optimizer started
-2016-01-20 15:01:05,778 - __main__ - INFO - AbstractOptimizer object has variables:
-graph               None                                    <type 'NoneType'>
-ngraph              None                                    <type 'NoneType'>
-statisitcs          None                                    <type 'NoneType'>
-
-2016-01-20 15:01:05,788 - __main__ - INFO - AbstractOptimizer object has variables:
-graph               [0 1 2 3 4 5 6 7 8 9]                   <type 'numpy.ndarray'>
-ngraph              [0 1 2 3 4 5 6 7 8 9]                   <type 'numpy.ndarray'>
-statisitcs          None                                    <type 'NoneType'>
-
-2016-01-20 15:01:05,803 - __main__ - INFO - simple optimizer finished
-2016-01-20 15:01:05,805 - __main__ - INFO - optimizer script finished running
-2016-01-20 16:06:37,368 - __main__ - INFO - optimizer script run directly
-2016-01-20 16:06:57,180 - __main__ - INFO - optimizer script run directly
-2016-01-20 16:06:57,266 - __main__ - INFO - optimizer script finished running
-2016-01-20 16:07:22,836 - __main__ - INFO - optimizer script run directly
-2016-01-20 16:07:22,862 - __main__ - INFO - optimizer script finished running
-2016-01-20 16:07:31,165 - __main__ - INFO - optimizer script run directly
-2016-01-20 16:07:31,190 - __main__ - INFO - optimizer script finished running
-2016-01-20 16:17:30,984 - __main__ - INFO - optimizer script run directly
-2016-01-20 16:17:59,565 - __main__ - INFO - optimizer script run directly
-2016-01-20 16:18:21,443 - __main__ - INFO - optimizer script run directly
-2016-01-20 16:19:03,744 - __main__ - INFO - optimizer script run directly
-2016-01-20 16:19:03,828 - __main__ - INFO - optimizer script finished running
-2016-01-20 16:19:32,849 - __main__ - INFO - optimizer script run directly
-2016-01-20 16:19:32,892 - __main__ - INFO - optimizer script finished running
+20:01:52.529 - __main__ - INFO - optimizer script run directly
+20:01:52.680 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+20:01:52.759 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+20:01:53.049 - bokeh.state - INFO - Session output file 'AnnealOptimizer_5_nodes_512.8_km.html' already exists, will be overwritten.
+20:01:53.089 - __main__ - INFO - optimizer script finished running
+20:08:27.634 - __main__ - INFO - optimizer script run directly
+20:10:19.154 - __main__ - INFO - optimizer script run directly
+20:16:55.983 - __main__ - INFO - optimizer script run directly
+20:17:53.388 - __main__ - INFO - optimizer script run directly
+20:17:53.562 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+20:17:53.655 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+20:17:53.983 - bokeh.state - INFO - Session output file 'AnnealOptimizer_5_nodes_512.8_km.html' already exists, will be overwritten.
+20:17:54.015 - __main__ - INFO - optimizer script finished running
+22:24:45.951 - __main__ - INFO - optimizer script run directly
+22:24:46.135 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+22:24:46.220 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+22:24:46.526 - bokeh.state - INFO - Session output file 'AnnealOptimizer_5_nodes_512.8_km.html' already exists, will be overwritten.
+22:24:46.566 - __main__ - INFO - optimizer script finished running
+22:28:20.401 - __main__ - INFO - optimizer script run directly
+22:29:01.170 - __main__ - INFO - optimizer script run directly
+22:29:01.345 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+22:29:01.430 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+22:29:01.721 - bokeh.state - INFO - Session output file 'AnnealOptimizer_5_nodes_512.8_km.html' already exists, will be overwritten.
+22:29:01.762 - __main__ - INFO - optimizer script finished running
+22:30:05.493 - __main__ - INFO - optimizer script run directly
+22:30:05.665 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+22:30:05.749 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+22:30:06.075 - bokeh.state - INFO - Session output file 'AnnealOptimizer_5_nodes_512.8_km.html' already exists, will be overwritten.
+22:30:06.112 - __main__ - INFO - optimizer script finished running
+22:30:15.030 - __main__ - INFO - optimizer script run directly
+22:30:15.220 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+22:30:15.302 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+22:30:15.657 - bokeh.state - INFO - Session output file 'AnnealOptimizer_5_nodes_512.8_km.html' already exists, will be overwritten.
+22:30:15.697 - __main__ - INFO - optimizer script finished running
+22:30:18.213 - __main__ - INFO - optimizer script run directly
+22:30:18.397 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+22:30:18.479 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+22:30:18.775 - bokeh.state - INFO - Session output file 'AnnealOptimizer_5_nodes_512.8_km.html' already exists, will be overwritten.
+22:30:18.815 - __main__ - INFO - optimizer script finished running
+22:30:22.766 - __main__ - INFO - optimizer script run directly
+22:30:22.941 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+22:30:23.023 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+22:30:23.305 - bokeh.state - INFO - Session output file 'AnnealOptimizer_5_nodes_512.8_km.html' already exists, will be overwritten.
+22:30:23.348 - __main__ - INFO - optimizer script finished running
+22:30:26.270 - __main__ - INFO - optimizer script run directly
+22:30:26.444 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+22:30:26.529 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+22:30:26.822 - bokeh.state - INFO - Session output file 'AnnealOptimizer_5_nodes_512.8_km.html' already exists, will be overwritten.
+22:30:26.865 - __main__ - INFO - optimizer script finished running
+22:30:52.028 - __main__ - INFO - optimizer script run directly
+22:30:52.197 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+22:30:52.301 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+22:30:52.591 - bokeh.state - INFO - Session output file 'AnnealOptimizer_5_nodes_512.8_km.html' already exists, will be overwritten.
+22:30:52.631 - __main__ - INFO - optimizer script finished running
+22:30:57.996 - __main__ - INFO - optimizer script run directly
+22:30:58.173 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+22:30:58.256 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+22:30:58.502 - bokeh.state - INFO - Session output file 'AnnealOptimizer_5_nodes_512.8_km.html' already exists, will be overwritten.
+22:30:58.542 - __main__ - INFO - optimizer script finished running
+22:31:07.392 - __main__ - INFO - optimizer script run directly
+22:31:07.561 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+22:31:07.645 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+22:31:07.901 - bokeh.state - INFO - Session output file 'AnnealOptimizer_5_nodes_512.8_km.html' already exists, will be overwritten.
+22:31:07.941 - __main__ - INFO - optimizer script finished running
+22:31:19.506 - __main__ - INFO - optimizer script run directly
+22:31:19.678 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+22:31:19.757 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+22:31:20.013 - bokeh.state - INFO - Session output file 'AnnealOptimizer_5_nodes_512.8_km.html' already exists, will be overwritten.
+22:31:20.055 - __main__ - INFO - optimizer script finished running
+22:31:28.540 - __main__ - INFO - optimizer script run directly
+22:31:28.706 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+22:31:28.789 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+22:31:29.062 - bokeh.state - INFO - Session output file 'AnnealOptimizer_5_nodes_512.8_km.html' already exists, will be overwritten.
+22:31:29.102 - __main__ - INFO - optimizer script finished running
+22:32:15.483 - __main__ - INFO - optimizer script run directly
+22:32:15.627 - __main__ - ERROR - Koroljov near Podol'sk
+22:32:15.654 - __main__ - ERROR - Himki near Podol'sk
+22:32:15.673 - __main__ - ERROR - Mytishhi near Podol'sk
+22:32:15.696 - __main__ - ERROR - Podol'sk near Koroljov
+22:32:15.713 - __main__ - ERROR - Balashiha near Podol'sk
+22:32:15.733 - __main__ - ERROR - Mytishhi near Podol'sk
+22:32:15.752 - __main__ - ERROR - Himki near Podol'sk
+22:32:15.769 - __main__ - ERROR - Balashiha near Podol'sk
+22:32:15.788 - __main__ - ERROR - Podol'sk near Koroljov
+22:32:15.805 - __main__ - ERROR - Podol'sk near Koroljov
+22:32:15.828 - __main__ - ERROR - Balashiha near Podol'sk
+22:32:15.851 - __main__ - ERROR - Himki near Podol'sk
+22:32:15.872 - __main__ - ERROR - Podol'sk near Koroljov
+22:32:15.894 - __main__ - ERROR - Koroljov near Podol'sk
+22:32:15.911 - __main__ - ERROR - Mytishhi near Podol'sk
+22:32:15.933 - __main__ - ERROR - Koroljov near Podol'sk
+22:32:15.951 - __main__ - ERROR - Himki near Podol'sk
+22:32:15.971 - __main__ - ERROR - Balashiha near Podol'sk
+22:32:15.987 - __main__ - ERROR - Podol'sk near Koroljov
+22:32:16.009 - __main__ - ERROR - Balashiha near Podol'sk
+22:32:16.032 - __main__ - ERROR - Balashiha near Podol'sk
+22:32:16.052 - __main__ - ERROR - Podol'sk near Koroljov
+22:32:16.069 - __main__ - ERROR - Mytishhi near Podol'sk
+22:32:16.086 - __main__ - ERROR - Podol'sk near Koroljov
+22:32:16.107 - __main__ - ERROR - Podol'sk near Koroljov
+22:32:16.128 - __main__ - ERROR - Mytishhi near Podol'sk
+22:32:16.147 - __main__ - ERROR - Himki near Podol'sk
+22:32:16.164 - __main__ - ERROR - Podol'sk near Koroljov
+22:32:16.178 - __main__ - ERROR - Himki near Podol'sk
+22:32:16.198 - __main__ - ERROR - Mytishhi near Podol'sk
+22:32:16.224 - __main__ - ERROR - Balashiha near Podol'sk
+22:32:16.246 - __main__ - ERROR - Himki near Podol'sk
+22:32:16.263 - __main__ - ERROR - Koroljov near Podol'sk
+22:32:16.278 - __main__ - ERROR - Mytishhi near Podol'sk
+22:32:16.292 - __main__ - ERROR - Himki near Podol'sk
+22:32:16.315 - __main__ - ERROR - Koroljov near Podol'sk
+22:32:16.338 - __main__ - ERROR - Balashiha near Podol'sk
+22:32:16.357 - __main__ - ERROR - Balashiha near Podol'sk
+22:32:16.375 - __main__ - ERROR - Himki near Podol'sk
+22:32:16.390 - __main__ - ERROR - Mytishhi near Podol'sk
+22:32:16.411 - __main__ - ERROR - Mytishhi near Podol'sk
+22:32:16.433 - __main__ - ERROR - Podol'sk near Koroljov
+22:32:16.450 - __main__ - ERROR - Koroljov near Podol'sk
+22:32:16.470 - __main__ - ERROR - Mytishhi near Podol'sk
+22:32:16.487 - __main__ - ERROR - Podol'sk near Koroljov
+22:32:16.505 - __main__ - ERROR - Himki near Podol'sk
+22:32:16.529 - __main__ - ERROR - Podol'sk near Koroljov
+22:32:16.548 - __main__ - ERROR - Podol'sk near Koroljov
+22:32:16.566 - __main__ - ERROR - Podol'sk near Koroljov
+22:32:16.584 - __main__ - ERROR - Koroljov near Podol'sk
+22:32:16.599 - __main__ - ERROR - Balashiha near Podol'sk
+22:32:16.619 - __main__ - ERROR - Koroljov near Podol'sk
+22:32:16.641 - __main__ - ERROR - Balashiha near Podol'sk
+22:32:16.660 - __main__ - ERROR - Himki near Podol'sk
+22:32:16.677 - __main__ - ERROR - Koroljov near Podol'sk
+22:32:16.696 - __main__ - ERROR - Himki near Podol'sk
+22:32:16.711 - __main__ - ERROR - Mytishhi near Podol'sk
+22:32:16.736 - __main__ - ERROR - Himki near Podol'sk
+22:32:16.756 - __main__ - ERROR - Mytishhi near Podol'sk
+22:32:16.773 - __main__ - ERROR - Balashiha near Podol'sk
+22:32:16.789 - __main__ - ERROR - Himki near Podol'sk
+22:32:16.809 - __main__ - ERROR - Mytishhi near Podol'sk
+22:32:16.829 - __main__ - ERROR - Mytishhi near Podol'sk
+22:32:16.851 - __main__ - ERROR - Podol'sk near Koroljov
+22:32:16.868 - __main__ - ERROR - Koroljov near Podol'sk
+22:32:16.885 - __main__ - ERROR - Podol'sk near Koroljov
+22:32:16.903 - __main__ - ERROR - Himki near Podol'sk
+22:32:16.917 - __main__ - ERROR - Balashiha near Podol'sk
+22:32:16.944 - __main__ - ERROR - Podol'sk near Koroljov
+22:32:16.961 - __main__ - ERROR - Podol'sk near Koroljov
+22:32:16.977 - __main__ - ERROR - Podol'sk near Koroljov
+22:32:16.997 - __main__ - ERROR - Koroljov near Podol'sk
+22:32:17.016 - __main__ - ERROR - Balashiha near Podol'sk
+22:32:17.038 - __main__ - ERROR - Koroljov near Podol'sk
+22:32:17.058 - __main__ - ERROR - Balashiha near Podol'sk
+22:32:17.078 - __main__ - ERROR - Koroljov near Podol'sk
+22:32:17.095 - __main__ - ERROR - Himki near Podol'sk
+22:32:17.112 - __main__ - ERROR - Mytishhi near Podol'sk
+22:32:17.134 - __main__ - ERROR - Balashiha near Podol'sk
+22:32:17.151 - __main__ - ERROR - Koroljov near Podol'sk
+22:32:17.167 - __main__ - ERROR - Koroljov near Podol'sk
+22:32:17.190 - __main__ - ERROR - Himki near Podol'sk
+22:32:17.209 - __main__ - ERROR - Balashiha near Podol'sk
+22:32:17.230 - __main__ - ERROR - Koroljov near Podol'sk
+22:32:17.250 - __main__ - ERROR - Himki near Podol'sk
+22:32:17.266 - __main__ - ERROR - Balashiha near Podol'sk
+22:32:17.282 - __main__ - ERROR - Mytishhi near Podol'sk
+22:32:17.303 - __main__ - ERROR - Koroljov near Podol'sk
+22:32:17.316 - __main__ - ERROR - Koroljov near Podol'sk
+22:32:17.342 - __main__ - ERROR - Himki near Podol'sk
+22:32:17.361 - __main__ - ERROR - Balashiha near Podol'sk
+22:32:17.378 - __main__ - ERROR - Himki near Podol'sk
+22:32:17.397 - __main__ - ERROR - Podol'sk near Koroljov
+22:32:17.414 - __main__ - ERROR - Mytishhi near Podol'sk
+22:32:17.437 - __main__ - ERROR - Balashiha near Podol'sk
+22:32:17.456 - __main__ - ERROR - Koroljov near Podol'sk
+22:32:17.473 - __main__ - ERROR - Mytishhi near Podol'sk
+22:32:17.490 - __main__ - ERROR - Mytishhi near Podol'sk
+22:32:17.506 - __main__ - ERROR - Himki near Podol'sk
+22:32:17.526 - __main__ - ERROR - Balashiha near Podol'sk
+22:32:17.552 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+22:32:17.638 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+22:32:17.917 - bokeh.state - INFO - Session output file 'AnnealOptimizer_5_nodes_512.8_km.html' already exists, will be overwritten.
+22:32:17.960 - __main__ - INFO - optimizer script finished running
+22:35:54.723 - __main__ - INFO - optimizer script run directly
+22:35:58.763 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+22:35:58.861 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+22:35:59.147 - bokeh.state - INFO - Session output file 'AnnealOptimizer_5_nodes_397.6_km.html' already exists, will be overwritten.
+22:35:59.186 - __main__ - INFO - optimizer script finished running
+22:37:20.391 - __main__ - INFO - optimizer script run directly
+22:37:24.624 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+22:37:24.719 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+22:37:24.979 - bokeh.state - INFO - Session output file 'AnnealOptimizer_5_nodes_397.6_km.html' already exists, will be overwritten.
+22:37:25.019 - __main__ - INFO - optimizer script finished running
+22:39:06.640 - __main__ - INFO - optimizer script run directly
+22:39:10.305 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+22:39:10.391 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+22:39:10.657 - bokeh.state - INFO - Session output file 'AnnealOptimizer_5_nodes_397.6_km.html' already exists, will be overwritten.
+22:39:10.693 - __main__ - INFO - optimizer script finished running
+22:39:35.697 - __main__ - INFO - optimizer script run directly
+22:39:39.802 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+22:39:39.898 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+22:39:40.217 - __main__ - INFO - optimizer script finished running
+22:44:07.184 - __main__ - INFO - optimizer script run directly
+22:44:11.249 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+22:44:11.344 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+22:44:11.648 - __main__ - INFO - optimizer script finished running
+22:44:33.121 - __main__ - INFO - optimizer script run directly
+22:44:37.394 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+22:44:37.493 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+22:44:37.823 - __main__ - INFO - optimizer script finished running
+22:45:17.701 - __main__ - INFO - optimizer script run directly
+22:45:21.849 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+22:45:21.954 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+22:45:22.252 - __main__ - INFO - optimizer script finished running
+22:49:42.733 - __main__ - INFO - optimizer script run directly
+22:51:04.848 - __main__ - INFO - optimizer script run directly
+22:51:20.535 - __main__ - INFO - optimizer script run directly
+22:51:24.605 - bokeh.state - INFO - Session output file 'AnnealOptimizer_stats.html' already exists, will be overwritten.
+22:51:24.710 - requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): maps.google.com
+22:51:25.065 - __main__ - INFO - optimizer script finished running
