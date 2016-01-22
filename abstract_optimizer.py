@@ -2,7 +2,7 @@
 import shutil
 import locm, routem, mapm, dropboxm, gmaps, tools, bokehm, tspm
 import logging.config, os, yaml, inspect
-import time, math, random
+import time, math, random, copy
 import numpy as np
 logger = logging.getLogger(__name__)
 
@@ -34,7 +34,8 @@ class AbstractOptimizer(object):
     def set(self, a_set): 
         logger.debug(tools.get_string_caller_objclass_method(self,inspect.stack()))
         # logger.debug("inspect.stack()\n%s" % (inspect.stack(),))
-        self._set = a_set[:]
+        # self._set = a_set[:]
+        self._set = copy.deepcopy(a_set)
         self.score = self.get_score(self._set)
 
     @property
@@ -45,7 +46,8 @@ class AbstractOptimizer(object):
     def new_set(self, a_set): 
         logger.debug(tools.get_string_caller_objclass_method(self,inspect.stack()))
         # logger.debug("inspect.stack()\n%s" % (inspect.stack(),))
-        self._new_set = a_set[:]
+        # self._new_set = a_set[:]
+        self._new_set = copy.deepcopy(a_set)
         self.new_score = self.get_score(self._new_set)
     
     def get_score(self):
@@ -67,37 +69,59 @@ class AbstractOptimizer(object):
     def swap(self,a_set,i,j):
         logger.debug(tools.get_string_caller_objclass_method(self,inspect.stack()))
         a_set[i], a_set[j] = a_set[j], a_set[i]
+        self.score = self.get_score(self._set)
+        self.new_score = self.get_score(self._new_set)
         return a_set
 
     def update_stats(self):
         logger.debug(tools.get_string_caller_objclass_method(self,inspect.stack()))
         if self.stats == None and self.score != None and self._set != None:
-            self.stats = [[self.score, self._set]]
+            new_entry = [self.score, self._set]
+            self.stats = [copy.deepcopy(new_entry)]
+            # self.stats = [new_entry[:]]
         else:
-            self.stats.append([self.score, self._set])
+            new_entry = [self.score, self._set]
+            self.stats.append(copy.deepcopy(new_entry))
+            # self.stats.append(new_entry[:])
 
     def __str__(self):
-        return str(self.__class__) + " object has variables:\n" + tools.print_vars_values_types(self)
+        return str(self.__class__) + " object has variables:\n" + tools.print_vars_values_types(self,with_id=True)
+
+    def view_sets_scores(self):
+        out_str = ''
+        out_str += 'set: \n%s\nid=%s\n' % (self._set,hex(id(self._set)))
+        out_str += 'score: \n%s\nid=%s\n' % (self.score,hex(id(self.score)))
+        out_str += 'new_set: \n%s\nid=%s\n' % (self._new_set,hex(id(self._new_set)))
+        out_str += 'new_score: \n%s\nid=%s\n' % (self.new_score,hex(id(self.new_score)))
+        return out_str
 
     def loop(self):
-        logger.debug("nodes in current order\n%s" % (self.nodes[self.set]))
+        # logger.debug("1 view_sets_scores\n%s" % (self.view_sets_scores(),))
+        # logger.debug("nodes in current order\n%s" % (self.nodes[self.set]))
         # выбор и смена мест узлов
         b_n = self.get_bad_node()
         s_n = self.get_sub_node(excluded_indeces = [b_n])
         logger.debug("nodes swap %d -> %d" % (b_n, s_n))
-        logger.debug("old self.new_score=%s\n%s" % (self.new_score,self.nodes[self.new_set]))
+        # logger.debug("old self.new_score=%s\n%s" % (self.new_score,self.nodes[self.new_set]))
         self.new_set = self.swap(self.new_set,b_n,s_n)
+        # logger.debug("2 view_sets_scores\n%s" % (self.view_sets_scores(),))
+        # self.score = self.get_score(self._set)
+        # self.new_score = self.get_score(self._new_set)
         # оценка качества
-        logger.debug("new self.new_score=%s\n%s" % (self.new_score,self.nodes[self.new_set]))
+        # logger.debug("new self.new_score=%s\n%s" % (self.new_score,self.nodes[self.new_set]))
 
         # меняем состояние на новое, если качество повысилось
         if self.choose():
             logger.debug("New set chosen over old one")
+            # self.set = copy.deepcopy(self.new_set)  # doesn't help
             self.set = self.new_set[:]
         else:
             logger.debug("Old set remains current one")
+        # logger.debug("3 view_sets_scores\n%s" % (self.view_sets_scores(),))
         self.update_stats()
-        logger.debug(self)
+        # logger.debug("self.stats\n%s" % (self.stats,))
+        # logger.debug("4 view_sets_scores\n%s" % (self.view_sets_scores(),))
+        # logger.debug(self)
         # logger.debug(self.stats)
 
     def plot_stats(self,**kwargs):

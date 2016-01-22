@@ -9,6 +9,10 @@ import haversine
 # haversine((45.7597, 4.8422),(48.8567, 2.3508),miles = True)243.71209416020253
 logger = logging.getLogger(__name__)
 
+def r(c1,c2):
+    return haversine.haversine((c1[0],c1[1]),(c2[0],c2[1]),miles=False)
+    # return math.sqrt((c1[0]-c2[0])**2 + (c1[1]-c2[1])**2)
+
 class AnnealOptimizer(abstract_optimizer.AbstractOptimizer):
     """AnnealOptimizer class provides 
     anneal optimizer
@@ -29,7 +33,7 @@ class AnnealOptimizer(abstract_optimizer.AbstractOptimizer):
                 T=alpha*T
         self.cooling_schedule = kirkpatrick_cooling(start_temp,alpha)
 
-    def get_score(self,a_set):
+    def get_score(self,a_set_):
         super(AnnealOptimizer, self).get_score()
         def root_len(start,finish,nodes_in_order):
             route_len = 0.
@@ -37,11 +41,11 @@ class AnnealOptimizer(abstract_optimizer.AbstractOptimizer):
             all_points.append(finish.tolist())
             all_points.insert(0, start.tolist())
             for (c1,c2) in tools.pairwise(all_points):
-                route_len += math.sqrt((c1[1]-c2[1])**2 + (c1[2]-c2[2])**2)
+                route_len += r((c1[1],c1[2]),(c2[1],c2[2]))
                 # route_len += haversine.haversine((c1[1],c1[2]),(c2[1],c2[2]),miles=False)
             return route_len
-        res = root_len(self.start,self.finish,self.nodes[a_set])
-        logger.debug("a_set\n%s" % (a_set,))
+        res = root_len(self.start,self.finish,self.nodes[a_set_])
+        logger.debug("a_set_\n%s" % (a_set_,))
         logger.debug("res\n%s" % (res,))
         return res
 
@@ -54,7 +58,8 @@ class AnnealOptimizer(abstract_optimizer.AbstractOptimizer):
             lat = self.nodes[bad_node_idx]['lat']
             lng = self.nodes[bad_node_idx]['lng']
             for i,node_idx in enumerate(list_to_choose_from):
-                array_of_radius[i] = math.sqrt((lat-self.nodes[node_idx]['lat'])**2 + (lng-self.nodes[node_idx]['lng'])**2)
+                array_of_radius[i] = r((lat,self.nodes[node_idx]['lat']) , (lng,self.nodes[node_idx]['lng']))
+                # array_of_radius[i] = math.sqrt((lat-self.nodes[node_idx]['lat'])**2 + (lng-self.nodes[node_idx]['lng'])**2)
                 # array_of_radius[i] = haversine.haversine((lat,lng),(self.nodes[node_idx]['lat'],self.nodes[node_idx]['lng']),miles=False)
             sorted_array_of_radius = np.sort(array_of_radius)[::-1]
             propability = [0]*len(list_to_choose_from)

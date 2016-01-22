@@ -1,0 +1,2 @@
+08:30:07.700 - C:\Users\Sergei\Anaconda3\envs\othodi\lib\site-packages\bokeh\validation\check.pyc - ERROR - E-1000 (COLUMN_LENGTHS): ColumnDataSource column lengths are not all the same: ColumnDataSource, ViewModel:ColumnDataSource, ref _id: 52d619b3-79cd-418e-870e-1f7d705f3a24
+08:30:07.703 - C:\Users\Sergei\Anaconda3\envs\othodi\lib\site-packages\bokeh\validation\check.pyc - ERROR - E-1000 (COLUMN_LENGTHS): ColumnDataSource column lengths are not all the same: ColumnDataSource, ViewModel:ColumnDataSource, ref _id: 697a3c46-b14d-41a9-8314-6fcfe70a63f2

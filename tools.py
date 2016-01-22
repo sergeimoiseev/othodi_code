@@ -7,6 +7,9 @@ import ast
 from pprint import pprint as pp
 import logging
 import numpy as np
+import locm 
+# routem, mapm, dropboxm, gmaps, tools, bokehm, tspm
+
 logger = logging.getLogger(__name__)
 
 def type_of_value(var):
@@ -78,7 +81,7 @@ def setup_logging(
 def get_string_caller_objclass_method(obj,inspect_stack):
     return "\n%s() -> " % (inspect_stack[1][3])+obj.__class__.__name__+"#%s()" % (inspect_stack[0][3])
 
-def print_vars_values_types(obj):
+def print_vars_values_types(obj, with_id=False):
     out_str = ""
     sorted_var_list = [revvar[::-1] for revvar in sorted([var[::-1] for var in  dir(obj)])]
     # sorted_var_list = sorted(dir(obj))
@@ -88,11 +91,13 @@ def print_vars_values_types(obj):
             out_str_part = ''
             try:
                 var_value = obj.__dict__[var]
-            except KeyError:
+            except (KeyError, AttributeError):
                 continue
             out_str_part += var + " "*(cons_width/4-len(var)) + str(var_value)[:cons_width/2]
             out_str_part += " "*(cons_width/2-len(str(var_value)[:cons_width/2])) + str(type(var_value))
             out_str_part = out_str_part[:cons_width-1] + "\n"
+            if with_id:
+                out_str_part += str(hex(id(var_value))) + "\n"
             out_str += out_str_part
     return out_str
 
@@ -107,29 +112,29 @@ def pairwise(iterable):
 # print(s_l)
 
 
-def get_nodes_data(recreate_nodes_data=False):
+def get_nodes_data(nodes_num = 5, recreate_nodes_data=False):
     nodes_fname = 'nodes.txt'
     if recreate_nodes_data:
         # create locations -> nodes -> dump nodes to file
-        cities_fname = 'test_city_names_list_21.txt'
-        # cities_fname = 'test_city_names_list_100.txt'
+        # cities_fname = 'test_city_names_list_21.txt'
+        cities_fname = 'test_city_names_list_100.txt'
         with open(cities_fname,'r') as cities_file:
             address_list = [line.strip() for line in cities_file.readlines()]
-        locs_list = [locm.Location(addr) for addr in address_list[0:5]]
+        locs_list = [locm.Location(addr) for addr in address_list[0:nodes_num]]
 
         # ('potential', np.float64, 1),    ,('radius',np.float64,1)
         nodes_data = []
         for loc in locs_list:
             if len(loc.address)!=0 and len(loc.coords)!=0:
-                nodes_data.append((loc.address,loc.coords.values()))
+                nodes_data.append((loc.address,loc.coords.values()[0],loc.coords.values()[1]))
         with open(nodes_fname,'w') as nodes_file:
             for node in nodes_data:
-                nodes_file.write("%s,%s,%s\n" % (node[0],node[1][0],node[1][1]))
+                nodes_file.write("%s,%s,%s\n" % (node[0],node[1],node[2]))
     else:
         # read nodes from file
         nodes_data = []
         with open(nodes_fname,'r') as nodes_file:
-            for l in nodes_file.readlines():
+            for l in nodes_file.readlines()[0:nodes_num]:
                 parts = l.strip().split(',')
                 nodes_data.append(tuple(parts))
 
@@ -137,3 +142,21 @@ def get_nodes_data(recreate_nodes_data=False):
     node_dtype = np.dtype([('name',np.str_, 32),  ('lat', np.float64, 1),  ('lng', np.float64, 1)])
     np_nodes_data = np.array(nodes_data, dtype = node_dtype)
     return np_nodes_data
+
+from math import radians, cos, sin, asin, sqrt
+
+# def haversine((lat1, lon1), (lat2, lon2)):
+#     """
+#     Calculate the great circle distance between two points 
+#     on the earth (specified in decimal degrees)
+#     """
+#     # convert decimal degrees to radians 
+#     lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
+
+#     # haversine formula 
+#     dlon = lon2 - lon1 
+#     dlat = lat2 - lat1 
+#     a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+#     c = 2 * asin(sqrt(a)) 
+#     r = 6371 # Radius of earth in kilometers. Use 3956 for miles
+#     return c * r
