@@ -96,7 +96,7 @@ class AbstractOptimizer(object):
         return out_str
 
     def loop(self):
-        # logger.debug("1 view_sets_scores\n%s" % (self.view_sets_scores(),))
+        logger.info("1 view_sets_scores\n%s" % (self.view_sets_scores(),))
         # logger.debug("nodes in current order\n%s" % (self.nodes[self.set]))
         # выбор и смена мест узлов
         b_n = self.get_bad_node()
@@ -104,7 +104,7 @@ class AbstractOptimizer(object):
         logger.debug("nodes swap %d -> %d" % (b_n, s_n))
         # logger.debug("old self.new_score=%s\n%s" % (self.new_score,self.nodes[self.new_set]))
         self.new_set = self.swap(self.new_set,b_n,s_n)
-        # logger.debug("2 view_sets_scores\n%s" % (self.view_sets_scores(),))
+        logger.info("2 view_sets_scores\n%s" % (self.view_sets_scores(),))
         # self.score = self.get_score(self._set)
         # self.new_score = self.get_score(self._new_set)
         # оценка качества
@@ -117,10 +117,10 @@ class AbstractOptimizer(object):
             self.set = self.new_set[:]
         else:
             logger.debug("Old set remains current one")
-        # logger.debug("3 view_sets_scores\n%s" % (self.view_sets_scores(),))
+        logger.info("3 view_sets_scores\n%s" % (self.view_sets_scores(),))
         self.update_stats()
         # logger.debug("self.stats\n%s" % (self.stats,))
-        # logger.debug("4 view_sets_scores\n%s" % (self.view_sets_scores(),))
+        logger.info("4 view_sets_scores\n%s" % (self.view_sets_scores(),))
         # logger.debug(self)
         # logger.debug(self.stats)
 

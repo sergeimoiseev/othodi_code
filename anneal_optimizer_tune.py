@@ -98,7 +98,7 @@ def anneal_optimizer_run(a,
 
 def anneal_optimizer_tune():
     best_results_list = []
-    max_loops = 1e2
+    max_loops = 1e1
     max_temp = max_loops/1e1
     alpha = 1-(1/max_temp)/2.
 
@@ -131,7 +131,7 @@ def anneal_optimizer_tune():
     # a.stats = best_results_list
     # a.set = route_list[-1]
     # a.score = best_results_list[-1][0]
-    a.plot_route_from_stats()
+    # a.plot_route_from_stats()
 
     # tver_coords = {u'lat':56.8583600,u'lng':35.9005700}
     # ryazan_coords = {u'lat':54.6269000,u'lng':39.6916000}
