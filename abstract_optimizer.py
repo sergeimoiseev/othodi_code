@@ -75,6 +75,10 @@ class AbstractOptimizer(object):
         self.new_score = self.get_score(self._new_set)
         return a_set
 
+    def sort(self, a_set_):
+        logger.debug(tools.get_string_caller_objclass_method(self,inspect.stack()))
+
+
     def update_stats(self):
         logger.debug(tools.get_string_caller_objclass_method(self,inspect.stack()))
         if self.stats == None and self.score != None and self._set != None:

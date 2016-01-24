@@ -9,9 +9,7 @@ import haversine
 # haversine((45.7597, 4.8422),(48.8567, 2.3508),miles = True)243.71209416020253
 logger = logging.getLogger(__name__)
 
-def r(c1,c2):
-    return haversine.haversine((c1[0],c1[1]),(c2[0],c2[1]),miles=False)
-    # return math.sqrt((c1[0]-c2[0])**2 + (c1[1]-c2[1])**2)
+
 
 class AnnealOptimizer(abstract_optimizer.AbstractOptimizer):
     """AnnealOptimizer class provides 
@@ -24,12 +22,15 @@ class AnnealOptimizer(abstract_optimizer.AbstractOptimizer):
         self.cooling_schedule = None
         self.current_temp = None
         self.SWAP_NEAREST = False
+        self.SWAP_ORDER = False
+        self.SWAP_ONLY_NEIGHBOUR = False
+        self.SORT_ON = False
 
     def init_linear_cooling_schedule(self,start_temp,max_steps,stop_temp = 0.):
         def linear_cooling_schedule(start_temp_,max_steps_,stop_temp_):
             i = 0
             while i<max_steps_:
-                yield float(start_temp_)*(1.-(stop_temp_/float(start_temp_))*(1./max_steps_)*i)
+                yield float(start_temp_)*(1. - (1-stop_temp_/float(start_temp_)) * (1./max_steps_)*i)
                 i += 1
         self.cooling_schedule = linear_cooling_schedule(start_temp,max_steps,stop_temp)
 
@@ -40,22 +41,33 @@ class AnnealOptimizer(abstract_optimizer.AbstractOptimizer):
                 yield T+stop_temp_
                 T=alpha*T
         self.cooling_schedule = kirkpatrick_cooling(start_temp,alpha,stop_temp_ = stop_temp)
-
+        
     def get_score(self,a_set_):
         super(AnnealOptimizer, self).get_score()
         def root_len(start,finish,nodes_in_order):
+            logger.debug("nodes_in_order\n%s" % (nodes_in_order,))
             route_len = 0.
             all_points = list(nodes_in_order)
             all_points.append(finish.tolist())
             all_points.insert(0, start.tolist())
             for (c1,c2) in tools.pairwise(all_points):
-                route_len += r((c1[1],c1[2]),(c2[1],c2[2]))
+                route_len += tools.r((c1[1],c1[2]),(c2[1],c2[2]))
+                # route_len += tools.r((c1[1],c1[2]),(c2[1],c2[2]))
                 # route_len += haversine.haversine((c1[1],c1[2]),(c2[1],c2[2]),miles=False)
             return route_len
+        logger.debug("self.nodes\n%s" % (self.nodes,))
         res = root_len(self.start,self.finish,self.nodes[a_set_])
-        logger.debug("a_set_\n%s" % (a_set_,))
+        # logger.debug("a_set_\n%s" % (a_set_,))
         logger.debug("res\n%s" % (res,))
         return res
+
+    def sort(self,a_set_):
+        super(AnnealOptimizer, self).sort(a_set_)
+        if self.SORT_ON:
+            a_set_ = tools.order_by_r(a_set_,self.nodes,self.start,self.finish)
+            return a_set_
+        else:
+            return a_set_
 
     def get_sub_node(self,excluded_indeces=[]):
         if self.SWAP_NEAREST and excluded_indeces!=[]:
@@ -66,21 +78,44 @@ class AnnealOptimizer(abstract_optimizer.AbstractOptimizer):
             lat = self.nodes[bad_node_idx]['lat']
             lng = self.nodes[bad_node_idx]['lng']
             for i,node_idx in enumerate(list_to_choose_from):
-                array_of_radius[i] = r((lat,self.nodes[node_idx]['lat']) , (lng,self.nodes[node_idx]['lng']))
+                array_of_radius[i] = tools.r((lat,self.nodes[node_idx]['lat']) , (lng,self.nodes[node_idx]['lng']))
                 # array_of_radius[i] = math.sqrt((lat-self.nodes[node_idx]['lat'])**2 + (lng-self.nodes[node_idx]['lng'])**2)
                 # array_of_radius[i] = haversine.haversine((lat,lng),(self.nodes[node_idx]['lat'],self.nodes[node_idx]['lng']),miles=False)
             sorted_array_of_radius = np.sort(array_of_radius)[::-1]
-            propability = [0]*len(list_to_choose_from)
-            propability[0] = 1.
+            if self.SWAP_ONLY_NEIGHBOUR:
+                propability = [0]*len(list_to_choose_from)
+                propability[0] = 1.
+            else:
+                propability = tools.indeces_sum_to_one(list_to_choose_from)
             chosen_node = np.random.choice(sorted_array_of_radius, 1, p=propability)
             logger.debug("sorted_array_of_radius\n%s" % (sorted_array_of_radius,))
             # chosen_node = np.random.choice(sorted_array_of_radius, 1, p=[1./len(nodes_to_select_from)]*len(nodes_to_select_from))
             list_to_choose_from_idx = np.argmax(array_of_radius==chosen_node)
             sub_idx = list_to_choose_from[list_to_choose_from_idx]
             return sub_idx
-        elif self.SWAP_NEAREST:
+        elif self.SWAP_NEAREST==False:
+            return super(AnnealOptimizer, self).get_sub_node(excluded_indeces)
+        else:
             logger.error("get_sub_node misused: excluded_indeces == []")
-        return super(AnnealOptimizer, self).get_sub_node(excluded_indeces)
+            return super(AnnealOptimizer, self).get_sub_node(excluded_indeces)
+
+    def swap(self,a_set,i,j):
+        if self.SWAP_ORDER:
+            if i>j:
+                part_to_flip = a_set[j:i]
+                a_set[j:i] = part_to_flip[::-1]
+            else:
+                part_to_flip = a_set[i:j]
+                a_set[i:j] = part_to_flip[::-1]
+            return a_set
+        else:
+            return super(AnnealOptimizer, self).swap(a_set,i,j)
+
+        logger.debug(tools.get_string_caller_objclass_method(self,inspect.stack()))
+        a_set[i], a_set[j] = a_set[j], a_set[i]
+        # self.score = self.get_score(self._set)
+        self.new_score = self.get_score(self._new_set)
+        return a_set
 
     def bool_current_energy_opened(self):
         float_value = math.exp(1. -abs(self.new_score)/float(self.current_temp ))  # stop choosing "hot" states when cooling down

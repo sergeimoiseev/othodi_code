@@ -128,6 +128,71 @@ def anneal_optimizer_tune():
     logger.debug("experiment_number\n%s" % (experiment_number,))
     plot_tune(experiment_number,temp_list,y2=score_list)
 
+
+def test_score():
+    for i in range(1):
+        a = anneal_optimizer_setup()
+        # инициализация начального маршрута
+        a.set = list(np.arange(a.nodes.shape[0]))
+        a.SORT_ON = False
+        a.set = a.sort(a.set)
+        # logger.info("a\n%s" % (a,))
+        a.new_set = copy.deepcopy(a.set)  # глубокая
+        # a.new_set = a.set[:]  # быстрая копия (не глубокая)
+        # logger.info("a\n%s" % (a,))
+
+        # инициализация констант
+        max_loops = 100000
+        # max_temp = max_loops/1e1
+        max_temp = 100
+        stop_temperature = 0.1
+        alpha = (1 - 1./max_loops)
+        logger.debug("alpha\n%s" % (alpha,))
+        # alpha = 1-(1/max_temp)/2.
+        a.SWAP_NEAREST = True
+        a.SWAP_ORDER = True
+        a.SWAP_ONLY_NEIGHBOUR = False
+
+        # инициализация генератора температур в оптимизаторе
+        a.init_linear_cooling_schedule(max_temp,max_loops,stop_temp = stop_temperature)
+        # a.init_kirkpatrick_cooling_schedule(max_temp,alpha,stop_temp = stop_temperature)
+
+        t, float_value, bool_val, score_list = [], [], [], []
+        # a.update_stats()
+        # logger.debug("before run\n%s" % a)
+        logging.disable(logging.DEBUG)
+        for j in range(max_loops):
+            new_set_chosen = a.loop()
+            # logger.info("a.current_temp\n%s" % (a.current_temp,))
+            t.append(a.current_temp)
+            # a.new_score = 1000.
+            # math.exp(1. -abs(self.new_score)/float(self.current_temp ))
+            fl = math.exp(1. - abs(a.new_score)/float(a.current_temp))
+            float_value.append(fl)
+            bool_val.append(new_set_chosen)
+            score_list.append(a.score)
+            if j%1000==0:
+                logger.info("%d of %d" % (j,max_loops))
+
+        logging.disable(logging.NOTSET)
+        # printing
+        for i in range(0,max_loops,10):
+            logger.debug("i t - f - b   %d %.02f - %.02f - %s - %.3f" % (i*10,t[i],float_value[i],bool_val[i],score_list[i]))    
+        # logger.debug("float_value\n%s" % (float_value,))
+
+
+        a.plot_stats()
+        a.plot_route_from_stats()
+        # logger.debug("after run\n%s" % (a,))
+        stats_dtype = np.dtype([('score',np.float64, 1),  ('set', np.float64, len(a.nodes)), ('temp',np.float64, 1)])
+        stats_tuples = [tuple(st) for st in a.stats]
+        np_stats = np.array(stats_tuples,dtype=stats_dtype)
+        np_stats_sorted = np.sort(np_stats,order=('score',))[::-1]
+        logger.info("np_stats[0]\n%s" % (np_stats[0],))
+        # for entry in np_stats_sorted:
+        #     logger.debug("np_stats_sorted entry[0]\n%s" % (tools.print_vars_values_types(entry[0]),))
+        a=None
+
 def seed_cooling():
     a = anneal_optimizer_setup()
     # инициализация констант
@@ -154,79 +219,55 @@ def seed_cooling():
         logger.debug("i t - f - b   %d %.02f - %.02f - %s" % (i*10,t[i],float_value[i],bool_val[i]))    
         # logger.debug("float_value\n%s" % (float_value,))
 
-def test_score():
-    for i in range(1):
-        a = anneal_optimizer_setup()
-        # инициализация начального маршрута
-        a.set = list(np.arange(a.nodes.shape[0]))
-        # logger.info("a\n%s" % (a,))
-        a.new_set = copy.deepcopy(a.set)  # глубокая
-        # a.new_set = a.set[:]  # быстрая копия (не глубокая)
-        # logger.info("a\n%s" % (a,))
+def test_sort():
+    
+    a = anneal_optimizer_setup()
+    a.SORT_ON = True
+    logger.debug("a.set\n%s" % (a.set,))
+    a.set = list(np.arange(a.nodes.shape[0]))
+    logger.debug("a.set\n%s" % (a.set,))
+    # logger.debug("a.set\n%s" % (a.set,))
+    # logger.debug("a.nodes\n%s" % (a.nodes,))
+    # logger.debug("a.get_score(a.set)\n%s" % (a.get_score(a.set),))
 
+    # a.score = a.get_score(a.set)
 
-        # инициализация констант
-        max_loops = 100000
-        # max_temp = max_loops/1e1
-        max_temp = 50
-        stop_temperature = 0.001
-        alpha = (1 - 1./max_loops)
-        logger.debug("alpha\n%s" % (alpha,))
-        # alpha = 1-(1/max_temp)/2.
-        a.SWAP_NEAREST = False
+    # a.update_stats()
+    # a.plot_route_from_stats()
 
-        # инициализация генератора температур в оптимизаторе
-        a.init_linear_cooling_schedule(max_temp,max_loops,stop_temp = stop_temperature)
-        # a.init_kirkpatrick_cooling_schedule(max_temp,alpha,stop_temp = stop_temperature)
+    # # logger.debug("a.set\n%s" % (a.set,))
+    # # a.score = a.get_score(a.set)
+    # logging.disable(logging.DEBUG)
+    # a.set = a.sort(a.set)
+    # logging.disable(logging.NOTSET)
+    # # logger.debug("a.set\n%s" % (a.set,))
+    # a.score = a.get_score(a.set)
 
-        t, float_value, bool_val, score_list = [], [], [], []
-        # a.update_stats()
-        # logger.debug("before run\n%s" % a)
-        logging.disable(logging.DEBUG)
-        for j in range(max_loops):
-            new_set_chosen = a.loop()
-            # logger.info("a.current_temp\n%s" % (a.current_temp,))
-            t.append(a.current_temp)
-            # a.new_score = 1000.
-            # math.exp(1. -abs(self.new_score)/float(self.current_temp ))
-            fl = math.exp(1. - abs(a.new_score)/float(a.current_temp))
-            float_value.append(fl)
-            bool_val.append(new_set_chosen)
-            score_list.append(a.score) 
+    # a.update_stats()
+    # a.plot_route_from_stats()
+    # logger.debug("list(a.nodes[a.set])\n%s" % (list(a.nodes[a.set]),))
+    # for c1,c2 in tools.pairwise(list(a.nodes[a.set])):
+    #     logger.debug("c1\n%s" % (c1,))
+    #     logger.debug("c2\n%s" % (c2,))
 
-        logging.disable(logging.NOTSET)
-        # printing
-        for i in range(0,max_loops,10):
-            logger.debug("i t - f - b   %d %.02f - %.02f - %s - %.3f" % (i*10,t[i],float_value[i],bool_val[i],score_list[i]))    
-        # logger.debug("float_value\n%s" % (float_value,))
-
-
-        a.plot_stats()
-        a.plot_route_from_stats()
-        # logger.debug("after run\n%s" % (a,))
-        stats_dtype = np.dtype([('score',np.float64, 1),  ('set', np.float64, len(a.nodes)), ('temp',np.float64, 1)])
-        stats_tuples = [tuple(st) for st in a.stats]
-        np_stats = np.array(stats_tuples,dtype=stats_dtype)
-        np_stats_sorted = np.sort(np_stats,order=('score',))[::-1]
-        logger.info("np_stats[0]\n%s" % (np_stats[0],))
-        # for entry in np_stats_sorted:
-        #     logger.debug("np_stats_sorted entry[0]\n%s" % (tools.print_vars_values_types(entry[0]),))
-        a=None
-
-    # logger.debug("a.get_score(a_set)\n%s" % (a.get_score(a.set),))
-    # a.get_score()
-
-    # s1 = [1.0, 2.0, 0.0, 3.0, 4.0]
-    # s2 = [0.0, 2.0, 1.0, 3.0, 4.0]
-    # logger.debug("a.get_score(a_set)\n%s" % (a.get_score(s1),))
-    # logger.debug("a.get_score(a_set)\n%s" % (a.get_score(s2),))
+    # all_points = list(a.nodes[a.set])
+    # all_points.append(a.finish.tolist())
+    # all_points.insert(0, a.start.tolist())
+    # for (c1,c2) in tools.pairwise(all_points):
+    #     # route_len += tools.r((c1[1],c1[2]),(c2[1],c2[2]))
+    #     logger.debug("c1\n%s" % (c1,))
+    #     logger.debug("c2\n%s" % (c2,))
+    # logger.debug("a.start\n%s" % (a.start,))
+    # logger.debug("a.finish\n%s" % (a.finish,))
+    # logger.debug("all_points\n%s" % (all_points,))
 
 if __name__ == "__main__":
     tools.setup_logging()
     logger = logging.getLogger(__name__)
     logger.info("optimizer script run directly")
     # anneal_optimizer_tune()
-    test_score()
     # seed_cooling()
+    # test_sort()
+    test_score()
 
     logger.info("optimizer script finished running")

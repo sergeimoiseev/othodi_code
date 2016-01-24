@@ -143,20 +143,48 @@ def get_nodes_data(nodes_num = 5, recreate_nodes_data=False):
     np_nodes_data = np.array(nodes_data, dtype = node_dtype)
     return np_nodes_data
 
-from math import radians, cos, sin, asin, sqrt
+def indeces_sum_to_one(arr):
+    indxs_arr = np.arange(len(arr),dtype = np.float64)[::-1]
+    logger.debug("indxs_arr\n%s" % (indxs_arr,))
+    sum_of_indxs = np.sum(indxs_arr)
+    result_arr = indxs_arr/sum_of_indxs
+    return result_arr
 
-# def haversine((lat1, lon1), (lat2, lon2)):
-#     """
-#     Calculate the great circle distance between two points 
-#     on the earth (specified in decimal degrees)
-#     """
-#     # convert decimal degrees to radians 
-#     lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
+import haversine
+def r(c1,c2):
+    logger.debug("c1\n%s" % (c1,))
+    logger.debug("c2\n%s" % (c2,))
+    return haversine.haversine((c1[0],c1[1]),(c2[0],c2[1]),miles=False)
+    # return math.sqrt((c1[0]-c2[0])**2 + (c1[1]-c2[1])**2)
 
-#     # haversine formula 
-#     dlon = lon2 - lon1 
-#     dlat = lat2 - lat1 
-#     a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
-#     c = 2 * asin(sqrt(a)) 
-#     r = 6371 # Radius of earth in kilometers. Use 3956 for miles
-#     return c * r
+def order_by_r(a_set, nodes,start,finish):
+    logger.debug("start\n%s" % (start,))
+    # logger.debug("finish\n%s" % (finish,))
+    # logger.debug("nodes\n%s" % (nodes,))
+    # logger.debug("a_set\n%s" % (a_set,))
+    node4sorting_dtype = np.dtype([('name',np.str_, 32),  ('lat', np.float64, 1),  ('r_start', np.float64, 1),  ('r_prev', np.float64, 1),  ('lng', np.float64, 1)])
+    nodes4sort = np.zeros(nodes.shape[0],dtype = node4sorting_dtype)
+    for node,n4s in zip(nodes,nodes4sort):
+        n4s['name'] = node['name']
+        n4s['lat'] = node['lat']
+        n4s['lng'] = node['lng']
+        n4s['r_start'] = r([start['lat'],start['lng']],[node['lat'],node['lng']])
+        n4s['r_prev'] = 0.
+    nodes4sort = np.sort(nodes4sort,order=('r_start'))
+    
+    prev_node = np.zeros(1,dtype = node4sorting_dtype)
+    prev_node['name'] = start['name']
+    prev_node['lat'] = start['lat']
+    prev_node['lng'] = start['lng']
+    for n4s in nodes4sort:
+        n4s['r_prev'] = r([prev_node['lat'],prev_node['lng']],[n4s['lat'],n4s['lng']])
+        prev_node = n4s
+    nodes4sort = np.sort(nodes4sort,order=('r_prev'))
+    logger.debug("nodes4sort\n%s" % (nodes4sort,))
+
+    a_set = []
+    for n4s in nodes4sort:
+        idx_of_sorted_node = np.where(nodes['name']==n4s['name'])[0][0]
+        # logger.debug("idx_of_sorted_node\n%s" % (idx_of_sorted_node[0][0],))
+        a_set.append(idx_of_sorted_node)
+    return a_set
