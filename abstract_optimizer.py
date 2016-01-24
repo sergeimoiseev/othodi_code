@@ -60,16 +60,18 @@ class AbstractOptimizer(object):
         logger.debug(tools.get_string_caller_objclass_method(self,inspect.stack()))
         list_to_choose_from = [node_idx for node_idx in self.set if node_idx not in excluded_indeces]
         return random.choice(list_to_choose_from)
+        
     def get_sub_node(self,excluded_indeces=[]):
         logger.debug(tools.get_string_caller_objclass_method(self,inspect.stack()))
         list_to_choose_from = [node_idx for node_idx in self.set if node_idx not in excluded_indeces]
         logger.debug("all nodes \n%s" % (self.set,))
         logger.debug("list_to_choose_from\n%s" % (list_to_choose_from,))
         return random.choice(list_to_choose_from)
+
     def swap(self,a_set,i,j):
         logger.debug(tools.get_string_caller_objclass_method(self,inspect.stack()))
         a_set[i], a_set[j] = a_set[j], a_set[i]
-        self.score = self.get_score(self._set)
+        # self.score = self.get_score(self._set)
         self.new_score = self.get_score(self._new_set)
         return a_set
 
@@ -96,7 +98,7 @@ class AbstractOptimizer(object):
         return out_str
 
     def loop(self):
-        logger.info("1 view_sets_scores\n%s" % (self.view_sets_scores(),))
+        logger.debug("1 view_sets_scores\n%s" % (self.view_sets_scores(),))
         # logger.debug("nodes in current order\n%s" % (self.nodes[self.set]))
         # выбор и смена мест узлов
         b_n = self.get_bad_node()
@@ -104,7 +106,7 @@ class AbstractOptimizer(object):
         logger.debug("nodes swap %d -> %d" % (b_n, s_n))
         # logger.debug("old self.new_score=%s\n%s" % (self.new_score,self.nodes[self.new_set]))
         self.new_set = self.swap(self.new_set,b_n,s_n)
-        logger.info("2 view_sets_scores\n%s" % (self.view_sets_scores(),))
+        logger.debug("2 view_sets_scores\n%s" % (self.view_sets_scores(),))
         # self.score = self.get_score(self._set)
         # self.new_score = self.get_score(self._new_set)
         # оценка качества
@@ -115,14 +117,17 @@ class AbstractOptimizer(object):
             logger.debug("New set chosen over old one")
             # self.set = copy.deepcopy(self.new_set)  # doesn't help
             self.set = self.new_set[:]
+            new_set_chosen = True
         else:
             logger.debug("Old set remains current one")
-        logger.info("3 view_sets_scores\n%s" % (self.view_sets_scores(),))
+            new_set_chosen = False
+        logger.debug("3 view_sets_scores\n%s" % (self.view_sets_scores(),))
         self.update_stats()
         # logger.debug("self.stats\n%s" % (self.stats,))
-        logger.info("4 view_sets_scores\n%s" % (self.view_sets_scores(),))
+        logger.debug("4 view_sets_scores\n%s" % (self.view_sets_scores(),))
         # logger.debug(self)
         # logger.debug(self.stats)
+        return new_set_chosen
 
     def plot_stats(self,**kwargs):
         import bokeh.plotting as bp

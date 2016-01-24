@@ -25,13 +25,21 @@ class AnnealOptimizer(abstract_optimizer.AbstractOptimizer):
         self.current_temp = None
         self.SWAP_NEAREST = False
 
-    def init_cooling_schedule(self,start_temp,alpha):
-        def kirkpatrick_cooling(start_temp,alpha):
-            T=start_temp
+    def init_linear_cooling_schedule(self,start_temp,max_steps,stop_temp = 0.):
+        def linear_cooling_schedule(start_temp_,max_steps_,stop_temp_):
+            i = 0
+            while i<max_steps_:
+                yield float(start_temp_)*(1.-(stop_temp_/float(start_temp_))*(1./max_steps_)*i)
+                i += 1
+        self.cooling_schedule = linear_cooling_schedule(start_temp,max_steps,stop_temp)
+
+    def init_kirkpatrick_cooling_schedule(self,start_temp,alpha,stop_temp = 0.):
+        def kirkpatrick_cooling(start_temp,alpha,stop_temp_ = 0.):
+            T=start_temp-stop_temp_
             while True:
-                yield T
+                yield T+stop_temp_
                 T=alpha*T
-        self.cooling_schedule = kirkpatrick_cooling(start_temp,alpha)
+        self.cooling_schedule = kirkpatrick_cooling(start_temp,alpha,stop_temp_ = stop_temp)
 
     def get_score(self,a_set_):
         super(AnnealOptimizer, self).get_score()
@@ -70,9 +78,25 @@ class AnnealOptimizer(abstract_optimizer.AbstractOptimizer):
             list_to_choose_from_idx = np.argmax(array_of_radius==chosen_node)
             sub_idx = list_to_choose_from[list_to_choose_from_idx]
             return sub_idx
-        elif SWAP_NEAREST:
+        elif self.SWAP_NEAREST:
             logger.error("get_sub_node misused: excluded_indeces == []")
         return super(AnnealOptimizer, self).get_sub_node(excluded_indeces)
+
+    def bool_current_energy_opened(self):
+        float_value = math.exp(1. -abs(self.new_score)/float(self.current_temp ))  # stop choosing "hot" states when cooling down
+        # float_value = math.exp(1. -abs(self.new_score-self.score)/float(self.current_temp ))
+        return True if float_value>=1 else False
+
+    def get_transition_probability(self):
+        # float_value = math.exp(1. -abs(self.new_score)/float(self.current_temp ))  # stop choosing "hot" states when cooling down
+        float_value = math.exp( -abs(self.new_score-self.score)/float(self.current_temp ))
+        return float_value
+
+    def make_transit(self,probability):
+        if random.random()<probability:
+            return True
+        else:
+            return False
 
     def choose(self):
         super(AnnealOptimizer, self).choose()
@@ -82,7 +106,8 @@ class AnnealOptimizer(abstract_optimizer.AbstractOptimizer):
             # return True
         else:
             logger.debug("self.current_temp\n%s" % (self.current_temp,))
-            return math.exp( -abs(self.new_score-self.score)/self.current_temp )
+            return self.make_transit(self.get_transition_probability())
+            # return math.exp( -abs(self.new_score-self.score)/self.current_temp )
             # return False
 
     def update_stats(self):
