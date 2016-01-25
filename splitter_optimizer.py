@@ -107,7 +107,7 @@ def splitter_optimizer_test():
     # s.finish = np.array(('Tver',tver_coords['lat'],tver_coords['lng']),dtype = node_dtype)
     s.finish = np.array(('Ryazan',ryazan_coords['lat'],ryazan_coords['lng']),dtype = node_dtype)
     # инициализация узлов
-    n_cities = 20
+    n_cities = 100
     nodes_data = tools.get_nodes_data(nodes_num = n_cities, recreate_nodes_data=False)
     logger.debug("nodes_data\n%s" % (nodes_data))
     s.nodes = nodes_data
@@ -116,22 +116,6 @@ def splitter_optimizer_test():
 
     small_parts, knots = [], [s.finish]
 
-    # def func(parts,Lmax=5):
-    #     if len(parts[0])<=Lmax:
-    #         return parts
-    #     else:
-    #         s.nodes = parts[0]
-    #         logging.disable(logging.DEBUG)
-    #         rp,lp,new_finish = s.split_nodes()
-    #         logging.disable(logging.NO)
-    #         s.finish = new_finish
-    #         # rp,lp = parts[0][:-1], parts[0][-1:]
-    #         print('new_step')
-    #         print(rp)
-    #         print(lp)
-    #         parts = [rp,lp]+parts[1:]
-    #         return func(parts)
-    
     def find_indeces_of_subarray(arr,sub):
         logger.debug("arr\n%s" % (arr,))
         logger.debug("type(arr)\n%s" % (type(arr),))
@@ -143,7 +127,7 @@ def splitter_optimizer_test():
         return indices
 
 
-    def func(parts,nodes,Lmax=5):
+    def func(parts,nodes,Lmax=50):
         if all([len(part)<=Lmax for part in parts]):
             return parts
         for part in parts:
@@ -169,80 +153,19 @@ def splitter_optimizer_test():
                 parts[i:i+1] = rp_idxs,lp_idxs
                 return func(parts,nodes)
     parts = [range(len(nodes_data))]
-    # ixs = find_indeces_of_subarray(parts[0],parts[0][:10])
-    # logger.debug("ixs\n%s" % (ixs,))
-    # logger.debug("s.nodes[parts[0][:10]]\n%s" % (s.nodes[parts[0][:10]],))  
     all_nodes_list = nodes_data#.tolist()
-    parts = func(parts,all_nodes_list)
-
-
-    # parts_too_large = True
-    # while parts_too_large:
-    #     parts_too_large = False
-    #     logger.debug("NEW ITT len(parts)\n%s" % (len(parts),))
-    #     logger.debug("parts\n%s" % (parts,))
-    #     # нужно ли еще дробить наборы узлов?
-    #     for i,part in enumerate(parts):
-    #         if len(part)>6:
-    #             parts_too_large = True
-    #             logger.debug("part is too large")
-    #             s.nodes = part
-    #             logger.debug("large part:\n%s" % (s.nodes,))
-    #             logger.debug("s.finish\n%s" % (s.finish,))
-    #             logging.disable(logging.DEBUG)
-    #             part_right_np_nodes, part_left_np_nodes, new_finish = s.split_nodes()
-    #             logging.disable(logging.NOTSET)
-    #             s.finish = new_finish
-    #             parts[:] = parts[:i], part_right_np_nodes, part_left_np_nodes, parts[i+1:]
-    #             knots.append(s.finish)
-    #         else:
-    #             logger.debug("a small part\n%s" % (part,))
-    #             small_parts.append(part)
-    #             logger.debug("len(small_parts)\n%s" % (len(small_parts),))
-                # parts.remove(part)
-
-    # parts_too_large = True
-    # while parts_too_large:
-    #     parts_too_large = False
-    #     logger.debug("NEW ITT len(parts)\n%s" % (len(parts),))
-    #     logger.debug("parts\n%s" % (parts,))
-    #     # нужно ли еще дробить наборы узлов?
-    #     for i,part in enumerate(parts):
-    #         if len(part)>6:
-    #             parts_too_large = True
-    #             logger.debug("part is too large")
-    #             s.nodes = part
-    #             logger.debug("large part:\n%s" % (s.nodes,))
-    #             logger.debug("s.finish\n%s" % (s.finish,))
-    #             logging.disable(logging.DEBUG)
-    #             part_right_np_nodes, part_left_np_nodes, new_finish = s.split_nodes()
-    #             logging.disable(logging.NOTSET)
-    #             s.finish = new_finish
-    #             parts[:] = parts[:i], part_right_np_nodes, part_left_np_nodes, parts[i+1:]
-    #             knots.append(s.finish)
-    #         else:
-    #             logger.debug("a small part\n%s" % (part,))
-    #             small_parts.append(part)
-    #             logger.debug("len(small_parts)\n%s" % (len(small_parts),))
-    #             # parts.remove(part)
-
-
-            
-        # for part in parts:
-        #     if len(part)>12:
-        #         parts_too_large = True
-        #         break
-    # logger.debug("knots\n%s" % (knots,))
+    parts = func(parts,all_nodes_list,Lmax=50)
 
     # рисование узлов
     moscow = locm.Location(address='Moscow')
     plot = bokehm.Figure(output_fname='splitter.html',center_coords=moscow.coords,use_gmap=True,)
     plot.add_line(s.nodes, circle_size=5,circles_color='blue',alpha= 0.1,no_line = True)
 
+    colors_list = ['red','green','blue','orange','yellow']*(len(parts)//5+1)
     for i,part in enumerate(parts):
         logger.debug("len(part)\n%s" % (len(part),))
         logger.debug("part\n%s" % (part,))
-        plot.add_line(nodes_data[part], circle_size=i*3+3,circles_color='green',alpha= 0.5,no_line = True)
+        plot.add_line(nodes_data[part], circle_size=5,circles_color=colors_list[i],alpha= 0.5,no_line = True)
         # plot.add_line([s.start,knots[i]], circle_size=10,circles_color='red',alpha= 1.,no_line = False)
 
     # plot.add_line(part_right_np_nodes, circle_size=15,circles_color='green',alpha= 0.5,no_line = True)
