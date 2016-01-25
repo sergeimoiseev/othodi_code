@@ -35,7 +35,7 @@ def plot_tune(x,y,y2=False,**kwargs):
 
     bp.save(p)    
 
-def anneal_optimizer_setup():
+def anneal_optimizer_setup(n_cities):
     logger.debug('anneal optimizer setup started')
     a = anneal_optimizer.AnnealOptimizer()
 
@@ -45,7 +45,7 @@ def anneal_optimizer_setup():
     a.start = np.array(('Tver',tver_coords['lat'],tver_coords['lng']),dtype = node_dtype)
     a.finish = np.array(('Ryazan',ryazan_coords['lat'],ryazan_coords['lng']),dtype = node_dtype)
 
-    nodes_data = tools.get_nodes_data(nodes_num = 20, recreate_nodes_data=False)
+    nodes_data = tools.get_nodes_data(nodes_num = n_cities, recreate_nodes_data=False)
     logger.debug("nodes_data\n%s" % (nodes_data))
     # инициализация узлов
     a.nodes = nodes_data
@@ -131,7 +131,8 @@ def anneal_optimizer_tune():
 
 def test_score():
     for i in range(1):
-        a = anneal_optimizer_setup()
+        n_cities = 20
+        a = anneal_optimizer_setup(n_cities)
         # инициализация начального маршрута
         a.set = list(np.arange(a.nodes.shape[0]))
         a.SORT_ON = False
@@ -142,14 +143,14 @@ def test_score():
         # logger.info("a\n%s" % (a,))
 
         # инициализация констант
-        max_loops = 100000
+        max_loops = 1000
         # max_temp = max_loops/1e1
-        max_temp = 100
+        max_temp = 50
         stop_temperature = 0.1
         alpha = (1 - 1./max_loops)
         logger.debug("alpha\n%s" % (alpha,))
         # alpha = 1-(1/max_temp)/2.
-        a.SWAP_NEAREST = True
+        a.SWAP_NEAREST = False
         a.SWAP_ORDER = True
         a.SWAP_ONLY_NEIGHBOUR = False
 
@@ -226,40 +227,10 @@ def test_sort():
     logger.debug("a.set\n%s" % (a.set,))
     a.set = list(np.arange(a.nodes.shape[0]))
     logger.debug("a.set\n%s" % (a.set,))
-    # logger.debug("a.set\n%s" % (a.set,))
-    # logger.debug("a.nodes\n%s" % (a.nodes,))
-    # logger.debug("a.get_score(a.set)\n%s" % (a.get_score(a.set),))
 
-    # a.score = a.get_score(a.set)
 
-    # a.update_stats()
-    # a.plot_route_from_stats()
-
-    # # logger.debug("a.set\n%s" % (a.set,))
-    # # a.score = a.get_score(a.set)
-    # logging.disable(logging.DEBUG)
-    # a.set = a.sort(a.set)
-    # logging.disable(logging.NOTSET)
-    # # logger.debug("a.set\n%s" % (a.set,))
-    # a.score = a.get_score(a.set)
-
-    # a.update_stats()
-    # a.plot_route_from_stats()
-    # logger.debug("list(a.nodes[a.set])\n%s" % (list(a.nodes[a.set]),))
-    # for c1,c2 in tools.pairwise(list(a.nodes[a.set])):
-    #     logger.debug("c1\n%s" % (c1,))
-    #     logger.debug("c2\n%s" % (c2,))
-
-    # all_points = list(a.nodes[a.set])
-    # all_points.append(a.finish.tolist())
-    # all_points.insert(0, a.start.tolist())
-    # for (c1,c2) in tools.pairwise(all_points):
-    #     # route_len += tools.r((c1[1],c1[2]),(c2[1],c2[2]))
-    #     logger.debug("c1\n%s" % (c1,))
-    #     logger.debug("c2\n%s" % (c2,))
-    # logger.debug("a.start\n%s" % (a.start,))
-    # logger.debug("a.finish\n%s" % (a.finish,))
-    # logger.debug("all_points\n%s" % (all_points,))
+def split_in_parts():
+    pass
 
 if __name__ == "__main__":
     tools.setup_logging()

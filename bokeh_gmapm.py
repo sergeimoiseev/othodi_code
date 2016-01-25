@@ -35,7 +35,7 @@ def create_plot(center_coords,zoom_level = 8,title_=u''):
     plot.add_tools(pan, wheel_zoom, box_select)
     return plot
 
-def add_line(plot, coords_dict_list, circle_size=15,circles_color='blue',alpha= 0.5):
+def add_line(plot, coords_dict_list, circle_size=15,circles_color='blue',no_line=False,alpha= 0.5):
     caller_name, func_name, func_args = inspect.stack()[1][3], inspect.stack()[0][3], inspect.getargvalues(inspect.currentframe())[3]
     logger.debug("%s called %s with args = %s" % (caller_name, func_name, func_args))
 
@@ -55,8 +55,9 @@ def add_line(plot, coords_dict_list, circle_size=15,circles_color='blue',alpha= 
                 }
     source = ColumnDataSource(data=source_data)
     circle = Circle(x="lng", y="lat", size="circle_size", fill_color="fill", line_color="black",fill_alpha = "alpha")
-    line = Line(x="lng", y="lat", line_width="line_width", line_color="fill", line_alpha = "alpha",line_join='round',line_cap = 'round')
-    plot.add_glyph(source, line)
+    if not no_line:
+        line = Line(x="lng", y="lat", line_width="line_width", line_color="fill", line_alpha = "alpha",line_join='round',line_cap = 'round')
+        plot.add_glyph(source, line)
     plot.add_glyph(source, circle)
 
 def main(plot_fname="gmap_example_bokeh.html"):

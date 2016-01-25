@@ -157,6 +157,22 @@ def r(c1,c2):
     return haversine.haversine((c1[0],c1[1]),(c2[0],c2[1]),miles=False)
     # return math.sqrt((c1[0]-c2[0])**2 + (c1[1]-c2[1])**2)
 
+def lat_to_km(node):
+    base = {u'lat':56.8583600,u'lng':35.9005700}  # Tver
+    try:
+        lat = node['lat']
+    except:
+        lat = node
+    return haversine.haversine((base['lat'],base['lng']),(lat,base['lng']),miles=False)
+
+def lng_to_km(node):
+    base = {u'lat':56.8583600,u'lng':35.9005700} # Tver
+    try:
+        lng = node['lng']
+    except:
+        lng = node
+    return haversine.haversine((base['lat'],base['lng']),(base['lat'],lng),miles=False)
+
 def order_by_r(a_set, nodes,start,finish):
     logger.debug("start\n%s" % (start,))
     # logger.debug("finish\n%s" % (finish,))

@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 
 class Figure(object):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, **kwargs):
         self._output_fname = kwargs.get('output_fname',"bokeh.html")
         bp.output_file(self._output_fname)
         self._use_gmap = kwargs.get('use_gmap',False)
