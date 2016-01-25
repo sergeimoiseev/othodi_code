@@ -204,3 +204,14 @@ def order_by_r(a_set, nodes,start,finish):
         # logger.debug("idx_of_sorted_node\n%s" % (idx_of_sorted_node[0][0],))
         a_set.append(idx_of_sorted_node)
     return a_set
+
+
+def find_indeces_of_subarray(arr,sub):
+    logger.debug("arr\n%s" % (arr,))
+    logger.debug("type(arr)\n%s" % (type(arr),))
+    logger.debug("sub\n%s" % (sub,))
+    logger.debug("type(sub)\n%s" % (type(sub),))
+    indices = []
+    for el in sub:
+        indices.append(arr.index(el))
+    return indices

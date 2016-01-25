@@ -86,6 +86,32 @@ class SplitterOptimizer(abstract_optimizer.AbstractOptimizer):
         part_left_np_nodes = np.array(part_left,dtype = self.node_dtype)
         return part_right_np_nodes, part_left_np_nodes, self.knot
 
+
+    def recursive_split(self,parts,nodes,Lmax=50):
+        if all([len(part)<=Lmax for part in parts]):
+            return parts
+        for part in parts:
+            if len(part)<=Lmax:
+                continue
+            else:
+                i = parts.index(part)
+
+                logger.debug("part\n%s" % (part,))
+                logger.debug("i\n%s" % (i,))
+                logger.debug("self.nodes before extracting\n%s" % (self.nodes,))
+                self.nodes = nodes[part]
+                logger.debug("self.nodes after extracting\n%s" % (self.nodes,))
+                logging.disable(logging.DEBUG)
+                rp,lp,new_finish = self.split_nodes()
+                logging.disable(logging.NOTSET)
+                logger.debug("len(self.nodes)\n%s" % (len(self.nodes),))
+                rp_idxs = tools.find_indeces_of_subarray(nodes.tolist(),rp.tolist())
+                lp_idxs = tools.find_indeces_of_subarray(nodes.tolist(),lp.tolist())
+                self.finish = new_finish
+
+                parts[i:i+1] = rp_idxs,lp_idxs
+                return self.recursive_split(parts,nodes)
+
     def plot_route_from_stats(self, stat_idx = -1):
         pass
 
@@ -116,63 +142,22 @@ def splitter_optimizer_test():
 
     small_parts, knots = [], [s.finish]
 
-    def find_indeces_of_subarray(arr,sub):
-        logger.debug("arr\n%s" % (arr,))
-        logger.debug("type(arr)\n%s" % (type(arr),))
-        logger.debug("sub\n%s" % (sub,))
-        logger.debug("type(sub)\n%s" % (type(sub),))
-        indices = []
-        for el in sub:
-            indices.append(arr.index(el))
-        return indices
-
-
-    def func(parts,nodes,Lmax=50):
-        if all([len(part)<=Lmax for part in parts]):
-            return parts
-        for part in parts:
-            if len(part)<=Lmax:
-                continue
-            else:
-                i = parts.index(part)
-                #
-                logger.debug("part\n%s" % (part,))
-                logger.debug("i\n%s" % (i,))
-                logger.debug("s.nodes before extracting\n%s" % (s.nodes,))
-                s.nodes = nodes[part]
-                logger.debug("s.nodes after extracting\n%s" % (s.nodes,))
-                logging.disable(logging.DEBUG)
-                rp,lp,new_finish = s.split_nodes()
-                logging.disable(logging.NOTSET)
-                logger.debug("len(s.nodes)\n%s" % (len(s.nodes),))
-                rp_idxs = find_indeces_of_subarray(nodes.tolist(),rp.tolist())
-                lp_idxs = find_indeces_of_subarray(nodes.tolist(),lp.tolist())
-                s.finish = new_finish
-                # rp,lp = part[:len(part)//2], part[len(part)//2:]
-                #
-                parts[i:i+1] = rp_idxs,lp_idxs
-                return func(parts,nodes)
-    parts = [range(len(nodes_data))]
+    list_of_lists_of_indeces = [range(len(nodes_data))]
     all_nodes_list = nodes_data#.tolist()
-    parts = func(parts,all_nodes_list,Lmax=50)
+    list_of_lists_of_indeces = s.recursive_split(list_of_lists_of_indeces,all_nodes_list,Lmax=50)
 
     # рисование узлов
     moscow = locm.Location(address='Moscow')
     plot = bokehm.Figure(output_fname='splitter.html',center_coords=moscow.coords,use_gmap=True,)
     plot.add_line(s.nodes, circle_size=5,circles_color='blue',alpha= 0.1,no_line = True)
 
-    colors_list = ['red','green','blue','orange','yellow']*(len(parts)//5+1)
-    for i,part in enumerate(parts):
+    colors_list = ['red','green','blue','orange','yellow']*(len(list_of_lists_of_indeces)//5+1)
+    for i,part in enumerate(list_of_lists_of_indeces):
         logger.debug("len(part)\n%s" % (len(part),))
         logger.debug("part\n%s" % (part,))
         plot.add_line(nodes_data[part], circle_size=5,circles_color=colors_list[i],alpha= 0.5,no_line = True)
         # plot.add_line([s.start,knots[i]], circle_size=10,circles_color='red',alpha= 1.,no_line = False)
 
-    # plot.add_line(part_right_np_nodes, circle_size=15,circles_color='green',alpha= 0.5,no_line = True)
-    # plot.add_line(part_left_np_nodes, circle_size=15,circles_color='black',alpha= 0.5,no_line = True)
-    # plot.add_line([s.knot,n_], circle_size=10,circles_color='pink',alpha= 0.,no_line = False)
-    # plot.add_line([s.start,s.finish], circle_size=10,circles_color='pink',alpha= 0.,no_line = False)
-    # plot.add_line([s.knot], circle_size=15,circles_color='red',alpha= 0.5,no_line = True)
     plot.save2html()
     logger.debug('splitter optimizer  finished')
     return s
