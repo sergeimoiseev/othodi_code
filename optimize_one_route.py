@@ -9,23 +9,6 @@ import haversine
 # haversine((45.7597, 4.8422),(48.8567, 2.3508),miles = True)243.71209416020253
 logger = logging.getLogger(__name__)
 
-def anneal_optimizer_setup(n_cities):
-    logger.debug('anneal optimizer setup started')
-    a = anneal_optimizer.AnnealOptimizer()
-
-    node_dtype = np.dtype([('name',np.str_, 32),  ('lat', np.float64, 1),  ('lng', np.float64, 1)])
-    tver_coords = {u'lat':56.8583600,u'lng':35.9005700}
-    ryazan_coords = {u'lat':54.6269000,u'lng':39.6916000}
-    a.start = np.array(('Tver',tver_coords['lat'],tver_coords['lng']),dtype = node_dtype)
-    a.finish = np.array(('Ryazan',ryazan_coords['lat'],ryazan_coords['lng']),dtype = node_dtype)
-
-    nodes_data = tools.get_nodes_data(nodes_num = n_cities, recreate_nodes_data=False)
-    logger.debug("nodes_data\n%s" % (nodes_data))
-    # инициализация узлов
-    a.nodes = nodes_data
-    a.stats = None
-    return a
-
 def split_anneal_a_route(nodes_data):
     
     # создание сплиттера-оптимизатора
@@ -35,8 +18,19 @@ def split_anneal_a_route(nodes_data):
     tver_coords = {u'lat':56.8583600,u'lng':35.9005700}
     ryazan_coords = {u'lat':54.6269000,u'lng':39.6916000}
     s.start = np.array(('Tver',tver_coords['lat'],tver_coords['lng']),dtype = node_dtype)
-    # s.finish = np.array(('Tver',tver_coords['lat'],tver_coords['lng']),dtype = node_dtype)
-    s.finish = np.array(('Ryazan',ryazan_coords['lat'],ryazan_coords['lng']),dtype = node_dtype)
+    ### BUG STARTING HERE!!!  
+    # Вариант 1.
+    # когда делаешь старт совпадающий с финишом, последняя часть
+    # полученная при разбиении недосчитывается со странной (казалось бы невозможной) ошибкой - 
+    # в списке узлов больше на 1, чем на самом деле - к этому несуществующему узлу невозможно посчитать расстояние.
+    # Ошибка всегда возникает только при расчетах, связанных с последней частью маршртуа.
+    # Вариант 2
+    # Та же ошибка возникает и при задании максимального числа узлов в одной части большего или
+    # равного количеству городов - 
+    # то есть, когда разбиения не происходит совсем, алгоритм до конца не доходит.
+    # Строка вызывающая первый вариант ошибки
+    s.finish = np.array(('Tver',tver_coords['lat'],tver_coords['lng']),dtype = node_dtype)
+    # s.finish = np.array(('Ryazan',ryazan_coords['lat'],ryazan_coords['lng']),dtype = node_dtype)
     # инициализация узлов
 
     logger.debug("nodes_data\n%s" % (nodes_data))
@@ -45,8 +39,9 @@ def split_anneal_a_route(nodes_data):
     parts = [s.nodes]
 
     list_of_lists_of_indeces = [range(len(nodes_data))]
-    all_nodes_list = nodes_data#.tolist()
-    max_nodes_in_part = 7
+    all_nodes_list = nodes_data
+    # Строка вызывающая второй вариант ошибки
+    max_nodes_in_part = 30
     knots_indices = [None]*len(nodes_data)
     logging.disable(logging.DEBUG)
     list_of_lists_of_indeces, knots_indices = s.recursive_split(list_of_lists_of_indeces,all_nodes_list,knots_indices,Lmax=max_nodes_in_part)
@@ -118,7 +113,11 @@ def split_anneal_a_route(nodes_data):
         return annealed_nodes_sequence
 
     for part_idxs,finish_idx in zip(list_of_lists_of_indeces,knots_indices):
-        annealed_nodes_sequence = anneal_a_sequence(part_idxs,nodes_data[finish_idx])
+        if finish_idx!=None:
+            finish_node = nodes_data[finish_idx]
+        else:
+            finish_node = s.finish
+        annealed_nodes_sequence = anneal_a_sequence(part_idxs,finish_node)
         annealed_index_sets.append(annealed_nodes_sequence)
 
     logging.disable(logging.NOTSET)
@@ -139,14 +138,15 @@ def split_anneal_a_route(nodes_data):
 
     full_route_indices = []
     for part,fin in zip(annealed_index_sets,knots_indices):
-        full_route_indices += part 
-        full_route_indices.append(fin)
+        full_route_indices += part
+        if fin!=None:
+            full_route_indices.append(fin)
     logger.debug("full_route_indices\n%s" % (full_route_indices,))
     
     moscow = locm.Location(address='Moscow')
     plot = bokehm.Figure(output_fname='a_route_annealed_splitted.html',center_coords=moscow.coords,use_gmap=True,)
     step_grid = np.arange(len(full_route_indices))
-    plot.add_line(nodes_data[full_route_indices], circle_size=step_grid,circles_color='red',alpha= 0.5,no_line = False)
+    plot.add_line( nodes_data[full_route_indices], circle_size=step_grid,circles_color='red',alpha= 0.5,no_line = False)
     plot.save2html()
 
     logging.disable(logging.DEBUG)
@@ -154,7 +154,6 @@ def split_anneal_a_route(nodes_data):
     logging.disable(logging.NOTSET)
 
     return full_route_indices
-
 
 def main():
     logger.debug('main  started')
