@@ -164,7 +164,7 @@ class AnnealOptimizer(abstract_optimizer.AbstractOptimizer):
 
     def plot_stats(self,**kwargs):
         import bokeh.plotting as bp
-        out_fname = self.__class__.__name__+"_stats.html"
+        out_fname = self.__class__.__name__+kwargs.get('fname',u'')+"_stats.html"
         bp.output_file(out_fname)
         p = bp.figure(plot_width=640, plot_height=480,title=kwargs.get('title',u''))
         np_stats = np.array(self.stats,dtype = object)

@@ -220,7 +220,12 @@ def find_indeces_of_subarray(arr,sub):
         try:
             list_to_search_for = el.tolist()
         except:
-            # logger.debug("sub element doesn`t have tolist() attribute")
+            logger.debug("sub element doesn`t have tolist() attribute")
             list_to_search_for = el
-        indices.append(arr.index(list_to_search_for))
+        try:
+            list_to_search_in = arr.tolist()
+        except:
+            logger.debug("array to search in doesn`t have tolist() attribute")
+            list_to_search_in = arr
+        indices.append(list_to_search_in.index(list_to_search_for))
     return indices
