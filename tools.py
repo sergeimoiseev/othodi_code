@@ -209,9 +209,18 @@ def order_by_r(a_set, nodes,start,finish):
 def find_indeces_of_subarray(arr,sub):
     logger.debug("arr\n%s" % (arr,))
     logger.debug("type(arr)\n%s" % (type(arr),))
+    # logger.debug("arr[0]\n%s" % (arr[0],))
+    # logger.debug("type(arr[0])\n%s" % (type(arr[0]),))
     logger.debug("sub\n%s" % (sub,))
     logger.debug("type(sub)\n%s" % (type(sub),))
+    # logger.debug("sub[0]\n%s" % (sub[0],))
+    # logger.debug("type(sub[0])\n%s" % (type(sub[0]),))
     indices = []
     for el in sub:
-        indices.append(arr.index(el))
+        try:
+            list_to_search_for = el.tolist()
+        except:
+            # logger.debug("sub element doesn`t have tolist() attribute")
+            list_to_search_for = el
+        indices.append(arr.index(list_to_search_for))
     return indices

@@ -43,7 +43,7 @@ class SplitterOptimizer(abstract_optimizer.AbstractOptimizer):
             n4s['r_cm'] = tools.r([self.center['lat'],self.center['lng']],[node['lat'],node['lng']])
             n4s['r_s'] = 0.
         nodes4sort = np.sort(nodes4sort,order=('r_cm'))
-        self.knot = nodes4sort[0]
+        self.knot = self.nodes[self.nodes['name']==nodes4sort[0]['name']][0]
 
     def split_nodes(self):
         # поиск центра масс точек
@@ -87,9 +87,9 @@ class SplitterOptimizer(abstract_optimizer.AbstractOptimizer):
         return part_right_np_nodes, part_left_np_nodes, self.knot
 
 
-    def recursive_split(self,parts,nodes,Lmax=50):
+    def recursive_split(self,parts,nodes,fins,Lmax=50):
         if all([len(part)<=Lmax for part in parts]):
-            return parts
+            return parts, fins
         for part in parts:
             if len(part)<=Lmax:
                 continue
@@ -110,7 +110,9 @@ class SplitterOptimizer(abstract_optimizer.AbstractOptimizer):
                 self.finish = new_finish
 
                 parts[i:i+1] = rp_idxs,lp_idxs
-                return self.recursive_split(parts,nodes)
+                fins[i] = tools.find_indeces_of_subarray(nodes.tolist(),[new_finish])[0]
+                fins[i+1] = tools.find_indeces_of_subarray(nodes.tolist(),[new_finish])[0]
+                return self.recursive_split(parts,nodes,fins)
 
     def plot_route_from_stats(self, stat_idx = -1):
         pass
@@ -140,23 +142,26 @@ def splitter_optimizer_test():
 
     parts = [s.nodes]
 
-    small_parts, knots = [], [s.finish]
-
     list_of_lists_of_indeces = [range(len(nodes_data))]
     all_nodes_list = nodes_data#.tolist()
-    list_of_lists_of_indeces = s.recursive_split(list_of_lists_of_indeces,all_nodes_list,Lmax=50)
+    max_nodes_in_part = 30
+    knots = [None]*len(nodes_data)
+    list_of_lists_of_indeces, knots = s.recursive_split(list_of_lists_of_indeces,all_nodes_list,knots,Lmax=max_nodes_in_part)
+    logger.debug("knots\n%s" % (knots,))
+    # for part in list_of_lists_of_indeces:
+
 
     # рисование узлов
     moscow = locm.Location(address='Moscow')
     plot = bokehm.Figure(output_fname='splitter.html',center_coords=moscow.coords,use_gmap=True,)
-    plot.add_line(s.nodes, circle_size=5,circles_color='blue',alpha= 0.1,no_line = True)
+    plot.add_line(s.nodes, circle_size=10,circles_color='blue',alpha= 0.1,no_line = True)
 
     colors_list = ['red','green','blue','orange','yellow']*(len(list_of_lists_of_indeces)//5+1)
     for i,part in enumerate(list_of_lists_of_indeces):
         logger.debug("len(part)\n%s" % (len(part),))
         logger.debug("part\n%s" % (part,))
         plot.add_line(nodes_data[part], circle_size=5,circles_color=colors_list[i],alpha= 0.5,no_line = True)
-        # plot.add_line([s.start,knots[i]], circle_size=10,circles_color='red',alpha= 1.,no_line = False)
+        plot.add_line([s.start,nodes_data[knots[i]]], circle_size=10,circles_color='red',alpha= 1.,no_line = False)
 
     plot.save2html()
     logger.debug('splitter optimizer  finished')
