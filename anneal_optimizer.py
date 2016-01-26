@@ -117,10 +117,10 @@ class AnnealOptimizer(abstract_optimizer.AbstractOptimizer):
         self.new_score = self.get_score(self._new_set)
         return a_set
 
-    def bool_current_energy_opened(self):
-        float_value = math.exp(1. -abs(self.new_score)/float(self.current_temp ))  # stop choosing "hot" states when cooling down
-        # float_value = math.exp(1. -abs(self.new_score-self.score)/float(self.current_temp ))
-        return True if float_value>=1 else False
+    # def bool_current_energy_opened(self):
+    #     float_value = math.exp(1. -abs(self.new_score)/float(self.current_temp ))  # stop choosing "hot" states when cooling down
+    #     # float_value = math.exp(1. -abs(self.new_score-self.score)/float(self.current_temp ))
+    #     return True if float_value>=1 else False
 
     def get_transition_probability(self):
         # float_value = math.exp(1. -abs(self.new_score)/float(self.current_temp ))  # stop choosing "hot" states when cooling down

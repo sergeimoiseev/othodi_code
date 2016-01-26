@@ -10,13 +10,14 @@ class AbstractOptimizer(object):
     """AbstractOptimizer class provides 
     basic functions and stubs."""
     def __init__(self, **kwarg):
+        logger.debug(self.__class__.__name__+" object creation initiated")
         self._nodes = None  # all graph nodes in ordered object
         self._set = None  # chosen stats of graph -- some ordered object of indeces
         self._new_set = None # storage for new (unchosen) stats of graph
         self.score = None
         self.new_score = None
         self.stats = None
-        logger.debug(self.__class__.__name__+" object created")
+        self.node_dtype = np.dtype([('name',np.str_, 32),  ('lat', np.float64, 1),  ('lng', np.float64, 1)])
 
     @property
     def nodes(self):

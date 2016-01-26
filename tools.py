@@ -152,8 +152,8 @@ def indeces_sum_to_one(arr):
 
 import haversine
 def r(c1,c2):
-    logger.debug("c1\n%s" % (c1,))
-    logger.debug("c2\n%s" % (c2,))
+    # logger.debug("c1\n%s" % (c1,))
+    # logger.debug("c2\n%s" % (c2,))
     return haversine.haversine((c1[0],c1[1]),(c2[0],c2[1]),miles=False)
     # return math.sqrt((c1[0]-c2[0])**2 + (c1[1]-c2[1])**2)
 
@@ -195,7 +195,7 @@ def order_by_r(a_set, nodes,start,finish):
     for n4s in nodes4sort:
         n4s['r_prev'] = r([prev_node['lat'],prev_node['lng']],[n4s['lat'],n4s['lng']])
         prev_node = n4s
-    nodes4sort = np.sort(nodes4sort,order=('r_prev'))
+    nodes4sort = np.sort(nodes4sort,order=('r_start','r_prev'))
     logger.debug("nodes4sort\n%s" % (nodes4sort,))
 
     a_set = []
@@ -229,3 +229,10 @@ def find_indeces_of_subarray(arr,sub):
             list_to_search_in = arr
         indices.append(list_to_search_in.index(list_to_search_for))
     return indices
+
+def get_proximity_matrix(from_coords, to_coords):
+    proximity_matrix=np.empty((len(from_coords), len(to_coords)), dtype=np.float64)
+    for i,c1 in enumerate(from_coords):
+        for j,c2 in enumerate(to_coords):
+            proximity_matrix[i,j]=r(c1,c2)
+    return proximity_matrix

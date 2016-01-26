@@ -104,6 +104,30 @@ loggers:
 
         propagate: no  
 
+    anneal_optimizer:
+
+        level: INFO
+
+        handlers: [console]
+
+        propagate: no  
+
+    tools:
+
+        level: INFO
+
+        handlers: [console]
+
+        propagate: no  
+
+    abstract_optimizer:
+
+        level: INFO
+
+        handlers: [console]
+
+        propagate: no  
+
 
 root:
 
