@@ -1,0 +1,138 @@
+---
+
+version: 1
+
+disable_existing_loggers: False
+
+formatters:
+
+    simple:
+
+        # format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        format: "%(asctime)s.%(msecs)03d - %(name)s - %(levelname)s - %(message)s"
+
+        datefmt: "%H:%M:%S"
+
+
+
+handlers:
+
+    console:
+
+        class: logging.StreamHandler
+
+        level: DEBUG
+
+        formatter: simple
+
+        stream: ext://sys.stdout
+
+
+    info_file_handler:
+
+        class: logging.handlers.RotatingFileHandler
+
+        level: INFO            
+
+        formatter: simple
+
+        filename: app.log
+
+        maxBytes: 10485760 # 10MB
+
+        backupCount: 20
+
+        encoding: utf8
+
+
+    error_file_handler:
+
+        class: logging.handlers.RotatingFileHandler
+
+        level: ERROR            
+
+        formatter: simple
+
+        filename: errors.log
+
+        maxBytes: 10485760 # 10MB
+
+        backupCount: 20
+
+        encoding: utf8
+
+
+loggers:
+
+    bokehm:
+
+        level: ERROR
+
+        handlers: [console]
+
+        propagate: no 
+
+    gmaps:
+
+        level: INFO
+
+        handlers: [console]
+
+        propagate: no  
+
+    tspm:
+
+        level: ERROR
+
+        handlers: [console]
+
+        propagate: no  
+
+    sa:
+
+        level: ERROR
+
+        handlers: [console]
+
+        propagate: no  
+
+    bokeh_gmapm:
+
+        level: INFO
+
+        handlers: [console]
+
+        propagate: no  
+
+    anneal_optimizer:
+
+        level: INFO
+
+        handlers: [console]
+
+        propagate: no  
+
+    tools:
+
+        level: INFO
+
+        handlers: [console]
+
+        propagate: no  
+
+    abstract_optimizer:
+
+        level: INFO
+
+        handlers: [console]
+
+        propagate: no  
+
+
+root:
+
+    level: DEBUG
+
+    handlers: [console, info_file_handler, error_file_handler]
+
+...

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import shutil
-import locm, routem, mapm, dropboxm, gmaps, tools, bokehm
+import locm, routem, mapm, dropboxm, gmaps, tools, bokehm, tspm
 import logging.config, os, yaml, inspect
 import time, math, random, sys, copy
 import numpy as np

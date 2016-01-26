@@ -1,0 +1,95 @@
+Пытался выдать в localhost графики, чтобы оставить их интерактивными.
+mpld3 не поддерживает annotate,
+в python_xy старый matplotlib 1.2..., в котором нет backend-ов 'nbagg' и 'webagg'.
+Поставил Anaconda, создал environment командой
+conda create --name othodi basemap
+Несмотря на то, что в anaconda matplotlib версии 1.5.0,
+c basemap поставился matplotlib 1.4.3
+                                        The following NEW packages will be INSTALLED:
+                                        basemap:         1.0.7-np110py27_0 defaults        matplotlib:      1.4.3-np110py27_1 defaults        msvc_runtime:    1.0.1-0           defaults        numpy:           1.10.1-py27_0     defaults        pip:             7.1.2-py27_0      defaults        pyparsing:       2.0.3-py27_0      defaults        pyqt:            4.10.4-py27_1     defaults        python:          2.7.11-0          defaults        python-dateutil: 2.4.2-py27_0      defaults        pytz:            2015.7-py27_0     defaults        setuptools:      19.1.1-py27_0     defaults        six:             1.10.0-py27_0     defaults        wheel:           0.26.0-py27_1     defaults    
+Если не заработает все, что нужно в этом environment, 
+придется что-то ставить вручную или отказываться от basemap.
+В новом environment под названием othodi
+создаю репозиторий GIT - продолжать работать буду в нем - как в masetr (в основной ветке)
+Если не пойдет, откачусь назад и перенесу репозиторий в другую папку (м б в дргуой environment)
+
+Лезут ошибки отовсюду, примеры с nbagg не работают ни в pyhtonxy ни в anacnda.
+Сделал environment "othodi2" с mpld3 командой
+[Anaconda3] C:\Users\Sergei\Projects\Othodi\code>conda create -n othodi2 -c abgr
+eenwell mpld3
+
+и попробую использовать bokeh
+- получилось установить в anaconda
+версия 0.10 (0.11 лучше: https://github.com/bokeh/bokeh/issues/2763)
+встала и работает с примером (bokeh_test.py) - 
+генерирует интерактивный html - для демонстрации - то, что нужно.
+Переносить все на bokeh пока не буду - времени мало, но это
+пока самый рабочий вариант.
+
+поставил необходимое в анаконду:
+conda create -n othodi3 matplotlib bokeh basemap pip
+(перейти: activate othodi3)
+для basemap не хватало PIL - установил командой conda install pil
+
+Большой план (до 6го):
+сервер настроен - анаконда на нем работает так же как и на ноуте
+ - скопировать данные об env на ноуте - сохранить в yml и на сервере - сохранить в другой yml
+ - подложить растровую картинку в фронтенде bokeh - карту с gmaps
+ - при изменении файла настроек данные на карте будут автоматически меняться:
+    отдельный скрипт - demonize - читатель dropbox. Должен работать всегда - всегда считывать и копировать в папку code файлы из dropbox.
+ - В файле будут источники и приемники в формате
+"широта, долгота, тип отходов, максимальный поток отходов"
+"широта, долгота, тип отходов, принимаемый максимальный поток отходов"
+соответственно.
+- До 6го января реализую модель крупного масштаба и масштаба доставки (с точностью до одной машины). Сравню их  быстродействие.
+
+скрипт settings_reader.py
+запускается одни раз и долго висит на сервере.
+о своем состоянии пишет в лог-файл
+ - последнюю строчку переписывает, если с момента предыдущей проверки состояния
+ папок на dropbox он (скрипт работатет исправно)
+ период обновления - 1 минута
+ - настройки считывает из файла settings.txt в Dropbox (в этом файле в фомате "ключ:значение\n" должны быть все настройки. Первая настройка - имя файла с точками, которые должны быть на карте.)
+скрипт может использовать функцию перезагрузки зависимостей - 
+http://code.google.com/p/reimport/
+
+копирую данные об установленных приложениях с ноута
+[othodi3] C:\Users\Sergei>conda env export > env_othodi3_on_peter_win7_2015.yml
+ - этот файл можно использовать на похожей windows-машине (64 бита)
+На Линуксе точной копии не выйдет сделать - команда не завершится успешно, поэтому
+сохраняю еще два файла - 
+conda list -e > spec-file_env_othodi3_on_peter_win7_64_2015.txt
+conda list --explicit > explicit_spec-file_env_othodi3_on_peter_win7_64_2015.txt
+(dropbox был установлен с помощью pip - см файл 'env_othodi3_on_peter_win7_2015.yml')
+все файлы с сервера добавляю в git
+сохраняю данные об установленных приложениях на сервере
+conda env export > env_othodi4_on_ec2_64ununtu14_04_2015.yml
+conda list -e > spec-file_env_othodi4_on_ec2_64ununtu14_04_2015.txt 
+conda list --explicit > explicit_spec-file_env_othodi4_on_ec2_64ununtu14_04_2015.txt
+добавил изменения в репозиторий
+git add -A 
+git commit -m "added env spec files from linux server."
+git push
+
+
+--
+делаю запуск управляющего скрипта - сначала без демонов и сложностей
+по запросу
+run python script at background
+нашел
+'http://stackoverflow.com/questions/2975624/how-to-run-a-python-script-in-the-background-even-after-i-logout-ssh'
+nohup python script_name.py &
+- не подойдет - нужно ввести в дропбокс-скрипт код авторизации, только
+потом убрать в бэкграунд.
+придется делать демона - делаю.
+на Win демон не работает - нет os.fork()
+
+демон сразу не запустился - отказываюсь пока от него,
+нужно запускать просто два терминала - в одном будет крутиться
+mirror_dropbox.py,
+а в другом продолжаем работать
+при прерывании сеанса результат я не знаю - наверное скрипт перестает работать.
+мне это не страшно
+
+----
+изучаю графы

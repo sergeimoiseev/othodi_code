@@ -1,0 +1,174 @@
+Сервер создаю и настраиваю с помощью инструкций отсюда:
+https://www.phusionpassenger.com/library/walkthroughs/deploy/python/aws/standalone/oss/trusty/deploy_app.html#login-to-your-server-create-a-user-for-the-app
+
+На виртуальной машине пользователь, под которым будет работать программа создан командой
+sudo adduser othodi
+пароль пользователя - 32167
+
+установка SSH key
+
+sudo mkdir -p ~othodi/.ssh
+sudo sh -c "cat $HOME/.ssh/authorized_keys >> ~othodi/.ssh/authorized_keys"
+sudo chown -R othodi: ~othodi/.ssh
+sudo chmod 700 ~othodi/.ssh
+sudo sh -c "chmod 600 ~othodi/.ssh/*"
+
+установка git-а
+sudo apt-get install -y git
+
+создаем директорию для кода
+
+sudo mkdir -p /var/www/othodiapp
+sudo chown othodi: /var/www/othodiapp
+
+Вот так брать код с git-а:
+cd /var/www/othodiapp
+sudo -u othodi -H git clone https://github.com/sergeimoiseev/othodi.git code
+
+- все гладко до сюда
+
+Your app's code now lives on the server at /var/www/othodi/code
+
+Install app dependencies
+(пришлось сначала поствить pip через apt-get)
+sudo pip install flask
+
+
+Create a Passenger config file
+
+cd /var/www/myapp/code
+sudo nano Passengerfile.json
+
+{
+  // Tell Passenger that this is a Python app.
+  // Replace "passenger_wsgi.py" with your app's WSGI entry point file.
+  "app_type": "wsgi",
+  "startup_file": "passenger_wsgi.py",
+  // Run the app in a production environment. The default value is "development".
+  "environment": "production",
+  // Run Passenger on port 80, the standard HTTP port.
+  "port": 80,
+  // Tell Passenger to daemonize into the background.
+  "daemonize": true,
+  // Tell Passenger to run the app as the given user. Only has effect
+  // if Passenger was started with root privileges.
+  "user": "othodi"
+}
+
+Finally, fix the permissions on the file:
+sudo chown othodi: Passengerfile.json
+
+Start Passenger Standalone
+cd /var/www/myapp/code
+sudo passenger start
+
+По адресу 
+54.213.67.139
+- получил html из примера
+
+Если подменить html-ем  c картой,
+отображается тот html, который и нужен.
+
+bokeh не устанавливается
+очень долго качать, не успеваю поставить анаконду
+(wget -P /home/othodi/ https://3230d63b5fc54e62148e-c95ac804525aac4b6dba79b00b39d1d3.ssl.cf1.rackcdn.com/Anaconda3-2.4.1-Linux-x86_64.sh)
+все же качаю
+
+установил
+
+добавил в PATH правильно (!)
+
+добавляю env - othodi
+поставил необходимое в анаконду:
+conda create -n othodi matplotlib bokeh basemap pip
+то же, что на ноуте в othodi3
+
+активирую этот env:
+source activate othodi
+
+----правки в коде----
+в фронтенде заменил show на save
+пушнул на гитхаб
+
+остановил веб-приложение
+sudo passenger stop 
+
+изменения пушнул в гитхабовский репозиторий
+с сервера получаю изменения командой
+sudo git fetch origin
+sudo git reset --hard origin/master
+
+Start Passenger Standalone
+cd /var/www/myapp/code
+sudo passenger start
+
+
+
+
+установка dropbox
+wget -P /home/othodi/ https://www.dropbox.com/developers/downloads/sdks/core/python/dropbox-python-sdk-2.2.0.zip
+
+поставил везде
+вот так запускать крипт
+sudo /home/ubuntu/anaconda3/bin/python othodi_app.py 
+
+conda create -n othodi python=2 matplotlib bokeh basemap pip
+
+
+
+обычный икл обновления-запуска моего скрипта
+sudo passenger stop 
+sudo git fetch origin
+sudo git reset --hard origin/master
+sudo /home/ubuntu/anaconda3/bin/python othodi_app.py 
+sudo passenger start
+
+сплошные проблемы потому что в cond-e на сервере
+всал python3 - все строки полетели.
+придется делать новый env с python27
+
+conda create -n othodi2 python=2 matplotlib bokeh basemap pip
+
+(Linux)
+source deactivate
+source activate othodi2
+
+все равно на ноуте dropbox v4, а на сервере - 2.2
+и требуют разных urllib-ов.
+
+копирую env:
+conda env export > environment.yml
+на сервере
+conda env create -f environment.yml
+
+"Error: No packages found in current linux-64 channels matching: matplotlib 1.4.3 np110py27_1"
+
+попробую собрать по-минимуму:
+убираю из environment.yml все неустанавливающееся
+он не доделывает - на середине ошибка
+
+conda create -n othodi4 python=2 bokeh pip
+и затем 
+pip install dropbox
+ - встало!
+
+все работает, только права на файлы надо менять после каждой заливки из github
+sudo chmod -R 700
+
+
+новый цикл обновления-запуска моего скрипта
+cd code/
+sudo passenger stop
+sudo git fetch origin
+sudo git reset --hard origin/master
+cd ..
+sudo chmod -R 655 code/
+cd code/
+source deactivate
+source activate othodi4
+python othodi_app.py 
+sudo passenger start
+
+В текущем состоянии работает
+и комментирование работает, сервер работает
+последний коммит - дальше после НГ
