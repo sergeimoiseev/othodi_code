@@ -111,11 +111,10 @@ class SplitterOptimizer(abstract_optimizer.AbstractOptimizer):
                 return self.recursive_split(parts,nodes,fins,Lmax)
 
 
-    def split_anneal_a_route(self,max_nodes_in_part):
+    def split_anneal_a_route(self,max_nodes_in_part,max_anneal_loops=100):
         s = self
         list_of_lists_of_indeces = [range(len(s.nodes))]
         all_nodes_list = copy.deepcopy(s.nodes)
-        # max_nodes_in_part = 30
         knots_indices = [None]*len(s.nodes)
         logging.disable(logging.DEBUG)
         list_of_lists_of_indeces, knots_indices = s.recursive_split(list_of_lists_of_indeces,all_nodes_list,knots_indices,Lmax=max_nodes_in_part)
@@ -147,7 +146,7 @@ class SplitterOptimizer(abstract_optimizer.AbstractOptimizer):
             a.set = a.sort(a.set)
             a.new_set = copy.deepcopy(a.set)  # глубокая
             # инициализация констант
-            max_loops = 100
+            max_loops = max_anneal_loops
             # max_temp = max_loops/1e1
             max_temp = 50
             stop_temperature = 0.1

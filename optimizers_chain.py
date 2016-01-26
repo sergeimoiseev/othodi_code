@@ -14,8 +14,8 @@ def test_init_optimize_threads(n_cities = 100):
     return nodes_data
 
 def optimize_threads(nodes_data):
-    number_of_cities_from_file = 100
-    max_threads_anneal_loops = 10
+    number_of_cities_from_file = len(nodes_data)
+    max_threads_anneal_loops = 100
     # max_temp = max_loops/1e1
     max_threads_anneal_temp = 500
     stop_threads_anneal_temperature = 0.1
@@ -68,10 +68,10 @@ def optimize_threads(nodes_data):
 if __name__ == "__main__":
     tools.setup_logging()
     logger.info("thread optimizer script run directly")
-    nodes_data = test_init_optimize_threads(n_cities = 100)
+    nodes_data = test_init_optimize_threads(n_cities = 20)
     threads_indices = optimize_threads(nodes_data)
     for thread_idxs in threads_indices:
         thread_nodes = np.take(nodes_data, thread_idxs)
-        optimize_one_route.optimize_one_route(thread_nodes,max_split_part = 5)
+        optimize_one_route.optimize_one_route(thread_nodes,max_split_part = 3,max_anneal_loops_per_thread = 1000)
     logger.debug("threads_indices\n%s" % (threads_indices,))
     logger.info("thread optimizer script finished running")

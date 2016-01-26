@@ -9,8 +9,6 @@ import haversine
 # haversine((45.7597, 4.8422),(48.8567, 2.3508),miles = True)243.71209416020253
 logger = logging.getLogger(__name__)
 
-
-
 class AnnealOptimizer(abstract_optimizer.AbstractOptimizer):
     """AnnealOptimizer class provides 
     anneal optimizer
