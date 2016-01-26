@@ -18,13 +18,34 @@ class ThreadOptimizer(anneal_optimizer.AnnealOptimizer):
         super(ThreadOptimizer, self).__init__()
         self.start = start
         self.finish = finish
-        self.threads_idxs = None
-        self.new_threads_idxs = None
+        # self.set = None
+        # self.new_set = None
         self.threads_scores = None
         self.score = None
         self.new_score = None
         self.n_threads = None
         self.node4threading_dtype = [(name,self.node_dtype[name]) for name in self.node_dtype.names] + [('potential', np.float64, 1),('proximity', np.float64, 1)]
+
+    def get_score(self,a_set_):
+        logger.debug(tools.get_string_caller_objclass_method(self,inspect.stack()))
+        full_score = 0.
+        # threads_scores = []
+        logger.debug("self.set\n%s" % (self.set,))
+        for thread_number,thread_idxs in enumerate(self.set):
+            logger.debug("thread_idxs\n%s" % (thread_idxs,))
+            a = anneal_optimizer.AnnealOptimizer()
+            a.nodes = np.take(self.nodes,thread_idxs)
+            a.start = self.start
+            a.finish = self.finish
+            a.set = list(np.arange(a.nodes.shape[0]))
+            a.SORT_ON = True
+            a.set = a.sort(a.set)
+            logger.debug("after sort a.nodes[a.set]['name']\n%s" % (a.nodes[a.set]['name'],))
+            a.update_stats()
+            # a.plot_route_from_stats()
+            # threads_scores.append(a.score)
+            full_score += a.score
+        return full_score
         
     def create_threads(self):
         logger.debug(tools.get_string_caller_objclass_method(self,inspect.stack()))
@@ -71,15 +92,15 @@ class ThreadOptimizer(anneal_optimizer.AnnealOptimizer):
                     part_nodes = np.delete(part_nodes, equi_nodes_min_idx)
                     logger.debug("part_nodes after delete\n%s" % str(part_nodes))
         logger.debug("thr_idxs\n%s" % (thr_idxs,))
-        self.threads_idxs = thr_idxs
+        self.set = thr_idxs
         self.threads_scores = np.zeros((self.n_threads),dtype = np.float64)
 
 
     def calc_scores(self):
         logger.debug(tools.get_string_caller_objclass_method(self,inspect.stack()))
         self.score = 0.
-        logger.debug("self.threads_idxs\n%s" % (self.threads_idxs,))
-        for thread_number,thread_idxs in enumerate(self.threads_idxs):
+        logger.debug("self.set\n%s" % (self.set,))
+        for thread_number,thread_idxs in enumerate(self.set):
             logger.debug("thread_idxs\n%s" % (thread_idxs,))
             a = anneal_optimizer.AnnealOptimizer()
             a.nodes = np.take(self.nodes,thread_idxs)
@@ -98,7 +119,7 @@ class ThreadOptimizer(anneal_optimizer.AnnealOptimizer):
         logger.debug(tools.get_string_caller_objclass_method(self,inspect.stack()))
         max_score = max(self.threads_scores)
         longest_thread_index = [i for i,j in enumerate(self.threads_scores) if j == max_score][0]
-        thread_nodes = np.take(self.nodes,self.threads_idxs[longest_thread_index])
+        thread_nodes = np.take(self.nodes,self.set[longest_thread_index])
         nodes4sorting = np.zeros(thread_nodes.shape[0],dtype = self.node4threading_dtype)
         for node,n4s in zip(thread_nodes,nodes4sorting):
             n4s['name'] = node['name']
@@ -123,37 +144,58 @@ class ThreadOptimizer(anneal_optimizer.AnnealOptimizer):
         return nearest_node
 
     def swap_indices_in_threads(self,i,j):
-        position_of_index_i = np.where( self.threads_idxs == i )
+        position_of_index_i = np.where( self.set == i )
         logger.debug("position_of_index_i\n%s" % (position_of_index_i,))
-        position_of_index_j = np.where( self.threads_idxs == j )
+        position_of_index_j = np.where( self.set == j )
         logger.debug("position_of_index_j\n%s" % (position_of_index_j,))
-        self.threads_idxs[position_of_index_i] = j
-        self.threads_idxs[position_of_index_j] = i
-
-    def loop(self): # overriding parent class object#method
-        
-        # меняем состояние на новое, если качество повысилось
-        # if self.choose():
-        #     logger.debug("New set chosen over old one")
-        #     # self.set = copy.deepcopy(self.new_set)  # doesn't help
-        #     self.set = self.new_set[:]
-        #     new_set_chosen = True
-        # else:
-        #     logger.debug("Old set remains current one")
-        #     new_set_chosen = False
-        
-        return False
-
+        self.set[position_of_index_i] = j
+        self.set[position_of_index_j] = i
 
     def update_stats(self):
         logger.debug(tools.get_string_caller_objclass_method(self,inspect.stack()))
-        if self.stats == None and self.score != None and self.threads_idxs != None:
-            new_entry = [self.score, self.threads_idxs]
+        if self.stats == None and self.score != None: # and self.set != None:
+            new_entry = [self.score, self.set]
             self.stats = [copy.deepcopy(new_entry)]
         else:
-            new_entry = [self.score, self.threads_idxs]
+            new_entry = [self.score, self.set]
             self.stats.append(copy.deepcopy(new_entry))
         self.stats[-1].append(self.current_temp)
+
+    def loop(self):
+        self.new_set = self.set[:]
+
+        longest_thread_number, bad_node = self.get_worst_thread_and_bad_node()
+        logger.debug("bad_node\n%s" % (bad_node,))
+        other_threads_idxs = self.set[:]
+        other_threads_idxs = np.delete(other_threads_idxs, longest_thread_number,axis=0)
+        logger.debug("other_threads_idxs\n%s" % (other_threads_idxs,))
+        flattend_indices_to_choose_from = [idx for sublist in other_threads_idxs for idx in sublist]
+
+        nearest = self.get_nearest_node(flattend_indices_to_choose_from,bad_node['name'])
+        logger.debug("nearest\n%s" % (nearest,))
+        idx_of_bad_node = np.where(self.nodes['name'] == bad_node['name'])[0][0]
+        idx_of_nearest = np.where(self.nodes['name'] == nearest['name'])[0][0]
+        logger.debug("idx_of_bad_node\n%s" % (idx_of_bad_node,))
+        logger.debug("idx_of_nearest\n%s" % (idx_of_nearest,))
+        logger.debug("before swap self.set\n%s" % (self.set,))
+        
+        self.swap_indices_in_threads(idx_of_bad_node,idx_of_nearest)
+        logger.debug("after swap self.set\n%s" % (self.set,))
+
+        self.calc_scores()
+        logger.debug("self.score\n%s" % (self.score,))
+
+        if self.choose():
+            logger.debug("New set chosen over old one")
+            self.set = self.new_set[:]
+            new_set_chosen = True
+        else:
+            logger.debug("Old set remains current one")
+            new_set_chosen = False
+        logger.debug("new_set_chosen\n%s" % (new_set_chosen,))
+
+        self.update_stats()
+        return new_set_chosen
 
 def init_thread_optimizer(n_cities=100):
     t = ThreadOptimizer()
@@ -169,7 +211,7 @@ def init_thread_optimizer(n_cities=100):
     logging.disable(logging.NOTSET)
     logger.debug("t.set\n%s" % (t.set,))
 
-    max_loops = 1000
+    max_loops = 100
     # max_temp = max_loops/1e1
     max_temp = 50
     stop_temperature = 0.1
@@ -195,51 +237,16 @@ def main():
     logger.debug("t.threads_scores\n%s" % (t.threads_scores,))
     t.update_stats()
 
-    def loop():
-        t.new_threads_idxs = t.threads_idxs[:]
-
-        longest_thread_number, bad_node = t.get_worst_thread_and_bad_node()
-        logger.debug("bad_node\n%s" % (bad_node,))
-        other_threads_idxs = t.threads_idxs[:]
-        other_threads_idxs = np.delete(other_threads_idxs, longest_thread_number,axis=0)
-        logger.debug("other_threads_idxs\n%s" % (other_threads_idxs,))
-        flattend_indices_to_choose_from = [idx for sublist in other_threads_idxs for idx in sublist]
-
-        nearest = t.get_nearest_node(flattend_indices_to_choose_from,bad_node['name'])
-        logger.debug("nearest\n%s" % (nearest,))
-        idx_of_bad_node = np.where(t.nodes['name'] == bad_node['name'])[0][0]
-        idx_of_nearest = np.where(t.nodes['name'] == nearest['name'])[0][0]
-        logger.debug("idx_of_bad_node\n%s" % (idx_of_bad_node,))
-        logger.debug("idx_of_nearest\n%s" % (idx_of_nearest,))
-        logger.debug("before swap t.threads_idxs\n%s" % (t.threads_idxs,))
-        
-        t.swap_indices_in_threads(idx_of_bad_node,idx_of_nearest)
-        logger.debug("after swap t.threads_idxs\n%s" % (t.threads_idxs,))
-
-        t.calc_scores()
-        logger.debug("t.score\n%s" % (t.score,))
-
-        if t.choose():
-            logger.debug("New set chosen over old one")
-            t.threads_idxs = t.new_threads_idxs[:]
-            new_set_chosen = True
-        else:
-            logger.debug("Old set remains current one")
-            new_set_chosen = False
-        logger.debug("new_set_chosen\n%s" % (new_set_chosen,))
-
-        t.update_stats()
-        return new_set_chosen
 
     logging.disable(logging.DEBUG)
-    for i in range(100):
-        new_set_chosen = loop()
-        logger.info("new_set_chosen\n%s" % (new_set_chosen,))
-        logger.info("t.current_temp\n%s" % (t.current_temp,))
+    for i in range(10):
+        new_set_chosen = t.loop()
+        logger.debug("new_set_chosen\n%s" % (new_set_chosen,))
+        logger.debug("t.current_temp\n%s" % (t.current_temp,))
         propability = t.get_transition_probability()
-        logger.info("propability\n%.3f" % (propability,))
+        logger.debug("propability\n%.3f" % (propability,))
     logging.disable(logging.NOTSET)
-    # logger.debug("t.stats\n%s" % (t.stats,))
+    logger.debug("t.stats[-1]\n%s" % (t.stats[-1],))
 
 
 if __name__ == "__main__":

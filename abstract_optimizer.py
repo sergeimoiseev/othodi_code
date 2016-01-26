@@ -82,7 +82,7 @@ class AbstractOptimizer(object):
 
     def update_stats(self):
         logger.debug(tools.get_string_caller_objclass_method(self,inspect.stack()))
-        if self.stats == None and self.score != None and self._set != None:
+        if self.stats == None and self.score != None: # and self._set != None:  # FutureWarning - will be elementwise comparison
             new_entry = [self.score, self._set]
             self.stats = [copy.deepcopy(new_entry)]
             # self.stats = [new_entry[:]]
