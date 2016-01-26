@@ -8,13 +8,14 @@ import anneal_optimizer, splitter_optimizer
 # import haversine
 logger = logging.getLogger(__name__)
 
-
-def main():
-    logger.debug('main  started')
+def test_init_optimize_one_route():
     n_cities = 20
     nodes_data = tools.get_nodes_data(nodes_num = n_cities, recreate_nodes_data=False)
+    return nodes_data
+
+def optimize_one_route(nodes_data,max_split_part = 10):
     s = splitter_optimizer.init_split_optimizer(nodes_data)
-    max_nodes_in_part = 10
+    max_nodes_in_part = max_split_part
     indices = s.split_anneal_a_route(max_nodes_in_part)
 
     moscow = locm.Location(address='Moscow')
@@ -22,11 +23,11 @@ def main():
     step_grid = np.arange(len(indices))
     plot.add_line(nodes_data[indices], circle_size=step_grid,circles_color='red',alpha= 0.5,no_line = False)
     plot.save2html()
-    logger.debug('main  finished')
-
+    
 if __name__ == "__main__":
     tools.setup_logging()
     logger = logging.getLogger(__name__)
     logger.info("optimize_one_route script run directly")
-    main()
+    nodes_data = test_init_optimize_one_route()
+    optimize_one_route(nodes_data)
     logger.info("optimize_one_route script finished running")

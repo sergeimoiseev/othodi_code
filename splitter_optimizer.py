@@ -147,7 +147,7 @@ class SplitterOptimizer(abstract_optimizer.AbstractOptimizer):
             a.set = a.sort(a.set)
             a.new_set = copy.deepcopy(a.set)  # глубокая
             # инициализация констант
-            max_loops = 1000
+            max_loops = 100
             # max_temp = max_loops/1e1
             max_temp = 50
             stop_temperature = 0.1
@@ -183,7 +183,7 @@ class SplitterOptimizer(abstract_optimizer.AbstractOptimizer):
                 logger.debug("i t - f - b   %d %.02f - %.02f - %s - %.3f" % (i*10,t[i],float_value[i],bool_val[i],score_list[i]))
             annealed_nodes_sequence = tools.find_indeces_of_subarray(all_nodes_list,a.nodes[a.set])
             # annealed_nodes = all_nodes_list[annealed_nodes_sequence]   
-            a.plot_stats(fname=str(annealed_nodes_sequence))
+            # a.plot_stats(fname=str(annealed_nodes_sequence))
             return annealed_nodes_sequence
 
         for part_idxs,finish_idx in zip(list_of_lists_of_indeces,knots_indices):
