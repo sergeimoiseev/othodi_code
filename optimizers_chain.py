@@ -103,7 +103,7 @@ if __name__ == "__main__":
     optimized_routes_list = []
     for thread_idxs in threads_indices:
         thread_nodes = np.take(nodes_data, thread_idxs)
-        optimized_route_data = optimize_one_route.optimize_one_route(thread_nodes,max_split_part = 12,max_anneal_loops_per_thread = 10000)
+        optimized_route_data = optimize_one_route.optimize_one_route(thread_nodes,max_split_part = 12,max_anneal_loops_per_thread = 100000)
         optimized_routes_list.append(optimized_route_data)
     plot_routes_on_threads(optimized_routes_list)
     # optimized_route = optimized_routes_list[-1]
