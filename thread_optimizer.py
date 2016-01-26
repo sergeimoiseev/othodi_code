@@ -125,7 +125,7 @@ class ThreadOptimizer(anneal_optimizer.AnnealOptimizer):
             n4s['name'] = node['name']
             n4s['lat'] = node['lat']
             n4s['lng'] = node['lng']
-            n4s['potential'] =  tools.r([self.start['lat'],self.start['lng']],[node['lat'],node['lng']]) + \
+            n4s['potential'] = tools.r([self.start['lat'],self.start['lng']],[node['lat'],node['lng']]) + \
                                 tools.r([self.finish['lat'],self.finish['lng']],[node['lat'],node['lng']])
         nodes4sorting = np.sort(nodes4sorting,order=('potential'))[::-1]
         logger.debug("nodes4sorting\n%s" % (nodes4sorting,))
@@ -196,6 +196,26 @@ class ThreadOptimizer(anneal_optimizer.AnnealOptimizer):
 
         self.update_stats()
         return new_set_chosen
+
+def plot_threads(nodes_data,threads_indices):
+    start = tools.tver_coords
+    finish = tools.ryazan_coords
+    moscow = locm.Location(address='Moscow')
+    plot = bokehm.Figure(output_fname='threads.html',center_coords=moscow.coords,use_gmap=True,)
+    colors_list = ['darkgreen','magenta','blue','orange','brown']*(len(threads_indices)//5+1)
+    for i,thread_idxs in enumerate(threads_indices):
+        plot.add_line(nodes_data[thread_idxs], circle_size=10,circles_color=colors_list[i],alpha= 1.,no_line = True)
+    plot.add_line([start], circle_size=10,circles_color='green',alpha= 1.,no_line = True)
+    plot.add_line([finish], circle_size=10,circles_color='red',alpha= 1.,no_line = True)
+    plot.save2html()
+
+
+        # for i,part in enumerate(annealed_index_sets):
+        #     logger.debug("len(part)\n%s" % (len(part),))
+        #     logger.debug("part\n%s" % (part,))
+        #     plot.add_line(all_nodes_list[part], circle_size=5,circles_color=colors_list[i],alpha= 0.5,no_line = False)
+        #     if knots_indices[i]!=None:
+        #         plot.add_line([s.start,all_nodes_list[knots_indices[i]]], circle_size=10,circles_color='red',alpha= 1.,no_line = False)
 
 def init_thread_optimizer(n_cities=100, max_loops = 100, max_temp = 50, stop_temp = 0.1):
     t = ThreadOptimizer()

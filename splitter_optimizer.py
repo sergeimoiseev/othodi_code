@@ -111,7 +111,7 @@ class SplitterOptimizer(abstract_optimizer.AbstractOptimizer):
                 return self.recursive_split(parts,nodes,fins,Lmax)
 
 
-    def split_anneal_a_route(self,max_nodes_in_part,max_anneal_loops=100):
+    def split_anneal_a_route(self,max_nodes_in_part,max_anneal_loops=100,additional_full_anneal = False):
         s = self
         list_of_lists_of_indeces = [range(len(s.nodes))]
         all_nodes_list = copy.deepcopy(s.nodes)
@@ -131,7 +131,7 @@ class SplitterOptimizer(abstract_optimizer.AbstractOptimizer):
         annealed_index_sets = []
         logging.disable(logging.DEBUG)
 
-        def anneal_a_sequence(part_idxs,finish):
+        def anneal_a_sequence(part_idxs,finish,plot_stats=False):
             if len(part_idxs)<=1:
                 return part_idxs
             a = anneal_optimizer.AnnealOptimizer()
@@ -182,7 +182,8 @@ class SplitterOptimizer(abstract_optimizer.AbstractOptimizer):
                 logger.debug("i t - f - b   %d %.02f - %.02f - %s - %.3f" % (i*10,t[i],float_value[i],bool_val[i],score_list[i]))
             annealed_nodes_sequence = tools.find_indeces_of_subarray(all_nodes_list,a.nodes[a.set])
             # annealed_nodes = all_nodes_list[annealed_nodes_sequence]   
-            # a.plot_stats(fname=str(annealed_nodes_sequence))
+            if plot_stats==True:
+                a.plot_stats(fname=str(annealed_nodes_sequence))
             return annealed_nodes_sequence
 
         for part_idxs,finish_idx in zip(list_of_lists_of_indeces,knots_indices):
@@ -190,7 +191,7 @@ class SplitterOptimizer(abstract_optimizer.AbstractOptimizer):
                 finish_node = all_nodes_list[finish_idx]
             else:
                 finish_node = s.finish
-            annealed_nodes_sequence = anneal_a_sequence(part_idxs,finish_node)
+            annealed_nodes_sequence = anneal_a_sequence(part_idxs,finish_node,plot_stats = True)
             annealed_index_sets.append(annealed_nodes_sequence)
 
         logging.disable(logging.NOTSET)
@@ -203,9 +204,12 @@ class SplitterOptimizer(abstract_optimizer.AbstractOptimizer):
                 full_route_indices.append(fin)
         logger.debug("full_route_indices\n%s" % (full_route_indices,))
 
-        logging.disable(logging.DEBUG)
-        final_full_route_indices = anneal_a_sequence(full_route_indices,ryazan_np_arr)
-        logging.disable(logging.NOTSET)
+        if additional_full_anneal:
+            logging.disable(logging.DEBUG)
+            final_full_route_indices = anneal_a_sequence(full_route_indices,ryazan_np_arr,plot_stats=True)
+            logging.disable(logging.NOTSET)
+        else:
+            final_full_route_indices = full_route_indices
         
         # рисование групп узлов и промежуточных финишей
         # moscow = locm.Location(address='Moscow')
@@ -275,7 +279,7 @@ def splitter_optimizer_test():
     moscow = locm.Location(address='Moscow')
     plot = bokehm.Figure(output_fname='splitter.html',center_coords=moscow.coords,use_gmap=True,)
     plot.add_line(s.nodes, circle_size=10,circles_color='blue',alpha= 0.1,no_line = True)
-    colors_list = ['red','green','blue','orange','yellow']*(len(list_of_lists_of_indeces)//5+1)
+    colors_list = ['pink','magenta','blue','orange','yellow']*(len(list_of_lists_of_indeces)//5+1)
     for i,part in enumerate(list_of_lists_of_indeces):
         logger.debug("len(part)\n%s" % (len(part),))
         logger.debug("part\n%s" % (part,))

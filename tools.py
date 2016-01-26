@@ -11,6 +11,9 @@ import numpy as np
 
 logger = logging.getLogger(__name__)
 
+tver_coords = {u'lat':56.8583600,u'lng':35.9005700}
+ryazan_coords = {u'lat':54.6269000,u'lng':39.6916000}
+
 def type_of_value(var):
     try:
        return type(ast.literal_eval(var))

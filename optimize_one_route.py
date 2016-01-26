@@ -18,11 +18,13 @@ def optimize_one_route(nodes_data,max_split_part = 10, max_anneal_loops_per_thre
     max_nodes_in_part = max_split_part
     indices = s.split_anneal_a_route(max_nodes_in_part,max_anneal_loops = max_anneal_loops_per_thread)
 
-    moscow = locm.Location(address='Moscow')
-    plot = bokehm.Figure(output_fname='a_%s_route_annealed_splitted.html' % (nodes_data[0]['name']),center_coords=moscow.coords,use_gmap=True,)
-    step_grid = np.arange(len(indices))
-    plot.add_line(nodes_data[indices], circle_size=step_grid+2,circles_color='red',alpha= 0.5,no_line = False)
-    plot.save2html()
+    # moscow = locm.Location(address='Moscow')
+    # plot = bokehm.Figure(output_fname='a_%s_route_annealed_splitted.html' % (nodes_data[0]['name']),center_coords=moscow.coords,use_gmap=True,)
+    # step_grid = np.arange(len(indices))
+    # plot.add_line(nodes_data[indices], circle_size=step_grid+2,circles_color='red',alpha= 0.5,no_line = False)
+    # plot.save2html()
+    optimized_route_data = nodes_data[indices]
+    return optimized_route_data
     
 if __name__ == "__main__":
     tools.setup_logging()
